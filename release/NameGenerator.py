@@ -36,13 +36,13 @@ if __name__ == "__main__":
             s = "1,%s,%s"%(row[0], row[1])
             resultDict[s] = row[11]
 
-    with open('equip/resources/skill.txt')as f:
+    with open('equip/resources/skill2.txt')as f:
         f_csv = csv.reader(f, delimiter='\t')
         headers = next(f_csv)
         # print(headers)
         for row in f_csv:
             s = "1,%s,%s"%(row[0], row[1])
-            resultDict[s] = row[12]
+            resultDict[s] = row[11]
 
     # 读取buff是否有化解/减伤/各种增益
     absorbDict = {}

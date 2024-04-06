@@ -334,8 +334,9 @@ class BoostCounter():
         '''
         effectCopy = effect.copy()
         tmp = {"effect": effectCopy, "source": source}
-        for key in tmp["effect"]:
-            tmp["effect"][key] *= stack
+        if id != "2,70018,2":
+            for key in tmp["effect"]:
+                tmp["effect"][key] *= stack
         if id not in self.boost or tmp != self.boost[id]:
             self.boost[id] = tmp
             self.SetUpdateFlag()
