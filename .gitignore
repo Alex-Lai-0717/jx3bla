@@ -24,6 +24,7 @@ database/ReplayProStat/
 server.crt
 server.pem
 jldCount/
+llfCount/
 codeHistories.git
 .vscode
 venv

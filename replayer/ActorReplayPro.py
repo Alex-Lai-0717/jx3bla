@@ -46,6 +46,10 @@ from replayer.boss.Qilin import QilinReplayer
 from replayer.boss.YuequanHuai import YuequanHuaiReplayer
 
 from replayer.boss.GeMuhan import GeMuhanReplayer
+from replayer.boss.YuQinghong import YuQinghongReplayer
+from replayer.boss.XiYa import XiYaReplayer
+from replayer.boss.Yingyanke import YingyankeReplayer
+from replayer.boss.ChiYouming import ChiYoumingReplayer
 
 from replayer.occ.XiangZhi import XiangZhiProReplayer
 from replayer.occ.LingSu import LingSuReplayer
@@ -439,6 +443,18 @@ class ActorProReplayer(ReplayerBase):
         elif self.bossAnalyseName == "葛木寒":
             bossAnalyser = GeMuhanReplayer(self.bld, occDetailList, self.startTime,
                                            self.finalTime, self.battleTime, self.bossNamePrint, self.config)
+        elif self.bossAnalyseName == "雨轻红":
+            bossAnalyser = YuQinghongReplayer(self.bld, occDetailList, self.startTime,
+                                           self.finalTime, self.battleTime, self.bossNamePrint, self.config)
+        elif self.bossAnalyseName == "喜雅":
+            bossAnalyser = XiYaReplayer(self.bld, occDetailList, self.startTime,
+                                           self.finalTime, self.battleTime, self.bossNamePrint, self.config)
+        elif self.bossAnalyseName == "鹰眼客":
+            bossAnalyser = YingyankeReplayer(self.bld, occDetailList, self.startTime,
+                                           self.finalTime, self.battleTime, self.bossNamePrint, self.config)
+        elif self.bossAnalyseName == "赤幽明":
+            bossAnalyser = ChiYoumingReplayer(self.bld, occDetailList, self.startTime,
+                                           self.finalTime, self.battleTime, self.bossNamePrint, self.config)
         else:
             bossAnalyser = GeneralReplayer(self.bld, occDetailList, self.startTime,
                                            self.finalTime, self.battleTime, self.bossNamePrint, self.config)
@@ -488,55 +504,73 @@ class ActorProReplayer(ReplayerBase):
         self.zxyzPrecastSource = "0"
 
         # 记录模式  TODO 脱战保护，战斗时间统计
-        self.logMode = 0
+        self.logMode = 1
         logSkill = {  # 名称，生效等级，保护时间ms，最多人数，不计算T，伤害阈值
-            "35452": ["1号清流", 0, 0, 999, 0, -1],  # 1 泉映千山·清流
-            "35454": ["1号点名圈", 0, 0, 999, 0, -1],  # 1 泉映千山·游龙荡影
-            "35652": ["2号矩形", 0, 0, 999, 1, -1],  # 2 太阴剑法·远山式
-            "35653": ["2号矩形残留", 0, 0, 999, 1, -1],  # 2 远山剑气
-            "35658": ["2号扶摇", 0, 0, 999, 0, -1],  # 2 太阴剑法·冷涧式
-            "35825": ["2号挡枪", 0, 0, 999, 1, -1],  # 2 云尽寒灭
-            "35610": ["3号点名圈", 0, 0, 999, 0, -1],  # 3 泉映千山·游龙荡影
-            "35467": ["3号15尺圈", 0, 0, 10, 0, -1],  # 3 泉映千山·游龙荡影
-            "35874": ["3号内伤移动", 0, 0, 999, 0, 500000],  # 3 内伤
-            "35468": ["3号扶摇", 0, 0, 18, 0, -1],  # 3 幻念剑·横断千峰
-            "35657": ["3号月环", 0, 0, 18, 0, -1],  # 3 幻念剑·山环月辉
-            "35767": ["3号进出", 0, 20000, 18, 0, -1],  # 3 泉映千山·月照
-            "35768": ["3号进出", 0, 20000, 18, 0, -1],  # 3 泉映千山·星环
-            "100001": ["3号分散惩罚", 0, 0, 999, 0, -1],  # 3 幻念剑·星灿
-            "100002": ["3号拉线惩罚", 0, 0, 999, 0, -1],  # 3 幻念剑·玄冥锁链
-            "100003": ["3号明暗惩罚", 0, 0, 999, 0, -1],  # 3 泉映千山·剑分幽明
-            "35637": ["4号荆棘", 0, 0, 999, 0, -1],  # 4 荆棘
-            "35817": ["4号落石", 0, 0, 999, 0, -1],  # 4 落石
-            "35818": ["4号滚石", 0, 5000, 999, 0, -1],  # 4 滚石
-            "35937": ["4号符海", 0, 0, 999, 0, -1],  # 4 符海
-            "35863": ["4号雷击", 0, 0, 999, 0, -1],  # 4 雷击
-            "35800": ["4号燃烧", 0, 0, 999, 0, -1],  # 4 燃烧
-            "35942": ["4号星火坠", 0, 0, 999, 0, -1],  # 4 星火坠
-            "35558": ["5号普攻", 0, 0, 999, 1, -1],  # 5 攻击
-            "35565": ["5号死刑", 0, 0, 999, 1, -1],  # 5 雷之呼息
-            "35569": ["5号跑圈", 0, 0, 999, 0, -1],  # 5 炙热洪流
-            "35570": ["5号跑圈", 0, 0, 999, 0, -1],  # 5 火焰迸射
-            "35568": ["5号火焰旋涡", 0, 5000, 999, 0, 100000],  # 5 火焰旋涡
-            "35581": ["5号冰矩形", 0, 0, 999, 0, -1],  # 5 雪崩山裂
-            "35700": ["5号冰残留", 0, 5000, 999, 0, -1],  # 5 冰堑
-            "35564": ["5号扫尾", 0, 0, 999, 0, -1],  # 5 扫尾
-            "35579": ["5号幻歌", 0, 0, 999, 0, -1],  # 5 凛风
-            "35580": ["5号扶摇", 0, 0, 999, 0, -1],  # 5 风凛霜冻
-            "35573": ["5号死刑", 0, 0, 999, 1, -1],  # 5 秋风咆哮
-            "35574": ["5号死刑", 0, 5000, 999, 1, -1],  # 5 秋风咆哮
-            "32514": ["6号普攻", 0, 10, 999, 1, 0],  # 6 琉璃指禅
-            "32519": ["6号挑飞点名", 0, 0, 999, 0, 0],  # 6 迦楼罗连闪·挑飞
-            "32520": ["6号挑飞命中", 0, 10000, 999, 0, 0],  # 6 迦楼罗连闪·挑飞
-            "32547": ["6号月铳", 0, 10000, 999, 0, 0],  # 6 月铳
-            "36249": ["6号点名圈", 0, 0, 999, 0, 0],  # 6 月落
-            "36250": ["6号八方矩形", 0, 0, 999, 0, 0],  # 6 月盈
-            "36248": ["6号月蚀", 0, 0, 999, 0, 0],  # 6 月蚀
-            "35485": ["6号震荡", 0, 0, 999, 0, 0],  # 6 震荡
+            "37113": ["1号平潮", 0, 0, 999, 0, -1],
+            "37130": ["1号破浪斩", 0, 10000, 999, 0, -1],
+            "37115": ["1号惊涛", 0, 10000, 999, 0, -1],
+            "36925": ["2号迷雾", 0, 3000, 999, 0, -1],
+            "36926": ["2号迷雾", 0, 3000, 999, 0, -1],
+            "36974": ["2号蝶雨", 0, 2000, 999, 0, -1],
+            "37188": ["2号归潮秒杀", 0, 2000, 999, 0, -1],
+            "37211": ["3号分散秒杀", 0, 2000, 8, 0, -1],
+            "37034": ["4号毒刀", 0, 2000, 12, 0, -1],
+            "37074": ["4号挑风", 0, 2000, 999, 0, -1],
+            "37076": ["4号冰面", 0, 3000, 999, 0, -1],
+            "37080": ["4号冰面", 0, 3000, 999, 0, -1],
+            "36997": ["5号追踪面向", 0, 3000, 12, 1, -1],
+            "36998": ["5号灵光", 0, 3000, 8, 0, -1],
+            "37005": ["5号黑扇形", 0, 3000, 999, 0, -1],
+
+            # "35452": ["1号清流", 0, 0, 999, 0, -1],  # 1 泉映千山·清流
+            # "35454": ["1号点名圈", 0, 0, 999, 0, -1],  # 1 泉映千山·游龙荡影
+            # "35652": ["2号矩形", 0, 0, 999, 1, -1],  # 2 太阴剑法·远山式
+            # "35653": ["2号矩形残留", 0, 0, 999, 1, -1],  # 2 远山剑气
+            # "35658": ["2号扶摇", 0, 0, 999, 0, -1],  # 2 太阴剑法·冷涧式
+            # "35825": ["2号挡枪", 0, 0, 999, 1, -1],  # 2 云尽寒灭
+            # "35610": ["3号点名圈", 0, 0, 999, 0, -1],  # 3 泉映千山·游龙荡影
+            # "35467": ["3号15尺圈", 0, 0, 10, 0, -1],  # 3 泉映千山·游龙荡影
+            # "35874": ["3号内伤移动", 0, 0, 999, 0, 500000],  # 3 内伤
+            # "35468": ["3号扶摇", 0, 0, 18, 0, -1],  # 3 幻念剑·横断千峰
+            # "35657": ["3号月环", 0, 0, 18, 0, -1],  # 3 幻念剑·山环月辉
+            # "35767": ["3号进出", 0, 20000, 18, 0, -1],  # 3 泉映千山·月照
+            # "35768": ["3号进出", 0, 20000, 18, 0, -1],  # 3 泉映千山·星环
+            # "100001": ["3号分散惩罚", 0, 0, 999, 0, -1],  # 3 幻念剑·星灿
+            # "100002": ["3号拉线惩罚", 0, 0, 999, 0, -1],  # 3 幻念剑·玄冥锁链
+            # "100003": ["3号明暗惩罚", 0, 0, 999, 0, -1],  # 3 泉映千山·剑分幽明
+            # "35637": ["4号荆棘", 0, 0, 999, 0, -1],  # 4 荆棘
+            # "35817": ["4号落石", 0, 0, 999, 0, -1],  # 4 落石
+            # "35818": ["4号滚石", 0, 5000, 999, 0, -1],  # 4 滚石
+            # "35937": ["4号符海", 0, 0, 999, 0, -1],  # 4 符海
+            # "35863": ["4号雷击", 0, 0, 999, 0, -1],  # 4 雷击
+            # "35800": ["4号燃烧", 0, 0, 999, 0, -1],  # 4 燃烧
+            # "35942": ["4号星火坠", 0, 0, 999, 0, -1],  # 4 星火坠
+            # "35558": ["5号普攻", 0, 0, 999, 1, -1],  # 5 攻击
+            # "35565": ["5号死刑", 0, 0, 999, 1, -1],  # 5 雷之呼息
+            # "35569": ["5号跑圈", 0, 0, 999, 0, -1],  # 5 炙热洪流
+            # "35570": ["5号跑圈", 0, 0, 999, 0, -1],  # 5 火焰迸射
+            # "35568": ["5号火焰旋涡", 0, 5000, 999, 0, 100000],  # 5 火焰旋涡
+            # "35581": ["5号冰矩形", 0, 0, 999, 0, -1],  # 5 雪崩山裂
+            # "35700": ["5号冰残留", 0, 5000, 999, 0, -1],  # 5 冰堑
+            # "35564": ["5号扫尾", 0, 0, 999, 0, -1],  # 5 扫尾
+            # "35579": ["5号幻歌", 0, 0, 999, 0, -1],  # 5 凛风
+            # "35580": ["5号扶摇", 0, 0, 999, 0, -1],  # 5 风凛霜冻
+            # "35573": ["5号死刑", 0, 0, 999, 1, -1],  # 5 秋风咆哮
+            # "35574": ["5号死刑", 0, 5000, 999, 1, -1],  # 5 秋风咆哮
+            # "32514": ["6号普攻", 0, 10, 999, 1, 0],  # 6 琉璃指禅
+            # "32519": ["6号挑飞点名", 0, 0, 999, 0, 0],  # 6 迦楼罗连闪·挑飞
+            # "32520": ["6号挑飞命中", 0, 10000, 999, 0, 0],  # 6 迦楼罗连闪·挑飞
+            # "32547": ["6号月铳", 0, 10000, 999, 0, 0],  # 6 月铳
+            # "36249": ["6号点名圈", 0, 0, 999, 0, 0],  # 6 月落
+            # "36250": ["6号八方矩形", 0, 0, 999, 0, 0],  # 6 月盈
+            # "36248": ["6号月蚀", 0, 0, 999, 0, 0],  # 6 月蚀
+            # "35485": ["6号震荡", 0, 0, 999, 0, 0],  # 6 震荡
             # "36248": ["6号月蚀", 0, 0, 999, 0, 0],  # 6 月蚀
         }
-        logBuff = {  # 名称，生效等级，保护时间ms，最多人数
-
+        logBuff = {  # 名称，生效等级，保护时间ms，最多人数，不计算T，生效层数
+            "27996": ["1号长刀沉默", 0, 0, 999, 0, 1],
+            "27939": ["5号背对", 0, 3000, 999, 0, 1],
+            "27971": ["5号倒影", 0, 3000, 999, 0, 4],
         }
 
         self.penaltyCount = {}
@@ -698,8 +732,40 @@ class ActorProReplayer(ReplayerBase):
                         else:
                             tuozhanCount += 1
 
-                if event.id == "16877":
-                    print(parseTime((event.time - self.startTime) / 1000), self.bld.info.getName(event.target), event.level)
+                    if event.id in logBuff and logBuff[event.id][1] in [event.level, 0] and event.stack >= logBuff[event.id][5]:
+                        # 记录
+                        name = logBuff[event.id][0]
+                        if name not in penaltyCooldown[event.target] or event.time - penaltyCooldown[event.target][name] > logBuff[event.id][2]:
+                            if name not in self.penaltyCount[event.target]:
+                                self.penaltyCount[event.target][name] = 0
+                            penaltyCooldown[event.target][name] = event.time
+
+                            if tuozhanCount < 3 or self.finalTime - event.time > 20000:
+                                self.penaltyCount[event.target][name] += 1
+
+                    if event.id == "27994" and event.stack == 1:
+                        name = "1号惊涛"
+                        if name not in self.penaltyCount[event.target]:
+                            self.penaltyCount[event.target][name] = 0
+                        self.penaltyCount[event.target]["1号惊涛"] -= 1
+                        # print("[Buff]", self.bld.info.getName(event.caster), self.bld.info.getName(event.target),
+                        #       event.full_id, self.bld.info.getSkillName(event.full_id), event.stack)
+                    if event.id == "27921" and event.stack == 1:
+                        name = "4号毒刀"
+                        if name not in self.penaltyCount[event.target]:
+                            self.penaltyCount[event.target][name] = 0
+                        self.penaltyCount[event.target]["4号毒刀"] -= 1
+                        # print("[Buff]", self.bld.info.getName(event.caster), self.bld.info.getName(event.target),
+                        #       event.full_id, self.bld.info.getSkillName(event.full_id), event.stack)
+                    if event.id == "27952" and event.stack == 1:
+                        name = "5号灵光"
+                        if name not in self.penaltyCount[event.target]:
+                            self.penaltyCount[event.target][name] = 0
+                        self.penaltyCount[event.target]["5号灵光"] -= 1
+
+
+                # if event.id == "16877":
+                #     print(parseTime((event.time - self.startTime) / 1000), self.bld.info.getName(event.target), event.level)
 
                 if event.id in deathBuffDict:
                     if event.target not in deathBuff:
@@ -1087,6 +1153,8 @@ class ActorProReplayer(ReplayerBase):
             numLog = {}
             for key in logSkill:
                 numLog[logSkill[key][0]] = 0
+            for key in logBuff:
+                numLog[logBuff[key][0]] = 0
             for player in self.penaltyCount:
                 for key in self.penaltyCount[player]:
                     if self.penaltyCount[player][key] != 0:
@@ -1097,6 +1165,9 @@ class ActorProReplayer(ReplayerBase):
             for player in self.penaltyCount:
                 for key in self.penaltyCount[player]:
                     if numLog[key] == -1:
+                        self.penaltyCount[player][key] = 0
+                    # 不产生负值
+                    if self.penaltyCount[player][key] < 0:
                         self.penaltyCount[player][key] = 0
 
             # 不计算T心法中的一些技能
@@ -1159,7 +1230,7 @@ class ActorProReplayer(ReplayerBase):
         # 保存log
         if self.logMode:
             num = 0
-            BOSS_NAME = {"魏华": 1, "钟不归": 2, "岑伤": 3, "鬼筹": 4, "麒麟": 5, "月泉淮": 6}
+            BOSS_NAME = {"魏华": 1, "钟不归": 2, "岑伤": 3, "鬼筹": 4, "麒麟": 5, "月泉淮": 6, "葛木寒": 1, "雨轻红": 2, "喜雅": 3, "鹰眼客": 4, "赤幽明": 5}
             if self.bossAnalyseName in BOSS_NAME:
                 num = BOSS_NAME[self.bossAnalyseName]
 
@@ -1173,7 +1244,7 @@ class ActorProReplayer(ReplayerBase):
                         rdps = 0
                 self.penaltyCountWithName[name]["%d号rDPS" % num] = int(rdps)
 
-            with open("jldCount/%s.txt" % self.startTime, "w", encoding="utf-8") as f:
+            with open("llfCount/%s.txt" % self.startTime, "w", encoding="utf-8") as f:
                 f.write(str(self.penaltyCountWithName))
 
     def OccAnalysis(self):
