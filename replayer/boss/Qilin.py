@@ -206,7 +206,7 @@ class QilinReplayer(SpecificReplayerPro):
             # print("[Shout]", event.content, parseTime((event.time - self.startTime) / 1000))
 
         elif event.dataType == "Scene":  # 进入、离开场景
-            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["麒麟宝箱"]:
+            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["麒麟宝箱", "麒麟寶箱"]:
                 self.win = 1
                 self.bh.setBadPeriod(event.time, self.finalTime, True, True)
             if event.id in self.bld.info.npc and event.enter and self.bld.info.npc[event.id].name != "":
@@ -334,6 +334,7 @@ class QilinReplayer(SpecificReplayerPro):
                        "c35835": ["2396", "#7700ff", 3000],  # 灵护扩散
                        "c35586": ["2396", "#7700ff", 3000],  # 灵护喷吐
                        "c35589": ["2399", "#7777cc", 2000],  # 灵护消散
+                       "c35611": ["2396", "#7777cc", 3000],  # 灵护迸发
                        }
 
         # 翁幼之数据格式：

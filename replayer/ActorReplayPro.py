@@ -143,6 +143,12 @@ class ActorProReplayer(ReplayerBase):
         occDetailList = {}
         for key in self.bld.info.player:
             occDetailList[key] = self.bld.info.player[key].occ
+            # 如果是jcl数据，立刻进行心法推断（由于直接从游戏中读取，这个心法推断是准确的）
+            if self.bld.info.player[key].xinfaCode != "0":
+                res = getOccDetailFromXinfaCode(self.bld.info.player[key].xinfaCode)
+                if res != "0":
+                    occDetailList[key] = res
+                    # print("[Directly get]", self.bld.info.player[key].xinfaCode, occDetailList[key])
 
         # 记录战斗开始时间与结束时间
         self.startTime = self.bld.log[0].time
@@ -503,8 +509,8 @@ class ActorProReplayer(ReplayerBase):
         self.zxyzPrecast = 0
         self.zxyzPrecastSource = "0"
 
-        # 记录模式  TODO 脱战保护，战斗时间统计
-        self.logMode = 1
+        # 记录模式
+        self.logMode = 0
         logSkill = {  # 名称，生效等级，保护时间ms，最多人数，不计算T，伤害阈值
             "37113": ["1号平潮", 0, 0, 999, 0, -1],
             "37130": ["1号破浪斩", 0, 10000, 999, 0, -1],
@@ -585,7 +591,7 @@ class ActorProReplayer(ReplayerBase):
             pass
 
         # 活动
-        self.activity = 1
+        self.activity = 0
         self.startAttack = {}
         self.startAttackTimestamp = {}
         self.sumDamage = {}

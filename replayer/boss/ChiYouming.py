@@ -138,23 +138,23 @@ class ChiYoumingReplayer(SpecificReplayerPro):
         elif event.dataType == "Shout":
             if event.content in ['"谁也别想过去！"']:
                 pass
-            elif event.content in ['"给我上！"']:
+            elif event.content in ['"好好感受陷入深渊的感觉吧……"']:
+                pass
+            elif event.content in ['"啊……怎么可能……"']:
                 self.win = 1
-            elif event.content in ['""']:
+            elif event.content in ['"以烈火和熔铁，对灵魂做出判决！"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"我来抓你咯……渎神者。"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"照照你们的丑陋嘴脸吧！"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"没有信仰的人，只有死路一条！"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"闪耀着灵光的众灵体啊，放射出刺眼的光芒吧！"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"嘿嘿嘿嘿……"']:
                 pass
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
+            elif event.content in ['"啊，威严的、光辉灿烂的阿胡拉·马兹达！指引我的方向吧！"']:
                 pass
             elif event.content in ['""']:
                 pass

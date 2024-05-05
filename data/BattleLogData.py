@@ -122,7 +122,7 @@ class BattleLogData():
             elif jclItem[4] in ["5"]:
                 singleData = SingleDataBattle()
                 if jclItem[5]["1"] not in self.info.player:
-                    self.info.addPlayer(jclItem[5]["1"], jclItem[5]["1"], "0")
+                    self.info.addPlayer(jclItem[5]["1"], jclItem[5]["1"], "0", "0")
             elif jclItem[4] in ["9"]:
                 singleData = SingleDataBattle()
             elif jclItem[4] in ["2", "3", "6", "7"]:
@@ -143,7 +143,7 @@ class BattleLogData():
                         self.info.sumTime = int(jclItem[5]["3"])
                 elif jclItem[4] == "4":
                     # print("[PlayerTest]", jclItem[5])
-                    flag = self.info.addPlayer(jclItem[5]["1"], jclItem[5]["2"], jclItem[5]["3"])
+                    flag = self.info.addPlayer(jclItem[5]["1"], jclItem[5]["2"], jclItem[5]["3"], jclItem[5]["4"])
                     if flag:
                         self.info.player[jclItem[5]["1"]].xf = jclItem[5]["4"]
                         self.info.player[jclItem[5]["1"]].equipScore = jclItem[5].get("5", 0)
@@ -223,7 +223,7 @@ class BattleLogData():
             if result["10"][line] == "0":
                 self.info.addNPC(line, result["9"][line])
             else:
-                self.info.addPlayer(line, result["9"][line], result["10"][line])
+                self.info.addPlayer(line, result["9"][line], result["10"][line], "0")
                 if line in result["18"] and result["18"][line] != {}:
                     self.info.player[line].xf = result["18"][line]["1"]
                     self.info.player[line].equipScore = result["18"][line]["2"]

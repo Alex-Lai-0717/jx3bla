@@ -960,6 +960,12 @@ class CombatTracker():
         #     self.zyhrDict[event.target] = event.caster
         #     self.boostCounter[event.target].setSpecificSkill("zyhr", event.caster)
 
+        if event.id == "23107":
+            if event.caster != event.target:
+                self.hlsjCaster = event.caster
+            elif event.caster != self.hlsjCaster:
+                event.caster = self.hlsjCaster  # 对号令三军不准确的情况进行强制修正
+
         # 记录化解buff
         if (full_id in ABSORB_DICT or lvl0_id in ABSORB_DICT or event.id == "9334") and event.target in self.absorbBuff:
             if event.stack != 0:
@@ -1335,7 +1341,7 @@ class CombatTracker():
                 self.boostCounter[player].addTargetBoost(event.target, effect_id, boostValue, event.caster, 1, event.time)
                 self.boostRemove[effect_id + event.target] = {"time": event.time + 14000, "target": event.target, "boost": effect_id}
                 self.updateRemoveTime()
-        elif event.id in ["13778"]:  # 乘龙箭
+        elif event.id in ["13778", "24894"]:  # 乘龙箭
             #print("[YishangDetect1]", event.time, event.id, event.caster, self.info.getName(event.caster))
             source = event.caster
             if self.occDetailList.get(event.caster, "") == "10d":
@@ -1518,6 +1524,7 @@ class CombatTracker():
         self.zyhrCaster = "0"
         self.zxyzCaster = "0"  # 左旋右转
         self.lidiInfo = {}  # 立地记录
+        self.hlsjCaster = "0"  # 号令三军施放者暂存
         # TODO 这里直接做一个通用逻辑
 
         # 无效时间相关

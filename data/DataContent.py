@@ -443,13 +443,14 @@ class OverallData():
         else:
             return key
 
-    def addPlayer(self, key, name, occ):
+    def addPlayer(self, key, name, occ, xinfaCode):
         '''
         添加一个玩家信息. 如果有装备和奇穴信息，需要手动增补.
         parmas:
         - key: 玩家ID。
         - name: 玩家的名字.
-        - occ: 心法代码.
+        - occ: 门派代码.
+        - xinfaCode: 具体心法的代码.
         returns:
         - flag: 如果是第一次添加玩家信息为True, 否则为False
         '''
@@ -458,11 +459,13 @@ class OverallData():
             self.player[key].name = name.strip('"')
             self.player[key].occ = occ
             self.player[key].equip = {}
+            self.player[key].xinfaCode = xinfaCode
             return True
         elif self.player[key].name == "" or self.player[key].occ == "":
             self.player[key].name = name.strip('"')
             self.player[key].occ = occ
             self.player[key].equip = {}
+            self.player[key].xinfaCode = xinfaCode
             return True
         elif self.player[key].equip == {}:
             return True

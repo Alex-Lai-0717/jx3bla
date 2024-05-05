@@ -117,7 +117,7 @@ class YuQinghongReplayer(SpecificReplayerPro):
                 if event.caster in self.bld.info.player and event.caster in self.statDict:
                     # self.stat[event.caster][2] += event.damageEff
                     if event.target in self.bld.info.npc:
-                        if self.bld.info.getName(event.target) in ["雨轻红"]:
+                        if self.bld.info.getName(event.target) in ["雨轻红", "雨輕紅"]:
                             self.bh.setMainTarget(event.target)
 
         elif event.dataType == "Buff":
@@ -136,17 +136,17 @@ class YuQinghongReplayer(SpecificReplayerPro):
                             self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "玩家获得气劲", "buff")
 
         elif event.dataType == "Shout":
-            if event.content in ['"谁也别想过去！"']:
+            if event.content in ['"呵……有多少人情愿沉沦长梦而不得，你又何必挣扎清醒？"']:
                 pass
-            elif event.content in ['"给我上！"']:
-                self.win = 1
-            elif event.content in ['""']:
+            elif event.content in ['"香风飘散。"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"蝴蝶的飞舞，让深陷其中者无法自拔。"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"沐浴在迷雾之中吧。"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"潮起潮落，你的生死只在一线之间。"']:
+                pass
+            elif event.content in ['"沉浸在我的梦魇之中，陷入无尽的恐惧与迷离吧！"']:
                 pass
             elif event.content in ['""']:
                 pass
@@ -164,9 +164,9 @@ class YuQinghongReplayer(SpecificReplayerPro):
                 self.bh.setEnvironment("0", event.content, "341", event.time, 0, 1, "喊话", "shout")
 
         elif event.dataType == "Scene":  # 进入、离开场景
-            # if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["翁幼之宝箱", "??寶箱"]:
-            #     self.win = 1
-            #     self.bh.setBadPeriod(event.time, self.finalTime, True, True)
+            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["雨轻红宝箱", "雨輕紅寶箱"]:
+                self.win = 1
+                self.bh.setBadPeriod(event.time, self.finalTime, True, True)
             if event.id in self.bld.info.npc and event.enter and self.bld.info.npc[event.id].name != "":
                 name = "n%s" % self.bld.info.npc[event.id].templateID
                 skillName = self.bld.info.npc[event.id].name
@@ -174,12 +174,14 @@ class YuQinghongReplayer(SpecificReplayerPro):
                     self.bhTime[name] = event.time
                     if "的" not in skillName:
                         key = "n%s" % self.bld.info.npc[event.id].templateID
-                        if key in self.bhInfo or self.debug:
-                            self.bh.setEnvironment(self.bld.info.npc[event.id].templateID, skillName, "341", event.time, 0,
-                                               1, "NPC出现", "npc")
+                        # if key in self.bhInfo or self.debug:
+                        #     self.bh.setEnvironment(self.bld.info.npc[event.id].templateID, skillName, "341", event.time, 0,
+                        #                        1, "NPC出现", "npc")
 
         elif event.dataType == "Death":  # 重伤记录
-            pass
+            if event.id in self.bld.info.npc and self.bld.info.getName(event.id) in ["雨轻红"]:
+                self.win = 1
+                self.bh.setBadPeriod(event.time, self.finalTime, True, True)
 
         elif event.dataType == "Battle":  # 战斗状态变化
             pass
@@ -218,12 +220,28 @@ class YuQinghongReplayer(SpecificReplayerPro):
         self.immuneHealer = 0
         self.immuneTime = 0
 
-        self.bhBlackList.extend([
+        self.bhBlackList.extend(["s36925", "b27872", "s36926", "s37271",  # 炼红脂·迷雾
+                                 "s36974",  # 炼红脂·蝶雨
+                                 "s36935", "b27878",  # 炼红脂·香风
+                                 "s36983", "s36984",  # 炼红脂·归潮
+                                 "s36928",  # 掉落传送
+                                 "s36988", "s37021",  # 炼红脂·柔梦:梦魇-扇形
+                                 "c36994",  # 唤醒
+
                                  ])
         self.bhBlackList = self.mergeBlackList(self.bhBlackList, self.config)
 
-        self.bhInfo = {
+        self.bhInfo = {"c36920": ["9567", "#0000ff", 2000],   # 炼红脂·迷雾
+                       "c36932": ["9557", "#00ff00", 2000],  # 炼红脂·香风
+                       "c36972": ["9543", "#ff0000", 5000],  # 炼红脂·蝶雨
+                       "c37017": ["9543", "#ff0000", 20000],  # 炼红脂·蝶雨
+                       "c36982": ["9562", "#007700", 3000],  # 炼红脂·归潮
+                       "c36987": ["9544", "#ff7777", 3000],  # 炼红脂·柔梦
+                       "c37022": ["4547", "#ff0077", 5000],  # 炼红脂·柔梦
                        }
+
+        if self.bld.info.map == "冷龙峰":
+            self.bhInfo["c37017"] = ["9543", "#ff0000", 10000]
 
         # 雨轻红数据格式：
         # ？

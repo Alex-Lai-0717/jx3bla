@@ -136,37 +136,37 @@ class GeMuhanReplayer(SpecificReplayerPro):
                             self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "玩家获得气劲", "buff")
 
         elif event.dataType == "Shout":
-            if event.content in ['"谁也别想过去！"']:
+            if event.content in ['"左满舵！老子纵横海上未尝败绩，你们这些败类尽管来吧！"']:
                 pass
-            elif event.content in ['"给我上！"']:
+            elif event.content in ['"老子这一刀，海浪都能劈开！"']:
+                pass
+            elif event.content in ['"见识下真正的海浪吧！"']:
+                pass
+            elif event.content in ['"弟兄们，上，快上！"']:
+                pass
+            elif event.content in ['"快放箭，放箭！"']:
+                self.bh.setEnvironment("0", event.content, "3450", event.time, 0, 1, "喊话", "shout")
+            elif event.content in ['""']:
+                pass
+            elif event.content in ['""']:
+                pass
+            elif event.content in ['""']:
+                pass
+            elif event.content in ['""']:
+                pass
+            elif event.content in ['""']:
+                pass
+            elif event.content in ['""']:
+                pass
+            elif event.content in ['""']:
                 self.win = 1
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
-                pass
             else:
                 self.bh.setEnvironment("0", event.content, "341", event.time, 0, 1, "喊话", "shout")
 
         elif event.dataType == "Scene":  # 进入、离开场景
-            # if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["翁幼之宝箱", "??寶箱"]:
-            #     self.win = 1
-            #     self.bh.setBadPeriod(event.time, self.finalTime, True, True)
+            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["葛木寒宝箱", "葛木寒寶箱"]:
+                self.win = 1
+                self.bh.setBadPeriod(event.time, self.finalTime, True, True)
             if event.id in self.bld.info.npc and event.enter and self.bld.info.npc[event.id].name != "":
                 name = "n%s" % self.bld.info.npc[event.id].templateID
                 skillName = self.bld.info.npc[event.id].name
@@ -179,7 +179,9 @@ class GeMuhanReplayer(SpecificReplayerPro):
                                                1, "NPC出现", "npc")
 
         elif event.dataType == "Death":  # 重伤记录
-            pass
+            if event.id in self.bld.info.npc and self.bld.info.getName(event.id) in ["葛木寒"]:
+                self.win = 1
+                self.bh.setBadPeriod(event.time, self.finalTime, True, True)
 
         elif event.dataType == "Battle":  # 战斗状态变化
             pass
@@ -218,11 +220,29 @@ class GeMuhanReplayer(SpecificReplayerPro):
         self.immuneHealer = 0
         self.immuneTime = 0
 
-        self.bhBlackList.extend([
+        self.bhBlackList.extend(["s37111",  # 普攻
+                                 "b27990", "s37114",  # 破浪斩易伤-本体
+                                 "b27994", "s37115",  # 点远程眩晕
+                                 "b27985", "s37113",  # 点近战
+                                 "b27986", "s37112",  # 斩海-流血
+                                 "b28022", "s37120",  # 长刀破空
+                                 "b28101",  # 盾牌
+                                 "c37123", "b28063",  # 锁链手技能组
+                                 "n127552",  # 葛木寒宝箱
                                  ])
         self.bhBlackList = self.mergeBlackList(self.bhBlackList, self.config)
 
-        self.bhInfo = {
+        self.bhInfo = {"c37114": ["2135", "#0000ff", 3000],   # 破浪斩
+                       "c37140": ["2019", "#ff0000", 6000],   # 惊涛骇浪
+                       "c37113": ["345", "#ff7700", 2000],  # 平潮
+                       "c37112": ["2021", "#00ff00", 2000],  # 斩海
+                       "n127369": ["18490", "#0077ff", 0],  # 戮夜游·刀盾兵
+                       "n127464": ["18490", "#0077ff", 0],  # 戮夜游·刀盾兵
+                       "n126871": ["18490", "#0077ff", 0],  # 戮夜游·刀盾兵
+                       "n127460": ["344", "#0077ff", 0],  # 戮夜游·锁链手
+                       "n126870": ["344", "#0077ff", 0],  # 戮夜游·锁链手
+                       "n127357": ["344", "#0077ff", 0],  # 戮夜游·锁链手
+                       "c37120": ["3430", "#00ff77", 4000],  # 长刀破空
                        }
 
         # 葛木寒数据格式：

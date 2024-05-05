@@ -108,7 +108,7 @@ class AttributeDisplay():
         hRate = 0
         cRate = 0
         baseAttribute = {}
-        if occ == '22h':  # 奶歌
+        if occ in ['22h', '22hw']:  # 奶歌
             c1 = 'atLunarCriticalStrike'
             c2 = 'atMagicCriticalStrike'
             ct1 = 'atLunarCriticalDamagePowerBase'
@@ -116,7 +116,7 @@ class AttributeDisplay():
             baseAttribute = {'atTherapyPowerBase': 3078}  # 为简洁性只写这一个
             hRate = 1.7
             cRate = 0.31
-        if occ == '212h':  # 灵素
+        if occ in ['212h', '212hw']:  # 灵素
             c1 = 'atPoisonCriticalStrike'
             c2 = 'atMagicCriticalStrike'
             ct1 = 'atPoisonCriticalDamagePowerBase'
@@ -124,7 +124,7 @@ class AttributeDisplay():
             baseAttribute = {'atTherapyPowerBase': 2768}  # 为简洁性只写这一个
             hRate = 1.8
             cRate = 0.11
-        if occ == '2h':  # 奶花
+        if occ in ['2h', '2hw']:  # 奶花
             c1 = 'atNeutralCriticalStrike'
             c2 = 'atMagicCriticalStrike'
             ct1 = 'atNeutralCriticalDamagePowerBase'
@@ -132,7 +132,7 @@ class AttributeDisplay():
             baseAttribute = {'atTherapyPowerBase': 2780}  # 为简洁性只写这一个
             hRate = 1.65
             cRate = 0.41
-        if occ == '5h':  # 奶秀
+        if occ in ['5h', '5hw']:  # 奶秀
             c1 = 'atLunarCriticalStrike'
             c2 = 'atMagicCriticalStrike'
             ct1 = 'atLunarCriticalDamagePowerBase'
@@ -140,7 +140,7 @@ class AttributeDisplay():
             baseAttribute = {'atTherapyPowerBase': 2979}  # 为简洁性只写这一个
             hRate = 1.75
             cRate = 0.21
-        if occ == '6h':  # 奶毒
+        if occ in ['6h', '6hw']:  # 奶毒
             c1 = 'atPoisonCriticalStrike'
             c2 = 'atMagicCriticalStrike'
             ct1 = 'atPoisonCriticalDamagePowerBase'
@@ -160,7 +160,7 @@ class AttributeDisplay():
                                 'atMagicCriticalStrike': int((cRate + 0.64) * spirit)}
         attribute = self.ac.attribMerge(attribute, extraAttributeSpirit)
 
-        if occ in ['22h', '212h', '2h', '5h', '6h']:  # 治疗通用
+        if occ in ['22h', '212h', '2h', '5h', '6h', '22hw', '212hw', '2hw', '5hw', '6hw']:  # 治疗通用
             result['基础治疗'] = attribute.get('atTherapyPowerBase', 0)
             result['治疗'] = attribute.get('atTherapyPowerBase', 0) + attribute.get('atTherapyPower', 0)
             result['会心等级'] = attribute.get(c1, 0) + attribute.get(c2, 0) + attribute.get(c3, 0)
