@@ -127,24 +127,26 @@ class XiYaReplayer(SpecificReplayerPro):
             if event.caster in self.bld.info.npc and event.stack > 0:
                 # 尝试记录buff事件
                 name = "b%s" % event.id
-                if name not in self.bhBlackList and event.time - self.bhTime.get(name, 0) > 10000:
+                if name not in self.bhBlackList and event.time - self.bhTime.get(name, 0) > 5000:
                     self.bhTime[name] = event.time
                     skillName = self.bld.info.getSkillName(event.full_id)
+                    if event.id in ["28050", "28052", "28054"]:
+                        skillName = "诺布心决·指弹"
                     if "," not in skillName:
                         key = "b%s" % event.id
                         if key in self.bhInfo or self.debug:
                             self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "玩家获得气劲", "buff")
 
         elif event.dataType == "Shout":
-            if event.content in ['"谁也别想过去！"']:
+            if event.content in ['"嘿！看我这里有很多闪闪发光的宝石，猜猜都是什么呀？"']:
                 pass
-            elif event.content in ['"给我上！"']:
-                self.win = 1
-            elif event.content in ['""']:
+            elif event.content in ['"看我的宝石，咻！"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"用所有的宝石……创造美丽的烟花吧！"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"呼呼！停……让我休息会儿。"']:
+                pass
+            elif event.content in ['"小心哦！这枚宝石比天上的星星更绚烂！"']:
                 pass
             elif event.content in ['""']:
                 pass
@@ -164,9 +166,9 @@ class XiYaReplayer(SpecificReplayerPro):
                 self.bh.setEnvironment("0", event.content, "341", event.time, 0, 1, "喊话", "shout")
 
         elif event.dataType == "Scene":  # 进入、离开场景
-            # if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["翁幼之宝箱", "??寶箱"]:
-            #     self.win = 1
-            #     self.bh.setBadPeriod(event.time, self.finalTime, True, True)
+            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["喜雅宝箱", "喜雅寶箱", "鹰眼客", "鷹眼客"]:
+                self.win = 1
+                self.bh.setBadPeriod(event.time, self.finalTime, True, True)
             if event.id in self.bld.info.npc and event.enter and self.bld.info.npc[event.id].name != "":
                 name = "n%s" % self.bld.info.npc[event.id].templateID
                 skillName = self.bld.info.npc[event.id].name
@@ -174,12 +176,14 @@ class XiYaReplayer(SpecificReplayerPro):
                     self.bhTime[name] = event.time
                     if "的" not in skillName:
                         key = "n%s" % self.bld.info.npc[event.id].templateID
-                        if key in self.bhInfo or self.debug:
-                            self.bh.setEnvironment(self.bld.info.npc[event.id].templateID, skillName, "341", event.time, 0,
-                                               1, "NPC出现", "npc")
+                        # if key in self.bhInfo or self.debug:
+                        #     self.bh.setEnvironment(self.bld.info.npc[event.id].templateID, skillName, "341", event.time, 0,
+                        #                        1, "NPC出现", "npc")
 
         elif event.dataType == "Death":  # 重伤记录
-            pass
+            if event.id in self.bld.info.npc and self.bld.info.getName(event.id) in ["喜雅"]:
+                self.win = 1
+                self.bh.setBadPeriod(event.time, self.finalTime, True, True)
 
         elif event.dataType == "Battle":  # 战斗状态变化
             pass
@@ -218,11 +222,22 @@ class XiYaReplayer(SpecificReplayerPro):
         self.immuneHealer = 0
         self.immuneTime = 0
 
-        self.bhBlackList.extend([
+        self.bhBlackList.extend(["b28061",  # 内伤
+                                 "c37215", "s37217", "s37220", "s37223",  # 诺布心决·指弹
+                                 "s37050", "s37072",   # 炸裂
+                                 "b28013", "b28014", "b28016",  # 力量&守护&灵动
+                                 "s37242",  # 诺布心决·璀璨
+                                 "s37193",  # 反噬
+                                 "s37210", "s37211",  # 星驰
                                  ])
         self.bhBlackList = self.mergeBlackList(self.bhBlackList, self.config)
 
-        self.bhInfo = {
+        self.bhInfo = {"b28050": ["2654", "#ff0000", 5000],   # 红宝石
+                       "b28052": ["2653", "#0000ff", 5000],  # 蓝宝石
+                       "b28054": ["2652", "#00ff00", 5000],  # 绿宝石
+                       "c37229": ["9525", "#77ff77", 3000],  # 诺布心决·璀璨
+                       "c37178": ["344", "#ff0077", 10000],  # 诺布心决·炽烈
+                       "c37206": ["9527", "#ff7700", 5000],  # 诺布心决·星驰
                        }
 
         # 喜雅数据格式：

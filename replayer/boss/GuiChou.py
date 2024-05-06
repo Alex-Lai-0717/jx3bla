@@ -237,9 +237,10 @@ class GuiChouReplayer(SpecificReplayerPro):
                 if self.bld.info.npc[event.id].templateID == "125062" and event.enter == 0 and self.finalTime - event.time > 10000:
                     # print("[NPC]", parseTime((event.time - self.startTime) / 1000), event.id, self.bld.info.npc[event.id].templateID, self.bld.info.getName(event.id), event.enter,
                     #   self.bld.info.npc[event.id].x, self.bld.info.npc[event.id].y, self.bld.info.npc[event.id].z, self.bld.info.npc[event.id].dir)
-                    with open("outputStone.txt", "a") as f:
-                        s = "%d %d %d %d %d\n" % (event.time - self.startTime, self.bld.info.npc[event.id].x, self.bld.info.npc[event.id].y, self.bld.info.npc[event.id].z, self.bld.info.npc[event.id].dir)
-                        f.write(s)
+                    pass
+                    # with open("outputStone.txt", "a") as f:
+                    #     s = "%d %d %d %d %d\n" % (event.time - self.startTime, self.bld.info.npc[event.id].x, self.bld.info.npc[event.id].y, self.bld.info.npc[event.id].z, self.bld.info.npc[event.id].dir)
+                    #     f.write(s)
             else:
                 pass
                 # print("[badNPC]", parseTime((event.time - self.startTime) / 1000), event.id)

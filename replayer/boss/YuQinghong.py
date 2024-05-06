@@ -63,6 +63,10 @@ class YuQinghongReplayer(SpecificReplayerPro):
         self.bh.printEnvironmentInfo()
         # print(self.bh.log)
 
+        # 有时BOSS会没有任何通关标记，用血量做一个兜底判定
+        if self.totalDamage > self.bossHP * 0.99:
+            self.win = 1
+
     def getResult(self):
         '''
         生成复盘结果的流程。需要维护effectiveDPSList, potList与detail。
@@ -97,6 +101,21 @@ class YuQinghongReplayer(SpecificReplayerPro):
 
         self.checkTimer(event.time)
 
+        idRemoveList = []
+        for id in self.mengdie:
+            if self.mengdie[id]["alive"] == 0 and event.time - self.mengdie[id]["lastDamage"] > 500:
+                time = parseTime((event.time - 500 - self.startTime) / 1000)
+                self.addPot([self.bld.info.getName(self.mengdie[id]["lastID"]),
+                             self.occDetailList[self.mengdie[id]["lastID"]],
+                             0,
+                             self.bossNamePrint,
+                             "%s梦蝶被击破" % time,
+                             self.mengdie[id]["damageList"],
+                             0])
+                idRemoveList.append(id)
+        for id in idRemoveList:
+            del self.mengdie[id]
+
         if event.dataType == "Skill":
             if event.target in self.bld.info.player:
                 if event.heal > 0 and event.effect != 7 and event.caster in self.hps:  # 非化解
@@ -119,6 +138,22 @@ class YuQinghongReplayer(SpecificReplayerPro):
                     if event.target in self.bld.info.npc:
                         if self.bld.info.getName(event.target) in ["雨轻红", "雨輕紅"]:
                             self.bh.setMainTarget(event.target)
+                            self.totalDamage += event.damageEff
+                        if self.bld.info.getName(event.target) in ["梦蝶", "夢蝶"]:
+                            self.statDict[event.caster]["battle"]["mengdieDPS"] += event.damageEff
+                            if event.target not in self.mengdie:
+                                self.mengdie[event.target] = {"lastDamage": event.time, "alive": 1, "damageList": [], "lastName": "未知"}
+                            if event.damage > 0:
+                                skillName = self.bld.info.getSkillName(event.full_id)
+                                name = self.bld.info.getName(event.caster)
+                                resultStr = ""
+                                value = event.damage
+                                self.mengdie[event.target]["damageList"] = ["-%s, %s:%s%s(%d)" % (
+                                        parseTime((int(event.time) - self.startTime) / 1000), name, skillName, resultStr, value)] + self.mengdie[event.target]["damageList"]
+                                if len(self.mengdie[event.target]["damageList"]) > 20:
+                                    del self.mengdie[event.target]["damageList"][20]
+                                self.mengdie[event.target]["lastDamage"] = event.time
+                                self.mengdie[event.target]["lastID"] = event.caster
 
         elif event.dataType == "Buff":
             if event.target not in self.bld.info.player:
@@ -179,9 +214,12 @@ class YuQinghongReplayer(SpecificReplayerPro):
                         #                        1, "NPC出现", "npc")
 
         elif event.dataType == "Death":  # 重伤记录
-            if event.id in self.bld.info.npc and self.bld.info.getName(event.id) in ["雨轻红"]:
+            if event.id in self.bld.info.npc and self.bld.info.getName(event.id) in ["雨轻红", "雨輕紅"]:
                 self.win = 1
                 self.bh.setBadPeriod(event.time, self.finalTime, True, True)
+            if event.id in self.mengdie:
+                self.mengdie[event.id]["alive"] = 0
+                self.mengdie[event.id]["lastDamage"] = event.time
 
         elif event.dataType == "Battle":  # 战斗状态变化
             pass
@@ -197,6 +235,17 @@ class YuQinghongReplayer(SpecificReplayerPro):
                     skillName = self.bld.info.getSkillName(event.full_id)
                     if "," not in skillName:
                         self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式开始运功", "cast")
+            if event.caster in self.mengdie and event.id == "36994":
+                id = event.caster
+                time = parseTime((event.time - self.startTime) / 1000)
+                self.addPot([self.bld.info.getName(self.mengdie[id]["lastID"]),
+                             self.occDetailList[self.mengdie[id]["lastID"]],
+                             0,
+                             self.bossNamePrint,
+                             "%s梦蝶开始唤醒" % time,
+                             self.mengdie[id]["damageList"].copy(),
+                             0])
+
                     
     def analyseFirstStage(self, item):
         '''
@@ -240,14 +289,23 @@ class YuQinghongReplayer(SpecificReplayerPro):
                        "c37022": ["4547", "#ff0077", 5000],  # 炼红脂·柔梦
                        }
 
+        self.mengdie = {}
+        self.totalDamage = 0
+        self.bossHP = 787500000
+
         if self.bld.info.map == "冷龙峰":
             self.bhInfo["c37017"] = ["9543", "#ff0000", 10000]
+        if self.bld.info.map == "25人普通冷龙峰":
+            self.bossHP = 2590000000
+        if self.bld.info.map == "25人英雄冷龙峰":
+            self.bossHP = 4121600000
 
         # 雨轻红数据格式：
         # ？
 
         for line in self.bld.info.player:
-            self.statDict[line]["battle"] = {}
+            self.statDict[line]["battle"] = {"mengdieDPS": 0,
+                                             }
 
 
     def __init__(self, bld, occDetailList, startTime, finalTime, battleTime, bossNamePrint, config):

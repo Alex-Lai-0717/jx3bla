@@ -63,6 +63,10 @@ class YingyankeReplayer(SpecificReplayerPro):
         self.bh.printEnvironmentInfo()
         # print(self.bh.log)
 
+        # 有时BOSS会没有任何通关标记，用血量做一个兜底判定
+        if self.totalDamage > self.bossHP * 0.99:
+            self.win = 1
+
     def getResult(self):
         '''
         生成复盘结果的流程。需要维护effectiveDPSList, potList与detail。
@@ -108,6 +112,10 @@ class YingyankeReplayer(SpecificReplayerPro):
                     if name not in self.bhBlackList and event.time - self.bhTime.get(name, 0) > 3000:
                         self.bhTime[name] = event.time
                         skillName = self.bld.info.getSkillName(event.full_id)
+                        if event.id == "37498":
+                            skillName = "鹰击长空"
+                        elif event.id == "37075":
+                            skillName = "鹰击长空·穿透"
                         if "," not in skillName:
                             key = "s%s" % event.id
                             if key in self.bhInfo or self.debug:
@@ -136,23 +144,23 @@ class YingyankeReplayer(SpecificReplayerPro):
                             self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "玩家获得气劲", "buff")
 
         elif event.dataType == "Shout":
-            if event.content in ['"谁也别想过去！"']:
+            if event.content in ['"出去玩玩！"']:
                 pass
-            elif event.content in ['"给我上！"']:
-                self.win = 1
-            elif event.content in ['""']:
+            elif event.content in ['"撕碎你的心脏！"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"藏在哪儿呢？"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"抓住你了！"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"救他？那尔等以死代之！"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"救她？那尔等以死代之！"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"你们，都是我的了！"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"你的归宿，便是大地之怀！"']:
+                pass
+            elif event.content in ['"逃吧！逃吧！让我一个个取走你们的命！"']:
                 pass
             elif event.content in ['""']:
                 pass
@@ -164,9 +172,9 @@ class YingyankeReplayer(SpecificReplayerPro):
                 self.bh.setEnvironment("0", event.content, "341", event.time, 0, 1, "喊话", "shout")
 
         elif event.dataType == "Scene":  # 进入、离开场景
-            # if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["翁幼之宝箱", "??寶箱"]:
-            #     self.win = 1
-            #     self.bh.setBadPeriod(event.time, self.finalTime, True, True)
+            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["鹰眼客宝箱", "鷹眼客寶箱"]:
+                self.win = 1
+                self.bh.setBadPeriod(event.time, self.finalTime, True, True)
             if event.id in self.bld.info.npc and event.enter and self.bld.info.npc[event.id].name != "":
                 name = "n%s" % self.bld.info.npc[event.id].templateID
                 skillName = self.bld.info.npc[event.id].name
@@ -174,12 +182,14 @@ class YingyankeReplayer(SpecificReplayerPro):
                     self.bhTime[name] = event.time
                     if "的" not in skillName:
                         key = "n%s" % self.bld.info.npc[event.id].templateID
-                        if key in self.bhInfo or self.debug:
+                        if key in self.bhInfo:
                             self.bh.setEnvironment(self.bld.info.npc[event.id].templateID, skillName, "341", event.time, 0,
                                                1, "NPC出现", "npc")
 
         elif event.dataType == "Death":  # 重伤记录
-            pass
+            if event.id in self.bld.info.npc and self.bld.info.getName(event.id) in ["鹰眼客", "鷹眼客"]:
+                self.win = 1
+                self.bh.setBadPeriod(event.time, self.finalTime, True, True)
 
         elif event.dataType == "Battle":  # 战斗状态变化
             pass
@@ -218,12 +228,41 @@ class YingyankeReplayer(SpecificReplayerPro):
         self.immuneHealer = 0
         self.immuneTime = 0
 
-        self.bhBlackList.extend([
+        self.bhBlackList.extend(["n127382",  # NPC
+                                 "s37076", "s37080",  # 冰面伤害
+                                 "c37234", "s37045",  # 碎心利爪
+                                 "b27921", "s37034", "b27922", "s37035",   # 毒刀
+                                 "b27993", "b27995", "s37138",  # 狩命
+                                 "b28036",  # 鹰击长空流血
+                                 "b28165", "b28035",  # 深暗之缚其它buff
+                                 "s37198",  # 推人
+                                 "b28110",  # 跑圈
+
                                  ])
         self.bhBlackList = self.mergeBlackList(self.bhBlackList, self.config)
 
-        self.bhInfo = {
+        self.bhInfo = {"c37073": ["2039", "#ff0000", 3000],   # 挑风
+                       "n127352": ["22", "#0000ff", 0],  # 冰面
+                       "c37044": ["3399", "#7777ff", 7000],  # 碎心利爪
+                       "c37025": ["3405", "#ff7700", 2000],  # 毒刀
+                       "c37134": ["2035", "#ff7700", 8250],  # 狩命
+                       "s37498": ["2021", "#00ff00", 0],  # 鹰击长空
+                       "s37075": ["2021", "#00ff00", 0],  # 鹰击长空
+                       "b28018": ["3437", "#ff0077", 0],  # 深暗之缚
+                       "c37195": ["2038", "#ff00ff", 3000],  # 肃杀
+                       "c37204": ["2038", "#ff00ff", 2000],  # 翔影乱舞
+                       "c37205": ["2038", "#ff00ff", 45000],  # 舞
                        }
+
+        self.totalDamage = 0
+        self.bossHP = 798000000
+
+        if self.bld.info.map == "冷龙峰":
+            pass
+        if self.bld.info.map == "25人普通冷龙峰":
+            self.bossHP = 4003300000
+        if self.bld.info.map == "25人英雄冷龙峰":
+            self.bossHP = 5624000000
 
         # 鹰眼客数据格式：
         # ？

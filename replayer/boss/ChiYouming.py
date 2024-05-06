@@ -136,18 +136,18 @@ class ChiYoumingReplayer(SpecificReplayerPro):
                             self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "玩家获得气劲", "buff")
 
         elif event.dataType == "Shout":
-            if event.content in ['"谁也别想过去！"']:
+            if event.content in ['"来吧！以阿胡拉之名，击败你们这些妖孽！"']:
                 pass
             elif event.content in ['"好好感受陷入深渊的感觉吧……"']:
-                pass
-            elif event.content in ['"啊……怎么可能……"']:
+                self.bh.setEnvironment("0", "漆黑泥沼", "12449", event.time, 0, 1, "喊话", "shout")
+            elif event.content in ['"怎么可能……亵渎之人，神必将你们焚烧殆尽……"']:
                 self.win = 1
             elif event.content in ['"以烈火和熔铁，对灵魂做出判决！"']:
                 pass
             elif event.content in ['"我来抓你咯……渎神者。"']:
-                pass
+                self.bh.setEnvironment("0", "游荡黑影", "3432", event.time, 0, 1, "喊话", "shout")
             elif event.content in ['"照照你们的丑陋嘴脸吧！"']:
-                pass
+                self.bh.setEnvironment("0", "黑镜", "4547", event.time, 0, 1, "喊话", "shout")
             elif event.content in ['"没有信仰的人，只有死路一条！"']:
                 pass
             elif event.content in ['"闪耀着灵光的众灵体啊，放射出刺眼的光芒吧！"']:
@@ -156,9 +156,31 @@ class ChiYoumingReplayer(SpecificReplayerPro):
                 pass
             elif event.content in ['"啊，威严的、光辉灿烂的阿胡拉·马兹达！指引我的方向吧！"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"喝啊！"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"住手！"']:
+                pass
+            elif event.content in ['"你还好吗？没料到你身处险境。"']:
+                pass
+            elif event.content in ['"呃……"']:
+                pass
+            elif event.content in ['"威严的、光辉灿烂的阿胡拉·马兹达！我祈求取之不尽，用之不竭的力量和压倒一切的优势……赐予我的哥哥。"']:
+                pass
+            elif event.content in ['"啊……"']:
+                pass
+            elif event.content in ['"我，在此申明！我崇拜马兹达！追随琐罗亚斯德！是众妖魔的敌人和祆教的信徒！"']:
+                pass
+            elif event.content in ['"啊……伟大的马兹达！快来庇佑我吧！庇佑我一千次！庇佑我一万次！"']:
+                pass
+            elif event.content in ['"渎神者必将沉没于黑暗中！"']:
+                self.bh.setEnvironment("0", "漆黑泥沼·P2", "12449", event.time, 0, 1, "喊话", "shout")
+            elif event.content in ['"让黑暗的帷幕在火焰中焚灼！"']:
+                pass
+            elif event.content in ['"住手！"']:
+                pass
+            elif event.content in ['"住手！"']:
+                pass
+            elif event.content in ['"住手！"']:
                 pass
             else:
                 self.bh.setEnvironment("0", event.content, "341", event.time, 0, 1, "喊话", "shout")
@@ -174,7 +196,7 @@ class ChiYoumingReplayer(SpecificReplayerPro):
                     self.bhTime[name] = event.time
                     if "的" not in skillName:
                         key = "n%s" % self.bld.info.npc[event.id].templateID
-                        if key in self.bhInfo or self.debug:
+                        if key in self.bhInfo:
                             self.bh.setEnvironment(self.bld.info.npc[event.id].templateID, skillName, "341", event.time, 0,
                                                1, "NPC出现", "npc")
 
@@ -218,11 +240,26 @@ class ChiYoumingReplayer(SpecificReplayerPro):
         self.immuneHealer = 0
         self.immuneTime = 0
 
-        self.bhBlackList.extend([
+        self.bhBlackList.extend(["s37010", "s36995", "s37011", "b28064", "b27945",  # 普攻
+                                 "b27946", "s37008",  # 漆黑泥沼
+                                 "b27953", "c37208", "s37001", "b27934", "s37002",  # 旋转火刀
+                                 "s37013", "b27937",  # 旋转火刀·P2
+                                 "s36997", "b27926", "s37036",  # 熔铁利刃
+                                 "s37004", "s37015",  # 真神光耀
+                                 "b27952", "s36998",  # 初窥灵光
+                                 "s37212",  # 倒影普攻
+                                 "b28267",  # 黑镜
+                                 "s37129", "b28137",   # 游荡黑影
+                                 "s37014", "s37041",   # 恶毒利刃
                                  ])
         self.bhBlackList = self.mergeBlackList(self.bhBlackList, self.config)
 
-        self.bhInfo = {
+        self.bhInfo = {"c37004": ["2019", "#ff0000", 4000],   # 真神光耀
+                       "c36996": ["12452", "#00ffff", 3000],  # 真神光耀
+                       "c37005": ["3398", "#ff7777", 3000],  # 恶毒利刃
+                       "c37043": ["3447", "#ff7700", 5000],  # 初窥灵光
+                       "c36999": ["12453", "#ff0077", 25000],  # 旋转火刀
+                       "c37059": ["3398", "#0077ff", 3000],  # 恶毒利刃
                        }
 
         # 赤幽明数据格式：
