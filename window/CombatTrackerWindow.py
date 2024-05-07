@@ -33,6 +33,9 @@ class CombatTrackerWindow(Window):
         elif self.stat in ["rdps", "ndps", "mrdps", "mndps"]:
             url = "https://www.jx3box.com/bps/48857"
             webbrowser.open(url)
+        elif self.stat in ["chps"]:
+            url = "https://www.jx3box.com/bps/77102"
+            webbrowser.open(url)
         else:
             messagebox.showinfo(title='注意', message="暂时没有详细说明！")
 
@@ -41,7 +44,7 @@ class CombatTrackerWindow(Window):
         使左半部分显示指定的统计类型.
         '''
         self.stat = stat
-        assert stat in ["rhps", "hps", "ahps", "ohps", "rdps", "ndps", "mrdps", "mndps"]
+        assert stat in ["rhps", "hps", "ahps", "ohps", "chps", "rdps", "ndps", "mrdps", "mndps"]
         if stat == "rhps":
             data = self.act.rhps
             self.rightTitle.configure(text="rHPS")
@@ -54,6 +57,9 @@ class CombatTrackerWindow(Window):
         elif stat == "ohps":
             data = self.act.ohps
             self.rightTitle.configure(text="oHPS")
+        elif stat == "chps":
+            data = self.act.chps
+            self.rightTitle.configure(text="cHPS")
         elif stat == "rdps":
             data = self.act.rdps
             self.rightTitle.configure(text="rDPS")
@@ -234,22 +240,26 @@ class CombatTrackerWindow(Window):
         b4 = tk.Button(frameButtons, text='oHPS', height=1, command=f, bg='#00ff77')
         ToolTip(b4, "全称over HPS，指包含溢出的治疗量，也即游戏中的虚条。oHPS与aHPS之和决定了承伤的上限。")
         b4.place(x=180, y=20)
+        f = partial(self.setStat, "chps")
+        b9 = tk.Button(frameButtons, text='cHPS', height=1, command=f, bg='#00ff77')
+        ToolTip(b9, "全称critical HPS，指BOSS可能有血量压力期间的治疗量。cHPS决定了团队是否能平稳度过关键阶段。\n每个BOSS的cHPS区间有所不同，详见治疗心法复盘板块。")
+        b9.place(x=230, y=20)
         f = partial(self.setStat, "rdps")
         b5 = tk.Button(frameButtons, text='rDPS', height=1, command=f, bg='#ff7777')
         ToolTip(b5, "全称raid DPS，是将伤害值中的增益部分转移给增益来源后得到的值。\nrDPS可以反映各种增益的强度，并且适用于对比不同战斗中的表现。")
-        b5.place(x=230, y=20)
+        b5.place(x=280, y=20)
         f = partial(self.setStat, "ndps")
         b6 = tk.Button(frameButtons, text='nDPS', height=1, command=f, bg='#ff7777')
         ToolTip(b6, "全称natrual DPS，指自然计算所有伤害的值。\nnDPS会受到各种增益的影响，且不能反映自身对团队的增益，因此只能用来计算全团伤害与BOSS血量的比较。")
-        b6.place(x=280, y=20)
+        b6.place(x=330, y=20)
         f = partial(self.setStat, "mrdps")
         b7 = tk.Button(frameButtons, text='mrDPS', height=1, command=f, bg='#ff7777')
         ToolTip(b7, "全称main-target raid DPS，是只考虑主目标的rDPS。\n如果有些阶段只能转火、打分身、打双目标，则这个阶段没有主目标。\n用于衡量单体与群攻的差别。")
-        b7.place(x=330, y=20)
+        b7.place(x=380, y=20)
         f = partial(self.setStat, "mndps")
         b8 = tk.Button(frameButtons, text='mnDPS', height=1, command=f, bg='#ff7777')
         ToolTip(b8, "全称main-target natrual DPS，是只考虑主目标的nDPS。\n如果有些阶段只能转火、打分身、打双目标，则这个阶段没有主目标。\n用于衡量单体与群攻的差别。")
-        b8.place(x=390, y=20)
+        b8.place(x=440, y=20)
 
         canvas = tk.Canvas(frameUp, width=560, height=650, scrollregion=(0, 0, 540, 25*30)) #创建canvas
         canvas.place(x=0, y=50)  # 放置canvas的位置

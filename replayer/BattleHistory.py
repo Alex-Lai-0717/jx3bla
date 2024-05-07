@@ -43,6 +43,8 @@ class BattleHistory():
         '''
         self.badPeriodDpsLog = self.badPeriodDps.export()
         self.badPeriodHealerLog = self.badPeriodHealer.export()
+        self.critPeriodHealerLog = self.critPeriodHealer.export()
+        self.critPeriodSum = self.sumCritTime()
 
     def setBadPeriod(self, start, end, affectDps=True, affectHealer=True):
         '''
@@ -57,6 +59,20 @@ class BattleHistory():
             self.badPeriodDps.recordInterval(start, end)
         if affectHealer:
             self.badPeriodHealer.recordInterval(start, end)
+
+    def setCritPeriod(self, start, end, affectDps=True, affectHealer=True):
+        '''
+        设置战斗中的关键时间段.
+        params:
+        - start: 开始时间点.
+        - end: 结束时间点.
+        - affectDps: 这个时间段是否影响dps.
+        - affectHealer: 这个时间段是否影响治疗.
+        '''
+        if affectDps:
+            pass
+        if affectHealer:
+            self.critPeriodHealer.recordInterval(start, end)
 
     def printEnvironmentInfo(self):
         '''
@@ -284,6 +300,20 @@ class BattleHistory():
 
         return efficiency
 
+    def sumCritTime(self):
+        '''
+        获取关键区间的总时间.
+        '''
+        lastTime = self.startTime
+        lastStack = 0
+        sumTime = 0
+        for line in self.critPeriodHealerLog:
+            sumTime += lastStack * (line[0] - lastTime)
+            lastTime = line[0]
+            lastStack = line[1]
+        sumTime += lastStack * (self.finalTime - lastTime)
+        return sumTime
+
     def sumTime(self, exclude="none"):
         '''
         获取战斗总时间（考虑排除时间）.
@@ -313,11 +343,14 @@ class BattleHistory():
         self.log = {"environment": [], "normal": [], "special": [], "call": {}, "nongcd": []}
         self.startTime = startTime
         self.finalTime = finalTime
-        # 对DPS和治疗分别给出无效区间
+        # 对DPS和治疗分别给出无效区间和关键区间
         self.badPeriodDps = IntervalCounter(self.startTime, self.finalTime)
         self.badPeriodHealer = IntervalCounter(self.startTime, self.finalTime)
+        self.critPeriodHealer = IntervalCounter(self.startTime, self.finalTime)
         self.badPeriodDpsLog = []
         self.badPeriodHealerLog = []
+        self.critPeriodHealerLog = []
+        self.critPeriodDesc = "暂无"
         # 记录主目标
         self.mainTargets = {}
 

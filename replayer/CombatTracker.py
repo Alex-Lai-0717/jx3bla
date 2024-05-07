@@ -723,7 +723,7 @@ class CombatTracker():
         获取对应角色的rhps. 用于解决rhps为0时的判定问题.
         params:
         - player: 角色数字ID.
-        - type: 种类. 可以是"rhps", "hps", "ahps", "ohps".
+        - type: 种类. 可以是"rhps", "hps", "ahps", "ohps", "chps".
         returns:
         - res: rhps. 找不到角色时返回0
         '''
@@ -745,6 +745,11 @@ class CombatTracker():
         elif type == "ohps":
             if player in self.ohps["player"]:
                 return self.ohps["player"][player]["hps"]
+            else:
+                return 0
+        elif type == "chps":
+            if player in self.ohps["player"]:
+                return self.chps["player"][player]["hps"]
             else:
                 return 0
 
@@ -789,6 +794,7 @@ class CombatTracker():
         res["ahps"] = self.ahps
         res["ohps"] = self.ohps
         res["rhps"] = self.rhps
+        res["chps"] = self.chps
         res["ndps"] = self.ndps
         res["rdps"] = self.rdps
         res["mndps"] = self.mndps
@@ -800,12 +806,14 @@ class CombatTracker():
                 del res[t]["player"][p]["skill"]
         return res
         
-    def getStatInHps(self, objSource, objTarget):
+    def getStatInHps(self, objSource, objTarget, totalTime=-1):
         '''
         以dict的形式整理统计治疗结果.
         '''
         for player in objSource:
-            if player in self.stunTime:
+            if totalTime != -1:
+                adjustedTime = totalTime
+            elif player in self.stunTime:
                 adjustedTime = self.timeHealer - self.stunTime[player].buffTimeIntegral()
             else:
                 adjustedTime = self.timeHealer
@@ -907,6 +915,11 @@ class CombatTracker():
         rhps = {"sum": 0, "player": {}}
         self.getStatInHps(self.rhpsCast, rhps)
         self.rhps = rhps
+
+        # chps
+        chps = {"sum": 0, "player": {}}
+        self.getStatInHps(self.chpsCast, chps, totalTime=self.critPeriodSum)
+        self.chps = chps
         
         # ndps
         ndps = {"sum": 0, "player": {}}
@@ -927,6 +940,9 @@ class CombatTracker():
         mrdps = {"sum": 0, "player": {}}
         self.getStatInDps(self.mrdpsCast, mrdps, "source", self.boostCounter)
         self.mrdps = mrdps
+
+        # print("[ohps]", self.ohps)
+        # print("[chps]", self.chps)
 
     def recordBuff(self, event):
         '''
@@ -1141,13 +1157,16 @@ class CombatTracker():
                 self.rdpsCast[event.caster].addNote(full_id, zhenyanName)
                 self.mrdpsCast[event.caster].addNote(full_id, zhenyanName)
 
-        # 先判断是否进入了无效区间
+        # 先判断是否进入了无效区间或关键区间
         while self.excludePosDps < len(self.badPeriodDpsLog) and event.time > self.badPeriodDpsLog[self.excludePosDps][0]:
             self.excludeStatusDps = self.badPeriodDpsLog[self.excludePosDps][1]
             self.excludePosDps += 1
         while self.excludePosHealer < len(self.badPeriodHealerLog) and event.time > self.badPeriodHealerLog[self.excludePosHealer][0]:
             self.excludeStatusHealer = self.badPeriodHealerLog[self.excludePosHealer][1]
             self.excludePosHealer += 1
+        while self.critPosHealer < len(self.critPeriodHealerLog) and event.time > self.critPeriodHealerLog[self.critPosHealer][0]:
+            self.critStatusHealer = self.critPeriodHealerLog[self.critPosHealer][1]
+            self.critPosHealer += 1
 
         if event.target not in self.hpStatus:
             self.hpStatus[event.target] = {"damage": 0, "healNotFull": 0, "healFull": 0, "estimateHP": 0, "status": 0,
@@ -1163,12 +1182,12 @@ class CombatTracker():
                 if event.target in self.hanQingTime and event.time - self.hanQingTime[event.target] < 500:
                     hanQingFlag = 1
                     self.hanQingTime[event.target] = 0
-            if event.full_id == '"1,23951,40"':  # 特殊处理寂灭
-                if self.cbyCaster in self.hpsCast:
-                    self.hpsCast[self.cbyCaster].record(event.target, event.full_id, event.healEff)
-                    self.ohpsCast[self.cbyCaster].record(event.target, event.full_id, event.heal)
-                    self.rhpsRecorder.record(self.cbyCaster, event.target, event.heal, event.healEff, event.full_id, self.hpStatus[event.target]["status"])
-            elif event.full_id in ['"1,23951,70"']:  # 特殊处理大针
+            # if event.full_id == '"1,23951,40"':  # 特殊处理寂灭
+            #     if self.cbyCaster in self.hpsCast:
+            #         self.hpsCast[self.cbyCaster].record(event.target, event.full_id, event.healEff)
+            #         self.ohpsCast[self.cbyCaster].record(event.target, event.full_id, event.heal)
+            #         self.rhpsRecorder.record(self.cbyCaster, event.target, event.heal, event.healEff, event.full_id, self.hpStatus[event.target]["status"])
+            if event.full_id in ['"1,23951,70"']:  # 特殊处理大针
                 pass
             elif hanQingFlag:  # 寒清的响应式统计
                 self.ahpsCast[event.caster].record(event.target, "5," + event.full_id, event.healEff)
@@ -1179,6 +1198,8 @@ class CombatTracker():
             else:
                 self.hpsCast[event.caster].record(event.target, event.full_id, event.healEff)
                 self.ohpsCast[event.caster].record(event.target, event.full_id, event.heal)
+                if self.critStatusHealer:
+                    self.chpsCast[event.caster].record(event.target, event.full_id, event.heal)
                 self.rhpsRecorder.record(event.caster, event.target, event.heal, event.healEff, event.full_id, self.hpStatus[event.target]["status"])
                 # 推算蛊惑产生的治疗量
                 if event.caster in self.guHuoTarget and self.guHuoTarget[event.caster] != "0" and event.healEff > 0:
@@ -1256,6 +1277,8 @@ class CombatTracker():
                     # print("[复盘aHPS]", self.info.getSkillName(calcBuff[0]), event.time, event.target, absorb, calcBuff[0])
                     self.rhpsRecorder.record(calcBuff[1], event.target, absorb, absorb, "1," + calcBuff[0],
                                              self.hpStatus[event.target]["status"])
+                    if self.critStatusHealer:
+                        self.chpsCast[calcBuff[1]].record(event.target, "1," + calcBuff[0], absorb)
 
         # 来自于减伤的aps
         sumDamage = event.damage + absorb
@@ -1275,6 +1298,8 @@ class CombatTracker():
                         self.ahpsCast[res[0]].record(event.target, "2," + key, damageResist)
                         self.rhpsRecorder.record(res[0], event.target, damageResist, damageResist, "2," + key,
                                                  self.hpStatus[event.target]["status"])
+                        if self.critStatusHealer:
+                            self.chpsCast[res[0]].record(event.target, "2," + key, damageResist)
 
         # 从吸血推测HPS
         xixue = int(event.fullResult.get("7", 0))
@@ -1287,6 +1312,8 @@ class CombatTracker():
                 self.hpsCast[event.caster].record(event.caster, "3," + event.full_id, xixue)
                 self.rhpsRecorder.record(event.caster, event.caster, xixue, xixue, "3," + event.full_id,
                                          self.hpStatus[event.caster]["status"])
+                if self.critStatusHealer:
+                    self.chpsCast[event.caster].record(event.caster, "3," + event.full_id, xixue)
 
             self.hpStatus[event.caster]["estimateHP"] += xixue
             if self.hpStatus[event.caster]["estimateHP"] > 0:
@@ -1505,6 +1532,7 @@ class CombatTracker():
         self.ohpsCast = {}
         self.ahpsCast = {}
         self.rhpsCast = {}
+        self.chpsCast = {}
         self.absorbBuff = {}
         self.resistBuff = {}
         self.buffRemove = {}  # buff延迟删除
@@ -1530,10 +1558,15 @@ class CombatTracker():
         # 无效时间相关
         self.badPeriodDpsLog = bh.badPeriodDpsLog
         self.badPeriodHealerLog = bh.badPeriodHealerLog
+        self.critPeriodHealerLog = bh.critPeriodHealerLog
+        self.critPeriodSum = bh.critPeriodSum
         self.excludePosDps = 0
         self.excludeStatusDps = 0
         self.excludePosHealer = 0
         self.excludeStatusHealer = 0
+        self.critStatusHealer = 0
+        self.critPosHealer = 0
+        # print("[self.critPeriodHealerLog]", self.critPeriodHealerLog)
 
         # 等效治疗相关
         self.cbyCaster = "0"  # 记录慈悲愿
@@ -1594,6 +1627,7 @@ class CombatTracker():
             self.hpsCast[player] = HealCastRecorder(1)
             self.ohpsCast[player] = HealCastRecorder(1)
             self.ahpsCast[player] = HealCastRecorder(1)
+            self.chpsCast[player] = HealCastRecorder(1)
             self.rhpsCast[player] = HealCastRecorder(1)
             self.absorbBuff[player] = {}
             self.resistBuff[player] = {}
@@ -1634,6 +1668,7 @@ class CombatTracker():
             self.hpsCast[player] = HealCastRecorder(0)
             self.ohpsCast[player] = HealCastRecorder(0)
             self.ahpsCast[player] = HealCastRecorder(0)
+            self.chpsCast[player] = HealCastRecorder(0)
             self.hpStatus[player] = {"damage": 0, "healNotFull": 0, "healFull": 0, "estimateHP": 0, "status": 0,
                                      "fullTime": 0}
             # 输出

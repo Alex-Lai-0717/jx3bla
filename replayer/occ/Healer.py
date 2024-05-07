@@ -105,6 +105,7 @@ class HealerReplay(ReplayerBase):
         self.result["skill"]["healer"]["hps"] = self.myHealStat.get("hps", 0)
         self.result["skill"]["healer"]["rhps"] = self.myHealStat.get("rhps", 0)
         self.result["skill"]["healer"]["ahps"] = self.myHealStat.get("ahps", 0)
+        self.result["skill"]["healer"]["chps"] = self.myHealStat.get("chps", 0)
 
         self.getRankFromStat(self.occ)
         self.result["rank"] = self.rank
@@ -289,7 +290,7 @@ class HealerReplay(ReplayerBase):
             bh.badPeriodHealerLog = self.bossBh.badPeriodHealerLog
 
         # 计算团队治疗区(Part 3)
-        self.result["healer"] = {"table": [], "numHealer": 0}
+        self.result["healer"] = {"table": [], "numHealer": 0, "chpsDescription": self.bossBh.critPeriodDesc, "chpsDuration": self.bossBh.critPeriodSum}
 
         self.myHealStat = {}
         for player in self.act.rhps["player"]:
@@ -314,6 +315,10 @@ class HealerReplay(ReplayerBase):
                     res["ohps"] = int(self.act.ohps["player"][player]["hps"])
                 else:
                     res["ohps"] = 0
+                if player in self.act.chps["player"]:
+                    res["chps"] = int(self.act.chps["player"][player]["hps"])
+                else:
+                    res["chps"] = 0
                 res["heal"] = res.get("ohps", 0)
                 res["healEff"] = res.get("hps", 0)
                 if player == self.mykey:

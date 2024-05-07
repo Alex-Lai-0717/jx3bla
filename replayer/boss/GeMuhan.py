@@ -30,13 +30,17 @@ class GeMuhanWindow(SpecificBossWindow):
         tb = TableConstructorMeta(self.config, frame1)
 
         self.constructCommonHeader(tb, "")
-        # tb.AppendHeader("1组剑", "对第1组剑的伤害量，红/蓝表示不同的分组。如果剑没有打掉，则会显示为浅色。")
+        tb.AppendHeader("刀盾兵伤害", "对戮夜游·刀盾兵造成的总伤害量。")
+        tb.AppendHeader("锁链手伤害", "对戮夜游·锁链手造成的总伤害量。")
         tb.AppendHeader("心法复盘", "心法专属的复盘模式，只有很少心法中有实现。")
         tb.EndOfLine()
 
         for i in range(len(self.effectiveDPSList)):
             line = self.effectiveDPSList[i]
             self.constructCommonLine(tb, line)
+
+            tb.AppendContext(int(line["battle"]["daodunDamage"]), color="#000000")
+            tb.AppendContext(int(line["battle"]["suolianDamage"]), color="#000000")
 
             # 心法复盘
             if line["name"] in self.occResult:
@@ -113,16 +117,28 @@ class GeMuhanReplayer(SpecificReplayerPro):
                             if key in self.bhInfo or self.debug:
                                 self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式命中玩家", "skill")
 
+                if event.id == "37112" and event.time - self.lastZhanhai > 1000:
+                    self.lastZhanhai = event.time
+                    self.bh.setCritPeriod(event.time - 5000, event.time + 20000, False, True)
+
             else:
                 if event.caster in self.bld.info.player and event.caster in self.statDict:
                     # self.stat[event.caster][2] += event.damageEff
                     if event.target in self.bld.info.npc:
                         if self.bld.info.getName(event.target) in ["葛木寒"]:
                             self.bh.setMainTarget(event.target)
+                        if self.bld.info.getName(event.target) in ["戮夜游·刀盾兵", "戮夜遊·刀盾兵"]:
+                            self.statDict[event.caster]["battle"]["daodunDamage"] += event.damageEff
+                        if self.bld.info.getName(event.target) in ["戮夜游·锁链手", "戮夜遊·鎖鏈手"]:
+                            self.statDict[event.caster]["battle"]["suolianDamage"] += event.damageEff
 
         elif event.dataType == "Buff":
             if event.target not in self.bld.info.player:
                 return
+
+            if event.id == "27994":  # 眩晕
+                if event.stack == 1:
+                    self.bh.setCall("27994", "疾雷·瞄准", "2019", event.time, 8000, event.target, "惊涛骇浪点名")
 
             if event.caster in self.bld.info.npc and event.stack > 0:
                 # 尝试记录buff事件
@@ -246,11 +262,18 @@ class GeMuhanReplayer(SpecificReplayerPro):
                        }
 
         # 葛木寒数据格式：
-        # ？
+        # 被控时间=点名眩晕
+        # 刀盾兵DPS，锁链手DPS
+
+        self.bh.critPeriodDesc = "从每次[斩海]之前5秒开始，到20秒DOT结束"
+
+        self.lastZhanhai = 0
 
         for line in self.bld.info.player:
-            self.statDict[line]["battle"] = {}
-
+            self.statDict[line]["battle"] = {
+                "daodunDamage": 0,
+                "suolianDamage": 0,
+            }
 
     def __init__(self, bld, occDetailList, startTime, finalTime, battleTime, bossNamePrint, config):
         '''

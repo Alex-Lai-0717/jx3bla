@@ -303,7 +303,7 @@ class HealerDisplayWindow(Window):
         '''
         window = self.window
         # Part 2: 装备
-        frame2 = tk.Frame(window, width=200, height=230, highlightthickness=1, highlightbackground=self.themeColor)
+        frame2 = tk.Frame(window, width=170, height=230, highlightthickness=1, highlightbackground=self.themeColor)
         frame2.place(x=220, y=10)
         frame2sub = tk.Frame(frame2)
         frame2sub.place(x=0, y=0)
@@ -321,9 +321,9 @@ class HealerDisplayWindow(Window):
             tb.AppendContext("详情：", justify="right")
             tb.AppendContext(self.result["equip"]["sketch"])
             tb.EndOfLine()
-            tb.AppendContext("强化：", justify="right")
-            tb.AppendContext(self.result["equip"].get("forge", ""))
-            tb.EndOfLine()
+            # tb.AppendContext("强化：", justify="right")
+            # tb.AppendContext(self.result["equip"].get("forge", ""))
+            # tb.EndOfLine()
             tb.AppendContext("根骨：", justify="right")
             tb.AppendContext("%d"%self.result["equip"]["spirit"])
             tb.EndOfLine()
@@ -340,7 +340,7 @@ class HealerDisplayWindow(Window):
             tb.AppendContext("%s(%d)"%(self.result["equip"]["hastePercent"], self.result["equip"]["haste"]))
             tb.EndOfLine()
             b2 = tk.Button(frame2, text='导出', height=1, command=self.exportEquipment)
-            b2.place(x=140, y=180)
+            b2.place(x=110, y=180)
 
     def renderHeal(self):
         '''
@@ -348,8 +348,8 @@ class HealerDisplayWindow(Window):
         '''
         window = self.window
         # Part 3: 治疗
-        frame3 = tk.Frame(window, width=310, height=150, highlightthickness=1, highlightbackground=self.themeColor)
-        frame3.place(x=430, y=10)
+        frame3 = tk.Frame(window, width=340, height=150, highlightthickness=1, highlightbackground=self.themeColor)
+        frame3.place(x=400, y=10)
         frame3sub = tk.Frame(frame3)
         frame3sub.place(x=0, y=0)
 
@@ -357,10 +357,14 @@ class HealerDisplayWindow(Window):
         tb.AppendHeader("玩家名", "", width=13)
         # tb.AppendHeader("有效HPS", "最常用语境下的每秒治疗量，注意包含重伤时间。")
         # tb.AppendHeader("虚条HPS", "指虚条的最右端，包含溢出治疗量，也即计算所有绿字。")
+        chpsDescription = self.result["healer"]["chpsDescription"]
+        chpsDuration = parseTime(self.result["healer"]["chpsDuration"] / 1000)
+
         tb.AppendHeader("rHPS", "全称raid HPS，是综合考虑有效治疗量、化解、减伤、以及安全范围内的溢出治疗量后得到的值。\nrHPS与对团血的贡献程度完全成正比。在承伤与配置不变的情况下，使rHPS更高的手法就能使团血更稳。")
         tb.AppendHeader("HPS", "与游戏中[有效HPS]接近的值。相比于插件的统计，其考虑了吸血、蛊惑等隐藏数值，因此与游戏中会有细微的不同。")
         tb.AppendHeader("aHPS", "全称absorb HPS，包括化解、减伤、响应式治疗。游戏中的APS漏洞百出，而aHPS可以更准确地反应这些被抵消的伤害。")
         tb.AppendHeader("oHPS", "全称over HPS，指包含溢出的治疗量，也即游戏中的虚条。oHPS与aHPS之和决定了承伤的上限。")
+        tb.AppendHeader("cHPS", "全称critical HPS，指BOSS可能有血量压力期间的治疗量。cHPS决定了团队是否能平稳度过关键阶段。\n当前BOSS关键阶段为：%s\n关键阶段持续时长：%s" % (chpsDescription, chpsDuration))
         tb.EndOfLine()
         for record in self.result["healer"]["table"]:
             name = self.getMaskName(record["name"])
@@ -372,6 +376,7 @@ class HealerDisplayWindow(Window):
                 tb.AppendContext(record.get("hps", record.get("healEff", 0)))
                 tb.AppendContext(record.get("ahps", 0))
                 tb.AppendContext(record.get("ohps", record.get("heal", 0)))
+                tb.AppendContext(record.get("chps", 0))
                 # tb.AppendContext(record["healEff"])
                 # tb.AppendContext(record["heal"])
             else:
@@ -395,7 +400,7 @@ class HealerDisplayWindow(Window):
                 # else:
                 #     descText = "排名未知"
                 # tb.AppendHeader(record.get("ohps", record.get("heal", 0)), descText, color=color)
-                for stat in ["rhps", "hps", "ahps", "ohps"]:
+                for stat in ["rhps", "hps", "ahps", "ohps", "chps"]:
                     num, percent, color = hpsDisplayer.getSkillPercent("healer", stat)
                     if num > 0:
                         descText = "排名：%d%%\n数量：%d" % (percent, num)
@@ -410,8 +415,8 @@ class HealerDisplayWindow(Window):
         '''
         window = self.window
         # Part 4: 奇穴
-        frame4 = tk.Frame(window, width=310, height=70, highlightthickness=1, highlightbackground=self.themeColor)
-        frame4.place(x=430, y=170)
+        frame4 = tk.Frame(window, width=340, height=70, highlightthickness=1, highlightbackground=self.themeColor)
+        frame4.place(x=400, y=170)
         if self.result["qixue"]["available"] == 0:
             text = "奇穴信息获取失败。\n在进入战斗后查看目标的奇穴即可获取。\n如果是第一视角也可以自动获取。"
             tk.Label(frame4, text=text, justify="left").place(x=0, y=0)
