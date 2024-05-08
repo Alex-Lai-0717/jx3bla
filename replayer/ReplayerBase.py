@@ -90,7 +90,7 @@ class RankCalculator():
                     self.rank["healer"]["healEff"] = {"num": num, "percent": percent}
                     num, percent = self.getSkillPercent(occ, map, boss, "healer", "heal", record["heal"])
                     self.rank["healer"]["heal"] = {"num": num, "percent": percent}
-                    for stat in ["hps", "rhps", "ahps", "ohps"]:
+                    for stat in ["hps", "rhps", "ahps", "ohps", "chps"]:
                         num, percent = self.getSkillPercent(occ, map, boss, "healer", stat, record.get(stat, 0))
                         self.rank["healer"][stat] = {"num": num, "percent": percent}
 

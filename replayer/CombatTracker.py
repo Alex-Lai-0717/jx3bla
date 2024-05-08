@@ -488,7 +488,7 @@ class HealCastRecorder(StatRecorder):
         for skill in self.skill:
             self.skill[skill]["percent"] = safe_divide(self.skill[skill]["sum"], self.sum)
             self.skill[skill]["name"] = self.getSkillName(skill, info)
-        self.hps = self.sum / time * 1000
+        self.hps = safe_divide(self.sum * 1000, time)
         for skill in self.skill:
             if self.skill[skill]["name"] not in self.namedSkill:
                 self.namedSkill[self.skill[skill]["name"]] = {"sum": self.skill[skill]["sum"],
@@ -1417,17 +1417,17 @@ class CombatTracker():
                 self.boostCounter[player].addTargetBoost(event.target, effect_id, boostValue, source, 1, event.time)
                 self.boostRemove[effect_id + event.target] = {"time": event.time + 25000, "target": event.target, "boost": effect_id}
                 self.updateRemoveTime()
-        elif event.id in ["3963"]:  # 烈日斩
-            # print("[YishangDetect]", event.time, event.id, event.caster, self.info.getName(event.caster))
-            source = event.caster
-            if self.occDetailList.get(event.caster, "") == "10d":
-                source = "*低等级增益"
-            for player in self.boostCounter:
-                effect_id = "2,4418,1"
-                boostValue = BOOST_DICT[effect_id]
-                self.boostCounter[player].addTargetBoost(event.target, effect_id, boostValue, source, 1, event.time)
-                self.boostRemove[effect_id + event.target] = {"time": event.time + 12000, "target": event.target, "boost": effect_id}
-                self.updateRemoveTime()
+        # elif event.id in ["3963"]:  # 烈日斩
+        #     # print("[YishangDetect]", event.time, event.id, event.caster, self.info.getName(event.caster))
+        #     source = event.caster
+        #     if self.occDetailList.get(event.caster, "") == "10d":
+        #         source = "*低等级增益"
+        #     for player in self.boostCounter:
+        #         effect_id = "2,4418,1"
+        #         boostValue = BOOST_DICT[effect_id]
+        #         self.boostCounter[player].addTargetBoost(event.target, effect_id, boostValue, source, 1, event.time)
+        #         self.boostRemove[effect_id + event.target] = {"time": event.time + 12000, "target": event.target, "boost": effect_id}
+        #         self.updateRemoveTime()
 
         # print("[skill]", event.damageEff, event.damageEff > 0, event.caster in self.ndpsCast, event.target in self.info.npc, not self.excludeStatusDps)
             

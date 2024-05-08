@@ -30,13 +30,17 @@ class YuQinghongWindow(SpecificBossWindow):
         tb = TableConstructorMeta(self.config, frame1)
 
         self.constructCommonHeader(tb, "")
-        # tb.AppendHeader("1组剑", "对第1组剑的伤害量，红/蓝表示不同的分组。如果剑没有打掉，则会显示为浅色。")
+        tb.AppendHeader("梦蝶伤害", "对梦蝶造成的总伤害量。")
+        tb.AppendHeader("蝶雨次数", "被[炼红脂·蝶雨]命中的次数")
         tb.AppendHeader("心法复盘", "心法专属的复盘模式，只有很少心法中有实现。")
         tb.EndOfLine()
 
         for i in range(len(self.effectiveDPSList)):
             line = self.effectiveDPSList[i]
             self.constructCommonLine(tb, line)
+
+            tb.AppendContext(int(line["battle"]["mengdieDPS"]), color="#000000")
+            tb.AppendContext(int(line["battle"]["dieyuNum"]), color="#000000")
 
             # 心法复盘
             if line["name"] in self.occResult:
@@ -132,6 +136,9 @@ class YuQinghongReplayer(SpecificReplayerPro):
                             if key in self.bhInfo or self.debug:
                                 self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式命中玩家", "skill")
 
+                if event.id == "36974":
+                    self.statDict[event.target]["battle"]["dieyuNum"] += 1
+
             else:
                 if event.caster in self.bld.info.player and event.caster in self.statDict:
                     # self.stat[event.caster][2] += event.damageEff
@@ -213,6 +220,12 @@ class YuQinghongReplayer(SpecificReplayerPro):
                         #     self.bh.setEnvironment(self.bld.info.npc[event.id].templateID, skillName, "341", event.time, 0,
                         #                        1, "NPC出现", "npc")
 
+            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["梦蝶", "夢蝶"] and event.enter == 0:
+                if self.mengdieTime != 0:
+                    self.bh.setBadPeriod(self.mengdieTime, event.time, True, False)
+                    self.bh.setCritPeriod(self.mengdieTime - 2000, event.time, False, True)
+                    self.mengdieTime = 0
+
         elif event.dataType == "Death":  # 重伤记录
             if event.id in self.bld.info.npc and self.bld.info.getName(event.id) in ["雨轻红", "雨輕紅"]:
                 self.win = 1
@@ -245,6 +258,19 @@ class YuQinghongReplayer(SpecificReplayerPro):
                              "%s梦蝶开始唤醒" % time,
                              self.mengdie[id]["damageList"].copy(),
                              0])
+            if event.id == "37017":  # 蝶雨
+                if event.level == 1:
+                    self.bh.setBadPeriod(event.time, event.time + 10000, True, True)
+                else:
+                    self.bh.setBadPeriod(event.time, event.time + 20000, True, True)
+
+                if self.bld.info.map == "冷龙峰":
+                    self.bh.setCritPeriod(event.time - 5000, event.time + 10000, False, True)
+                elif self.bld.info.map == "25人普通冷龙峰":
+                    self.bh.setCritPeriod(event.time - 5000, event.time + 20000, False, True)
+
+            if event.id == "36987":  # 柔梦
+                self.mengdieTime = event.time + 3000  # 读条结束的时间
 
                     
     def analyseFirstStage(self, item):
@@ -272,7 +298,7 @@ class YuQinghongReplayer(SpecificReplayerPro):
         self.bhBlackList.extend(["s36925", "b27872", "s36926", "s37271",  # 炼红脂·迷雾
                                  "s36974",  # 炼红脂·蝶雨
                                  "s36935", "b27878",  # 炼红脂·香风
-                                 "s36983", "s36984",  # 炼红脂·归潮
+                                 "s36983", "s36984", "s36985", "s37188",  # 炼红脂·归潮
                                  "s36928",  # 掉落传送
                                  "s36988", "s37021",  # 炼红脂·柔梦:梦魇-扇形
                                  "c36994",  # 唤醒
@@ -293,18 +319,24 @@ class YuQinghongReplayer(SpecificReplayerPro):
         self.totalDamage = 0
         self.bossHP = 787500000
 
+        self.mengdieTime = 0
+
         if self.bld.info.map == "冷龙峰":
             self.bhInfo["c37017"] = ["9543", "#ff0000", 10000]
+            self.bh.critPeriodDesc = "从每次[炼红脂·蝶雨]之前5秒开始，到10秒读条结束"
         if self.bld.info.map == "25人普通冷龙峰":
             self.bossHP = 2590000000
+            self.bh.critPeriodDesc = "从每次[炼红脂·蝶雨]之前5秒开始，到20秒读条结束"
         if self.bld.info.map == "25人英雄冷龙峰":
             self.bossHP = 4121600000
+            self.bh.critPeriodDesc = "从每次[炼红脂·柔梦]之前5秒开始，到柔梦阶段结束"
 
         # 雨轻红数据格式：
-        # ？
+        # 梦蝶DPS，蝶雨次数
 
         for line in self.bld.info.player:
             self.statDict[line]["battle"] = {"mengdieDPS": 0,
+                                             "dieyuNum": 0,
                                              }
 
 
