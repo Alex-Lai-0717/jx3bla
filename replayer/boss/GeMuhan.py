@@ -138,7 +138,7 @@ class GeMuhanReplayer(SpecificReplayerPro):
 
             if event.id == "27994":  # 眩晕
                 if event.stack == 1:
-                    self.bh.setCall("27994", "疾雷·瞄准", "2019", event.time, 8000, event.target, "惊涛骇浪点名")
+                    self.bh.setCall("27994", "眩晕", "2019", event.time, 8000, event.target, "惊涛骇浪点名")
 
             if event.caster in self.bld.info.npc and event.stack > 0:
                 # 尝试记录buff事件

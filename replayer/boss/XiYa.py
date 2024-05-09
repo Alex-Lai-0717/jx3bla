@@ -113,6 +113,14 @@ class XiYaReplayer(SpecificReplayerPro):
                             if key in self.bhInfo or self.debug:
                                 self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式命中玩家", "skill")
 
+                if event.id == "37242" and event.time - self.lastCuican > 10000:
+                    self.lastCuican = event.time
+                    self.cuicanNum += 1
+                    if self.bld.info.map != "25人英雄冷龙峰":
+                        self.bh.setCritPeriod(event.time - 5000, event.time + 400, False, True)
+                    elif self.cuicanNum == 3:
+                        self.bh.setCritPeriod(event.time - 5000, self.finalTime, False, True)
+
             else:
                 if event.caster in self.bld.info.player and event.caster in self.statDict:
                     # self.stat[event.caster][2] += event.damageEff
@@ -136,6 +144,18 @@ class XiYaReplayer(SpecificReplayerPro):
                         key = "b%s" % event.id
                         if key in self.bhInfo or self.debug:
                             self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "玩家获得气劲", "buff")
+
+            if event.id == "28050":  # 红宝石
+                if event.stack == 1:
+                    self.bh.setCall("28050", "红宝石", "2654", event.time, 5000, event.target, "红宝石点名")
+
+            if event.id == "28052":  # 蓝宝石
+                if event.stack == 1:
+                    self.bh.setCall("28052", "蓝宝石", "2653", event.time, 5000, event.target, "蓝宝石点名")
+
+            if event.id == "28054":  # 绿宝石
+                if event.stack == 1:
+                    self.bh.setCall("28054", "绿宝石", "2652", event.time, 5000, event.target, "绿宝石点名")
 
         elif event.dataType == "Shout":
             if event.content in ['"嘿！看我这里有很多闪闪发光的宝石，猜猜都是什么呀？"']:
@@ -242,6 +262,16 @@ class XiYaReplayer(SpecificReplayerPro):
 
         # 喜雅数据格式：
         # ？
+
+        self.lastCuican = 0
+        self.cuicanNum = 0
+
+        if self.bld.info.map == "冷龙峰":
+            self.bh.critPeriodDesc = "从每次[诺布心决·璀璨]之前5秒开始，到0.4秒后三连AOE结束"
+        if self.bld.info.map == "25人普通冷龙峰":
+            self.bh.critPeriodDesc = "从每次[诺布心决·璀璨]之前5秒开始，到0.4秒后三连AOE结束"
+        if self.bld.info.map == "25人英雄冷龙峰":
+            self.bh.critPeriodDesc = "从第三次[诺布心决·璀璨]开始，到整个战斗结束"
 
         for line in self.bld.info.player:
             self.statDict[line]["battle"] = {}
