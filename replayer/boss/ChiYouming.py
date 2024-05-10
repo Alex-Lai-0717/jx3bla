@@ -30,13 +30,23 @@ class ChiYoumingWindow(SpecificBossWindow):
         tb = TableConstructorMeta(self.config, frame1)
 
         self.constructCommonHeader(tb, "")
-        # tb.AppendHeader("1组剑", "对第1组剑的伤害量，红/蓝表示不同的分组。如果剑没有打掉，则会显示为浅色。")
-        tb.AppendHeader("心法复盘", "心法专属的复盘模式，只有很少心法中有实现。")
+
+        tb.AppendHeader("P1DPS", "对P1[赤幽明]的DPS。\n阶段持续时间：%s" % parseTime(self.detail["P1Time"]))
+        tb.AppendHeader("P2DPS", "对P2[赤幽明]的DPS。\n阶段持续时间：%s" % parseTime(self.detail["P1Time"]))
+        tb.AppendHeader("倒影伤害", "对[血凝黑镜]产生的[倒影]的伤害。")
+        tb.AppendHeader("群攻黑影伤害", "在P2，对[真神光耀]之后产生的[游荡黑影]的伤害。这个伤害一般由群攻产生。")
+        tb.AppendHeader("单体黑影伤害", "在P2，对[旋转火刀]之后产生的[游荡黑影]的伤害。这个伤害一般由单体产生。")
         tb.EndOfLine()
 
         for i in range(len(self.effectiveDPSList)):
             line = self.effectiveDPSList[i]
             self.constructCommonLine(tb, line)
+
+            tb.AppendContext(int(line["battle"]["P1DPS"]))
+            tb.AppendContext(int(line["battle"]["P2DPS"]))
+            tb.AppendContext(int(line["battle"]["daoyingDPS"]))
+            tb.AppendContext(int(line["battle"]["heiyingDPS1"]))
+            tb.AppendContext(int(line["battle"]["heiyingDPS2"]))
 
             # 心法复盘
             if line["name"] in self.occResult:
@@ -63,6 +73,9 @@ class ChiYoumingReplayer(SpecificReplayerPro):
         self.bh.printEnvironmentInfo()
         # print(self.bh.log)
 
+        self.detail["P1Time"] = int(self.phaseTime[1] / 1000)
+        self.detail["P2Time"] = int(self.phaseTime[2] / 1000)
+
     def getResult(self):
         '''
         生成复盘结果的流程。需要维护effectiveDPSList, potList与detail。
@@ -74,6 +87,8 @@ class ChiYoumingReplayer(SpecificReplayerPro):
         for id in self.bld.info.player:
             if id in self.statDict:
                 res = self.getBaseList(id)
+                res["battle"]["P1DPS"] = int(safe_divide(res["battle"]["P1DPS"], self.detail["P1Time"]))
+                res["battle"]["P2DPS"] = int(safe_divide(res["battle"]["P2DPS"], self.detail["P2Time"]))
                 bossResult.append(res)
         self.statList = bossResult
 
@@ -113,12 +128,32 @@ class ChiYoumingReplayer(SpecificReplayerPro):
                             if key in self.bhInfo or self.debug:
                                 self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式命中玩家", "skill")
 
+                if event.id == "37002" and event.time - self.lastHuodaoEnd > 1000:  # 旋转火刀震爆
+                    self.lastHuodaoEnd = event.time
+                    self.bh.setCritPeriod(event.time - 5000, event.time, False, True)
+                    if self.lastHuodaoStart != 0:
+                        self.bh.setBadPeriod(self.lastHuodaoStart, event.time, True, False)
+                        self.lastHuodaoStart = 0
+
             else:
                 if event.caster in self.bld.info.player and event.caster in self.statDict:
                     # self.stat[event.caster][2] += event.damageEff
                     if event.target in self.bld.info.npc:
                         if self.bld.info.getName(event.target) in ["赤幽明"]:
                             self.bh.setMainTarget(event.target)
+                            if self.phase == 1:
+                                self.statDict[event.caster]["battle"]["P1DPS"] += event.damageEff
+                            elif self.phase == 2:
+                                self.statDict[event.caster]["battle"]["P2DPS"] += event.damageEff
+                        if self.bld.info.getName(event.target) in ["倒影"]:
+                            self.statDict[event.caster]["battle"]["daoyingDPS"] += event.damageEff
+                        if self.bld.info.getName(event.target) in ["游荡黑影", "遊蕩黑影"]:
+                            if self.heiying.get(event.target, 0) == 1:
+                                self.statDict[event.caster]["battle"]["heiyingDPS1"] += event.damageEff
+                            elif self.heiying.get(event.target, 0) == 2:
+                                self.statDict[event.caster]["battle"]["heiyingDPS2"] += event.damageEff
+                    # if self.bld.info.getName(event.caster) == "解雨笺·梦江南" and event.damageEff > 0:
+                    #     print("[heiyingTest]", self.statDict[event.caster]["battle"]["heiyingDPS1"], event.time, event.damageEff, self.heiying.get(event.target, 0), self.bld.info.getName(event.caster), self.bld.info.getName(event.target), self.bld.info.getSkillName(event.full_id), parseTime((event.time - self.startTime) / 1000))
 
         elif event.dataType == "Buff":
             if event.target not in self.bld.info.player:
@@ -163,19 +198,20 @@ class ChiYoumingReplayer(SpecificReplayerPro):
             elif event.content in ['"你还好吗？没料到你身处险境。"']:
                 pass
             elif event.content in ['"呃……"']:
-                pass
+                self.changePhase(event.time, 0)
             elif event.content in ['"威严的、光辉灿烂的阿胡拉·马兹达！我祈求取之不尽，用之不竭的力量和压倒一切的优势……赐予我的哥哥。"']:
                 pass
             elif event.content in ['"啊……"']:
                 pass
             elif event.content in ['"我，在此申明！我崇拜马兹达！追随琐罗亚斯德！是众妖魔的敌人和祆教的信徒！"']:
-                pass
+                self.bh.setBadPeriod(self.phaseStart, event.time, True, True)
+                self.changePhase(event.time, 2)
             elif event.content in ['"啊……伟大的马兹达！快来庇佑我吧！庇佑我一千次！庇佑我一万次！"']:
                 pass
             elif event.content in ['"渎神者必将沉没于黑暗中！"']:
                 self.bh.setEnvironment("0", "漆黑泥沼·P2", "12449", event.time, 0, 1, "喊话", "shout")
             elif event.content in ['"让黑暗的帷幕在火焰中焚灼！"']:
-                pass
+                self.lastHuodao = event.time
             elif event.content in ['"住手！"']:
                 pass
             elif event.content in ['"住手！"']:
@@ -199,6 +235,12 @@ class ChiYoumingReplayer(SpecificReplayerPro):
                         if key in self.bhInfo:
                             self.bh.setEnvironment(self.bld.info.npc[event.id].templateID, skillName, "341", event.time, 0,
                                                1, "NPC出现", "npc")
+            if event.id in self.bld.info.npc and event.enter and self.bld.info.npc[event.id].name in ["游荡黑影", "遊蕩黑影"]:
+                if event.id not in self.heiying:
+                    if event.time - self.lastHuodao > 10000:
+                        self.heiying[event.id] = 1
+                    else:
+                        self.heiying[event.id] = 2
 
         elif event.dataType == "Death":  # 重伤记录
             pass
@@ -217,6 +259,9 @@ class ChiYoumingReplayer(SpecificReplayerPro):
                     skillName = self.bld.info.getSkillName(event.full_id)
                     if "," not in skillName:
                         self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式开始运功", "cast")
+
+            if event.id == "36999":  # 旋转火刀
+                self.lastHuodaoStart = event.time
                     
     def analyseFirstStage(self, item):
         '''
@@ -234,7 +279,7 @@ class ChiYoumingReplayer(SpecificReplayerPro):
         self.activeBoss = "赤幽明"
         self.debug = 1
 
-        self.initPhase(1, 1)
+        self.initPhase(2, 1)
 
         self.immuneStatus = 0
         self.immuneHealer = 0
@@ -263,10 +308,21 @@ class ChiYoumingReplayer(SpecificReplayerPro):
                        }
 
         # 赤幽明数据格式：
-        # ？
+        # P1, P2, 倒影, 群攻黑影, 单体黑影
+
+        self.heiying = {}
+        self.lastHuodaoStart = 0
+        self.lastHuodao = 0
+        self.lastHuodaoEnd = 0
+
+        self.bh.critPeriodDesc = "从每次[旋转火刀]的[余焰震爆]之前5秒开始，到伤害出现时结束"
 
         for line in self.bld.info.player:
-            self.statDict[line]["battle"] = {}
+            self.statDict[line]["battle"] = {"P1DPS": 0,
+                                             "P2DPS": 0,
+                                             "daoyingDPS": 0,
+                                             "heiyingDPS1": 0,
+                                             "heiyingDPS2": 0,}
 
 
     def __init__(self, bld, occDetailList, startTime, finalTime, battleTime, bossNamePrint, config):

@@ -121,11 +121,19 @@ class YingyankeReplayer(SpecificReplayerPro):
                             if key in self.bhInfo or self.debug:
                                 self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式命中玩家", "skill")
 
+                if event.id in ["37498", "37075"] and event.time - self.lastYingji > 1000:
+                    self.lastYingji = event.time
+                    self.bh.setCritPeriod(event.time - 5000, event.time + 10000, False, True)
+
+                if event.id in ["37541"] and self.win == 0:
+                    self.win = 1
+                    self.bh.setBadPeriod(event.time, self.finalTime, True, True)
+
             else:
                 if event.caster in self.bld.info.player and event.caster in self.statDict:
                     # self.stat[event.caster][2] += event.damageEff
                     if event.target in self.bld.info.npc:
-                        if self.bld.info.getName(event.target) in ["鹰眼客"]:
+                        if self.bld.info.getName(event.target) in ["鹰眼客", "鷹眼客"]:
                             self.bh.setMainTarget(event.target)
 
         elif event.dataType == "Buff":
@@ -142,6 +150,29 @@ class YingyankeReplayer(SpecificReplayerPro):
                         key = "b%s" % event.id
                         if key in self.bhInfo or self.debug:
                             self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "玩家获得气劲", "buff")
+
+            if event.id == "28018":  # 深暗之缚
+                # print("[Shenantest]", event.time, event.stack, event.target, self.bld.info.getName(event.target))
+                if event.stack == 1:
+                    self.lastShenan[event.target] = event.time
+                if event.stack == 0 and self.lastShenan[event.target] != 0:
+                    self.bh.setCall("28018", "深暗之缚", "3437", self.lastShenan[event.target], event.time - self.lastShenan[event.target], event.target, "深暗之缚点名")
+
+            if event.id == "28110":
+                if event.stack == 1:
+                    if self.paoquanStart == 0:
+                        self.paoquanStart = event.time
+                    if self.lastShenan[event.target] != 0:
+                        self.statDict[event.target]["stunTime"] += event.time - self.lastShenan[event.target]
+                        self.stunCounter[event.target].setState(self.lastShenan[event.target], 1)
+                        self.stunCounter[event.target].setState(event.time, 0)
+                        # print("[shenanTest]", event.time, self.lastShenan[event.target])
+                if event.stack == 0 and self.lastShenan[event.target] != 0:
+                    self.lastShenan[event.target] = 0
+                    if self.paoquanStart != 0:
+                        self.bh.setBadPeriod(self.paoquanStart, event.time, True, True)
+                        self.paoquanStart = 0
+
 
         elif event.dataType == "Shout":
             if event.content in ['"出去玩玩！"']:
@@ -257,6 +288,8 @@ class YingyankeReplayer(SpecificReplayerPro):
         self.totalDamage = 0
         self.bossHP = 798000000
 
+        self.bh.critPeriodDesc = "从每次[鹰击长空]之前5秒开始，到10秒后DOT结束"
+
         if self.bld.info.map == "冷龙峰":
             pass
         if self.bld.info.map == "25人普通冷龙峰":
@@ -264,11 +297,16 @@ class YingyankeReplayer(SpecificReplayerPro):
         if self.bld.info.map == "25人英雄冷龙峰":
             self.bossHP = 5624000000
 
+        self.lastYingji = 0
+        self.lastShenan = {}
+        self.paoquanStart = 0
+
         # 鹰眼客数据格式：
         # ？
 
         for line in self.bld.info.player:
             self.statDict[line]["battle"] = {}
+            self.lastShenan[line] = 0
 
 
     def __init__(self, bld, occDetailList, startTime, finalTime, battleTime, bossNamePrint, config):

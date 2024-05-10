@@ -1191,9 +1191,13 @@ class CombatTracker():
                 pass
             elif hanQingFlag:  # 寒清的响应式统计
                 self.ahpsCast[event.caster].record(event.target, "5," + event.full_id, event.healEff)
+                if self.critStatusHealer:
+                    self.chpsCast[event.caster].record(event.target, "5," + event.full_id, event.healEff)
                 self.rhpsRecorder.record(event.caster, event.target, event.heal, event.healEff, "5," + event.full_id, self.hpStatus[event.target]["status"])
             elif event.full_id in ['"1,29748,1"', '"1,23951,2"']:  # 其它响应式处理
                 self.ahpsCast[event.caster].record(event.target, "5," + event.full_id, event.healEff)
+                if self.critStatusHealer:
+                    self.chpsCast[event.caster].record(event.target, "5," + event.full_id, event.healEff)
                 self.rhpsRecorder.record(event.caster, event.target, event.heal, event.healEff, "5," + event.full_id, self.hpStatus[event.target]["status"])
             else:
                 self.hpsCast[event.caster].record(event.target, event.full_id, event.healEff)
