@@ -285,7 +285,7 @@ class ChiYoumingReplayer(SpecificReplayerPro):
         self.immuneHealer = 0
         self.immuneTime = 0
 
-        self.bhBlackList.extend(["s37010", "s36995", "s37011", "b28064", "b27945", "s37539"  # 普攻
+        self.bhBlackList.extend(["s37010", "s36995", "s37011", "b28064", "b27945", "s37539",  # 普攻
                                  "b27946", "s37008",  # 漆黑泥沼
                                  "b27953", "c37208", "s37001", "b27934", "s37002",  # 旋转火刀
                                  "s37013", "b27937",  # 旋转火刀·P2
