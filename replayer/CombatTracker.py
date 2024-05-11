@@ -500,9 +500,14 @@ class HealCastRecorder(StatRecorder):
 
         for target in self.target:
             self.target[target]["percent"] = safe_divide(self.target[target]["sum"], self.sum)
-            self.namedTarget[info.getName(target)] = {}
-            for key in ["sum", "num", "percent"]:
-                self.namedTarget[info.getName(target)][key] = self.target[target][key]
+            name = info.getName(target)
+            if name not in self.namedTarget:
+                self.namedTarget[info.getName(target)] = {}
+                for key in ["sum", "num", "percent"]:
+                    self.namedTarget[info.getName(target)][key] = self.target[target][key]
+            else:
+                for key in ["sum", "num", "percent"]:
+                    self.namedTarget[info.getName(target)][key] += self.target[target][key]
 
     def record(self, target, skill, value):
         '''
@@ -626,9 +631,14 @@ class DpsCastRecorder(StatRecorder):
 
         for target in self.target:
             self.target[target]["percent"] = safe_divide(self.target[target]["sum"], self.sum)
-            self.namedTarget[info.getName(target)] = {}
-            for key in ["sum", "num", "percent"]:
-                self.namedTarget[info.getName(target)][key] = self.target[target][key]
+            name = info.getName(target)
+            if name not in self.namedTarget:
+                self.namedTarget[info.getName(target)] = {}
+                for key in ["sum", "num", "percent"]:
+                    self.namedTarget[info.getName(target)][key] = self.target[target][key]
+            else:
+                for key in ["sum", "num", "percent"]:
+                    self.namedTarget[info.getName(target)][key] += self.target[target][key]
 
         self.sourceDamage = 0
         if "自身伤害" in self.source:
@@ -638,9 +648,13 @@ class DpsCastRecorder(StatRecorder):
             self.source[source]["percent"] = safe_divide(self.source[source]["sum"], self.sourceDamage)
             self.source[source]["name"] = self.getSkillName(source, info)
             name = self.source[source]["name"]
-            self.namedSource[name] = {}
-            for key in ["sum", "num", "percent"]:
-                self.namedSource[name][key] = self.source[source][key]
+            if name not in self.namedSource:
+                self.namedSource[name] = {}
+                for key in ["sum", "num", "percent"]:
+                    self.namedSource[name][key] = self.source[source][key]
+            else:
+                for key in ["sum", "num", "percent"]:
+                    self.namedSource[name][key] += self.source[source][key]
             # 在此计算覆盖率
             cover = -1
             sourceBuff = source[2:]

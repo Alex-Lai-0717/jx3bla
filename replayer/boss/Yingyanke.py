@@ -175,23 +175,23 @@ class YingyankeReplayer(SpecificReplayerPro):
 
 
         elif event.dataType == "Shout":
-            if event.content in ['"出去玩玩！"']:
+            if event.content in ['"出去玩玩！"', '"出去玩玩！"']:
                 pass
-            elif event.content in ['"撕碎你的心脏！"']:
+            elif event.content in ['"撕碎你的心脏！"', '"撕碎你的心臟！"']:
                 pass
-            elif event.content in ['"藏在哪儿呢？"']:
+            elif event.content in ['"藏在哪儿呢？"', '"藏在哪儿呢？"']:
                 pass
-            elif event.content in ['"抓住你了！"']:
+            elif event.content in ['"抓住你了！"', '"抓住你了！"']:
                 pass
-            elif event.content in ['"救他？那尔等以死代之！"']:
+            elif event.content in ['"救他？那尔等以死代之！"', '"救他？那爾等以死代之！"']:
                 pass
-            elif event.content in ['"救她？那尔等以死代之！"']:
+            elif event.content in ['"救她？那尔等以死代之！"', '"救她？那爾等以死代之！"']:
                 pass
-            elif event.content in ['"你们，都是我的了！"']:
+            elif event.content in ['"你们，都是我的了！"', '"你們，都是我的了！"']:
                 pass
-            elif event.content in ['"你的归宿，便是大地之怀！"']:
+            elif event.content in ['"你的归宿，便是大地之怀！"', '"你的歸宿，便是大地之懷！"']:
                 pass
-            elif event.content in ['"逃吧！逃吧！让我一个个取走你们的命！"']:
+            elif event.content in ['"逃吧！逃吧！让我一个个取走你们的命！"', '"逃吧！逃吧！讓我一個個取走你們的命！"']:
                 pass
             elif event.content in ['""']:
                 pass

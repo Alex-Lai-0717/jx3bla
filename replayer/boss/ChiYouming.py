@@ -171,46 +171,46 @@ class ChiYoumingReplayer(SpecificReplayerPro):
                             self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "玩家获得气劲", "buff")
 
         elif event.dataType == "Shout":
-            if event.content in ['"来吧！以阿胡拉之名，击败你们这些妖孽！"']:
-                pass
-            elif event.content in ['"好好感受陷入深渊的感觉吧……"']:
+            if event.content in ['"来吧！以阿胡拉之名，击败你们这些妖孽！"', '"來吧！以阿胡拉之名，擊敗你們這些妖孽！"']:
+                self.bh.setBadPeriod(self.startTime, event.time - 1000, True, True)
+            elif event.content in ['"好好感受陷入深渊的感觉吧……"', '"好好感受陷入深淵的感覺吧…"']:
                 self.bh.setEnvironment("0", "漆黑泥沼", "12449", event.time, 0, 1, "喊话", "shout")
-            elif event.content in ['"怎么可能……亵渎之人，神必将你们焚烧殆尽……"']:
+            elif event.content in ['"怎么可能……亵渎之人，神必将你们焚烧殆尽……"', ''"怎麼可能…褻瀆之人，神必將你們焚燒殆盡…"]:
                 self.win = 1
-            elif event.content in ['"以烈火和熔铁，对灵魂做出判决！"']:
+            elif event.content in ['"以烈火和熔铁，对灵魂做出判决！"', '"以烈火和熔鐵，對靈魂做出判決！"']:
                 pass
-            elif event.content in ['"我来抓你咯……渎神者。"']:
+            elif event.content in ['"我来抓你咯……渎神者。"', '"我來抓你咯…瀆神者。"']:
                 self.bh.setEnvironment("0", "游荡黑影", "3432", event.time, 0, 1, "喊话", "shout")
-            elif event.content in ['"照照你们的丑陋嘴脸吧！"']:
+            elif event.content in ['"照照你们的丑陋嘴脸吧！"', '"照照你們的醜陋嘴臉吧！"']:
                 self.bh.setEnvironment("0", "黑镜", "4547", event.time, 0, 1, "喊话", "shout")
-            elif event.content in ['"没有信仰的人，只有死路一条！"']:
+            elif event.content in ['"没有信仰的人，只有死路一条！"', '"沒有信仰的人，只有死路一條！"']:
                 pass
-            elif event.content in ['"闪耀着灵光的众灵体啊，放射出刺眼的光芒吧！"']:
+            elif event.content in ['"闪耀着灵光的众灵体啊，放射出刺眼的光芒吧！"', '"閃耀著靈光的眾靈體啊，放射出刺眼的光芒吧！"']:
                 pass
-            elif event.content in ['"嘿嘿嘿嘿……"']:
+            elif event.content in ['"嘿嘿嘿嘿……"', '"嘿嘿嘿嘿……"']:
                 pass
-            elif event.content in ['"啊，威严的、光辉灿烂的阿胡拉·马兹达！指引我的方向吧！"']:
+            elif event.content in ['"啊，威严的、光辉灿烂的阿胡拉·马兹达！指引我的方向吧！"', '"啊，威嚴的、光輝燦爛的阿胡拉·馬茲達！指引我的方向吧！"']:
                 pass
-            elif event.content in ['"喝啊！"']:
+            elif event.content in ['"喝啊！"', '"喝啊！"']:
                 pass
-            elif event.content in ['"住手！"']:
+            elif event.content in ['"住手！"', '"住手！"']:
                 pass
-            elif event.content in ['"你还好吗？没料到你身处险境。"']:
+            elif event.content in ['"你还好吗？没料到你身处险境。"', '"你還好嗎？沒料到你身處險境。"']:
                 pass
-            elif event.content in ['"呃……"']:
+            elif event.content in ['"呃……"', '"呃…"']:
                 self.changePhase(event.time, 0)
-            elif event.content in ['"威严的、光辉灿烂的阿胡拉·马兹达！我祈求取之不尽，用之不竭的力量和压倒一切的优势……赐予我的哥哥。"']:
+            elif event.content in ['"威严的、光辉灿烂的阿胡拉·马兹达！我祈求取之不尽，用之不竭的力量和压倒一切的优势……赐予我的哥哥。"', '"威嚴的、光輝燦爛的阿胡拉·馬茲達！我祈求取之不盡，用之不竭的力量和壓倒一切的優勢……賜予我的哥哥。"']:
                 pass
-            elif event.content in ['"啊……"']:
+            elif event.content in ['"啊……"', '"啊…"']:
                 pass
-            elif event.content in ['"我，在此申明！我崇拜马兹达！追随琐罗亚斯德！是众妖魔的敌人和祆教的信徒！"']:
+            elif event.content in ['"我，在此申明！我崇拜马兹达！追随琐罗亚斯德！是众妖魔的敌人和祆教的信徒！"', '"我，在此申明！我崇拜馬茲達！追隨瑣羅亞斯德！是眾妖魔的敵人和祆教的信徒！"']:
                 self.bh.setBadPeriod(self.phaseStart, event.time, True, True)
                 self.changePhase(event.time, 2)
-            elif event.content in ['"啊……伟大的马兹达！快来庇佑我吧！庇佑我一千次！庇佑我一万次！"']:
+            elif event.content in ['"啊……伟大的马兹达！快来庇佑我吧！庇佑我一千次！庇佑我一万次！"', '"啊…偉大的馬茲達！快來庇佑我吧！庇佑我一千次！庇佑我一萬次！"']:
                 pass
-            elif event.content in ['"渎神者必将沉没于黑暗中！"']:
+            elif event.content in ['"渎神者必将沉没于黑暗中！"', '"瀆神者必將沉沒於黑暗中！"']:
                 self.bh.setEnvironment("0", "漆黑泥沼·P2", "12449", event.time, 0, 1, "喊话", "shout")
-            elif event.content in ['"让黑暗的帷幕在火焰中焚灼！"']:
+            elif event.content in ['"让黑暗的帷幕在火焰中焚灼！"', '"讓黑暗的帷幕在火焰中焚燒！"']:
                 self.lastHuodao = event.time
             elif event.content in ['"住手！"']:
                 pass

@@ -178,17 +178,17 @@ class YuQinghongReplayer(SpecificReplayerPro):
                             self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "玩家获得气劲", "buff")
 
         elif event.dataType == "Shout":
-            if event.content in ['"呵……有多少人情愿沉沦长梦而不得，你又何必挣扎清醒？"']:
+            if event.content in ['"呵……有多少人情愿沉沦长梦而不得，你又何必挣扎清醒？"', '"呵…有多少人情願沉淪長夢而不得，你又何必掙扎清醒？"']:
+                self.bh.setBadPeriod(self.startTime, event.time - 1000, True, True)
+            elif event.content in ['"香风飘散。"', '"香風飄散。"']:
                 pass
-            elif event.content in ['"香风飘散。"']:
+            elif event.content in ['"蝴蝶的飞舞，让深陷其中者无法自拔。"', '"蝴蝶的飛舞，讓深陷其中者無法自拔。"']:
                 pass
-            elif event.content in ['"蝴蝶的飞舞，让深陷其中者无法自拔。"']:
+            elif event.content in ['"沐浴在迷雾之中吧。"', '"沐浴在迷霧之中吧。"']:
                 pass
-            elif event.content in ['"沐浴在迷雾之中吧。"']:
+            elif event.content in ['"潮起潮落，你的生死只在一线之间。"', '"潮起潮落，你的生死只在一線之間。"']:
                 pass
-            elif event.content in ['"潮起潮落，你的生死只在一线之间。"']:
-                pass
-            elif event.content in ['"沉浸在我的梦魇之中，陷入无尽的恐惧与迷离吧！"']:
+            elif event.content in ['"沉浸在我的梦魇之中，陷入无尽的恐惧与迷离吧！"', '"沉浸在我的夢魘之中，陷入無盡的恐懼與迷離吧！"']:
                 pass
             elif event.content in ['""']:
                 pass

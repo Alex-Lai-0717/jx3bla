@@ -155,15 +155,15 @@ class GeMuhanReplayer(SpecificReplayerPro):
                             self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "玩家获得气劲", "buff")
 
         elif event.dataType == "Shout":
-            if event.content in ['"左满舵！老子纵横海上未尝败绩，你们这些败类尽管来吧！"']:
+            if event.content in ['"左满舵！老子纵横海上未尝败绩，你们这些败类尽管来吧！"', '"左滿舵！老子縱橫海上未嘗敗績，你們這些敗類儘管來吧！"']:
+                self.bh.setBadPeriod(self.startTime, event.time - 1000, True, True)
+            elif event.content in ['"老子这一刀，海浪都能劈开！"', '"老子這一刀，海浪都能劈開！"']:
                 pass
-            elif event.content in ['"老子这一刀，海浪都能劈开！"']:
+            elif event.content in ['"见识下真正的海浪吧！"', '"見識下真正的海浪吧！"']:
                 pass
-            elif event.content in ['"见识下真正的海浪吧！"']:
+            elif event.content in ['"弟兄们，上，快上！"', '"弟兄們，上，快上！"']:
                 pass
-            elif event.content in ['"弟兄们，上，快上！"']:
-                pass
-            elif event.content in ['"快放箭，放箭！"']:
+            elif event.content in ['"快放箭，放箭！"', '"快放箭，放箭！"']:
                 self.bh.setEnvironment("0", event.content, "3450", event.time, 0, 1, "喊话", "shout")
             elif event.content in ['""']:
                 pass
