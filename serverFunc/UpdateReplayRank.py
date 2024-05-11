@@ -71,7 +71,7 @@ def getSingleStat(record):
         for line in d["healer"]["table"]:
             if line["name"] == record[1]:
                 key4 = "healer"
-                for key5 in ["heal", "healEff", "rhps", "hps", "ahps", "ohps"]:
+                for key5 in ["heal", "healEff", "rhps", "hps", "ahps", "ohps", "chps"]:
                     if key5 not in line:
                         continue
                     key = "%s-%s-%s-%s-%s-%s" % (key1, key2, key3, key4, key5, key6)

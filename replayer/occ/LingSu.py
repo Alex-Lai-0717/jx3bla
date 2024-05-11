@@ -479,6 +479,8 @@ class LingSuReplayer(HealerReplay):
                                "29214",  # 枯木读条
                                "28478",  # 降低目标加速
                                "29535",  # 逐云寒蕊额外伤害
+                               "33332",  # 妒茵
+                               "36061",  # 岚微 TODO 统计这个
                                ]
 
         for event in self.bld.log:

@@ -366,6 +366,9 @@ class YunChangXinJingReplayer(HealerReplay):
 
         self.initFirstState()
 
+        self.hxpyJiguangInfer = 0
+        hxpyLastCast = 0
+
         for event in self.bld.log:
 
             if event.time < self.startTime:
@@ -377,10 +380,19 @@ class YunChangXinJingReplayer(HealerReplay):
 
             self.eventInFirstState(event)
             if event.dataType == "Skill":
-                pass
+                if event.caster == self.mykey and event.scheme == 1:
+                    if event.id in ["6250", "6654", "6655", "6656"]:
+                        # 回雪的运算。此处是推测逻辑，较为复杂，有心重构可以大胆尝试。
+                        if event.time - hxpyLastCast > 15 and event.time - hxpyLastCast < 500:
+                            self.hxpyJiguangInfer += 1
 
             elif event.dataType == "Buff":
                 pass
+
+            elif event.dataType == "Cast":
+                if event.caster == self.mykey and event.id == "565":
+                    # 回雪飘摇
+                    hxpyLastCast = event.time
 
         self.completeFirstState()
         return 0
@@ -412,7 +424,7 @@ class YunChangXinJingReplayer(HealerReplay):
                      [None, "天地低昂", ["557"], "1498", True, 0, False, True, 35, 1],
                      [None, "左旋右转", ["6251"], "904", True, 16, True, True, 45, 1],
                      [None, "泠风解怀", ["30851"], "17172", True, 0, False, True, 40, 1],
-                     # [None, "回雪飘摇", ["6250"], "894", False, 16, True, True],
+                     [None, "回雪飘摇", ["6250", "6654", "6655", "6656"], "894", True, 13, True, True, 0, 1],
                      [None, "蝶弄足", ["574"], "915", False, 0, False, True, 75, 2],
                      [None, "鹊踏枝", ["550"], "912", False, 0, False, True, 60, 2],
                      [None, "繁音急节", ["568"], "1502", False, 0, False, True, 54, 1],
@@ -473,6 +485,7 @@ class YunChangXinJingReplayer(HealerReplay):
         hxpyCastList = []
         hxpySingleNum = 0
         hxpySingleList = []
+        # hxpyLastCast = 0
 
         hxpyTime = getLength(13, self.haste)  # TODO 判断瑰姿
 
@@ -523,10 +536,6 @@ class YunChangXinJingReplayer(HealerReplay):
                     # 所有治疗技能都不计算化解.
                     continue
 
-                    # 统计自身技能使用情况.
-                    # if event.caster == self.mykey and event.scheme == 1 and event.id in xiangZhiUnimportant and event.heal != 0:
-                    #     print(event.id, event.time)
-
                 if event.caster == self.mykey and event.scheme == 1:
                     # 根据技能表进行自动处理
                     if event.id in self.gcdSkillIndex:
@@ -547,6 +556,16 @@ class YunChangXinJingReplayer(HealerReplay):
                         if skillObj is not None:
                             skillObj.recordSkill(event.time, event.heal, event.healEff, event.damage, event.damageEff, lastTime=self.ss.timeEnd, delta=-1)
 
+
+                    # if event.id in ["6250", "6654", "6655", "6656"]:
+                    #     print("[Jiguang]", event.id, event.time, self.bld.info.getSkillName(event.full_id),
+                    #           event.healEff,
+                    #           self.bld.info.getName(event.caster), self.bld.info.getName(event.target))
+                    # else:
+                    #     print("[test]", event.id, event.time, self.bld.info.getSkillName(event.full_id),
+                    #           event.healEff,
+                    #           self.bld.info.getName(event.caster), self.bld.info.getName(event.target))
+
                     # 统计不计入时间轴的治疗量
                     if event.id in ["6209"]:  # 辞致
                         cizhiHeal += event.healEff
@@ -561,7 +580,7 @@ class YunChangXinJingReplayer(HealerReplay):
                     if event.id in ["6250", "6654", "6655", "6656"]:  # 回雪飘摇
                         hxpySkill.recordSkill(event.time, event.heal, event.healEff, event.damage, event.damageEff, lastTime=0)
                         # 回雪也计入战斗效率中
-                        if event.time - hxpyDict.log[-1][0] > 200:
+                        if event.time - hxpyDict.log[-1][0] > 200 and not self.hxpyJiguangInfer:
                             hxpyDict.setState(event.time - hxpyTime, 1)
                             hxpyDict.setState(event.time, 0)
                     if event.id in ["6249"]:  # 双鸾
@@ -578,6 +597,8 @@ class YunChangXinJingReplayer(HealerReplay):
                                 sydhWrong += 1
                     if event.id in ["6250", "6654", "6655", "6656"]:
                         # 回雪的运算。此处是推测逻辑，较为复杂，有心重构可以大胆尝试。
+                        # if event.time - hxpyLastCast > 15 and event.time - hxpyLastCast < 500:
+                        #     self.hxpyJiguangInfer += 1
                         timeDiff = event.time - hxpyLastSkill
                         reset = 0
                         flag = 1
@@ -660,7 +681,10 @@ class YunChangXinJingReplayer(HealerReplay):
                     if hxpySingleNum > 0:
                         hxpySingleList.append(hxpySingleNum)
                     hxpySingleNum = 0
+                    # hxpyLastCast = event.time
                     # print("[HxpyCast]", event.time, event.id)
+                # if event.caster == self.mykey:
+                #     print("[Cast]", event.id, event.time)
 
         # 记录最后一个技能
         self.completeSecondState()

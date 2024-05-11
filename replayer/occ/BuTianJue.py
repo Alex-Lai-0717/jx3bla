@@ -503,6 +503,7 @@ class BuTianJueReplayer(HealerReplay):
                                "32762",  # 千蝶子技能
                                "15206",  # 删除必会心效果 #TODO 更精准的判定
                                "21824",  # 收菜
+                               "34684",  # 迷仙引梦额外治疗
                                ]
 
         for event in self.bld.log:

@@ -264,10 +264,12 @@ class YingyankeReplayer(SpecificReplayerPro):
                                  "c37234", "s37045",  # 碎心利爪
                                  "b27921", "s37034", "b27922", "s37035",   # 毒刀
                                  "b27993", "b27995", "s37138",  # 狩命
-                                 "b28036",  # 鹰击长空流血
+                                 "b28036", "s37499", "s37495",  # 鹰击长空流血
                                  "b28165", "b28035",  # 深暗之缚其它buff
                                  "s37198",  # 推人
                                  "b28110",  # 跑圈
+                                 "b28352",  # 无法动弹
+
 
                                  ])
         self.bhBlackList = self.mergeBlackList(self.bhBlackList, self.config)

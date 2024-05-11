@@ -249,6 +249,7 @@ class XiYaReplayer(SpecificReplayerPro):
                                  "s37242",  # 诺布心决·璀璨
                                  "s37193",  # 反噬
                                  "s37210", "s37211",  # 星驰
+                                 "b28295",  # 惩罚debuff
                                  ])
         self.bhBlackList = self.mergeBlackList(self.bhBlackList, self.config)
 
@@ -258,6 +259,7 @@ class XiYaReplayer(SpecificReplayerPro):
                        "c37229": ["9525", "#77ff77", 3000],  # 诺布心决·璀璨
                        "c37178": ["344", "#ff0077", 10000],  # 诺布心决·炽烈
                        "c37206": ["9527", "#ff7700", 5000],  # 诺布心决·星驰
+                       "c37454": ["9533", "#77ff00", 20000],  # 虚弱
                        }
 
         # 喜雅数据格式：

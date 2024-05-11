@@ -285,7 +285,7 @@ class ChiYoumingReplayer(SpecificReplayerPro):
         self.immuneHealer = 0
         self.immuneTime = 0
 
-        self.bhBlackList.extend(["s37010", "s36995", "s37011", "b28064", "b27945",  # 普攻
+        self.bhBlackList.extend(["s37010", "s36995", "s37011", "b28064", "b27945", "s37539"  # 普攻
                                  "b27946", "s37008",  # 漆黑泥沼
                                  "b27953", "c37208", "s37001", "b27934", "s37002",  # 旋转火刀
                                  "s37013", "b27937",  # 旋转火刀·P2
@@ -296,6 +296,7 @@ class ChiYoumingReplayer(SpecificReplayerPro):
                                  "b28267",  # 黑镜
                                  "s37129", "b28137",   # 游荡黑影
                                  "s37014", "s37041",   # 恶毒利刃
+                                 "c37530",  # 结束剧情
                                  ])
         self.bhBlackList = self.mergeBlackList(self.bhBlackList, self.config)
 

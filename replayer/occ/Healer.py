@@ -430,6 +430,11 @@ class HealerReplay(ReplayerBase):
                 if self.anxiangTimeIndex[event.target] < len(self.anxiangTimeDict[event.target]) and \
                         abs(event.time - self.anxiangTimeDict[event.target][self.anxiangTimeIndex[event.target]]) < 100:
                     skip = 1
+        elif self.occ == "yunchangxinjing":
+            # 回雪的特殊判断
+            if event.id in ["6250", "6654", "6655", "6656"]:
+                if self.hxpyJiguangInfer == 0:
+                    skip = 1
         if not skip:
             ss.analyseSkill(event, castTime, line[0], tunnel=line[6], hasteAffected=line[7])
             targetName = "Unknown"
@@ -486,7 +491,7 @@ class HealerReplay(ReplayerBase):
                 elif event.id in self.nonGcdSkillIndex:  # 特殊技能
                     pass
                 # 无法分析的技能，或者统计被隐藏的治疗量
-                # elif event.id not in self.unimportantSkill:  # and event.heal != 0:
+                # elif event.id not in self.unimportantSkill and event.heal != 0:
                 #     print("[NonRec]", event.id, event.time, self.bld.info.getSkillName(event.full_id), event.healEff,
                 #           self.bld.info.getName(event.caster), self.bld.info.getName(event.target))
 
@@ -548,6 +553,7 @@ class HealerReplay(ReplayerBase):
                                "14358",  # 删除羽减伤
                                "14250",  # 平吟删减伤
                                "2918",  # 可能和天策技能有关的驱散
+                               "33613",  # 治疗腰带附魔
                             ]
 
         # 战斗回放初始化
