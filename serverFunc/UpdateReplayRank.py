@@ -116,6 +116,8 @@ def getAllStat(records):
         allFilteredResults[key] = []
         for uid in allResults[key]:
             allFilteredResults[key].append(allResults[key][uid])
+        if key == "linghaijue-670-葛木寒-general-mrdps-111":
+            print(key, allFilteredResults[key])
     return allFilteredResults
 
 def getPercent(records):
@@ -171,12 +173,12 @@ def updatePercent(raw_rank, cursor, db):
 
         # 新赛季更新时删除，后续再进行改动
         try:
-            if int(key2) <= 636 or int(key2) in [648]:
+            if int(key2) <= 648:
                 continue
         except:
             sql = """UPDATE ReplayProStat SET hold=0 WHERE hash = '%s'""" % hash
             cursor.execute(sql)
-            # continue
+            continue
 
         for id in STAT_ID:
             key4 = "stat"
@@ -187,11 +189,11 @@ def updatePercent(raw_rank, cursor, db):
             order = json.loads(raw_rank[key]["value"])
             value = record[STAT_ID[id]]
             rank = getRank(value, order)
-            print("updating database")
+            # print("updating database")
             if rank is not None:
                 sql = """UPDATE ReplayProStat SET %sRank = %d WHERE hash = '%s'""" % (id, rank, hash)
                 cursor.execute(sql)
-            print("updated!")
+            # print("updated!")
 
         # TODO 在一周后恢复
         # sql = """UPDATE ReplayProStat SET hold=0 WHERE hash = '%s'""" % hash
