@@ -428,11 +428,11 @@ def getRank(value, table):
     percent = l
     return percent
     
-def getRankFromKeys(value, occ, map, boss, name, key):
+def getRankFromKeys(value, occ, map, boss, name, key, gameEdition):
     '''
     按key的格式，从数据库中找到对应的百分比排名.
     '''
-    percent_key = "%s-%s-%s-%s-%s" % (occ, map, boss, name, key)
+    percent_key = "%s-%s-%s-%s-%s-%s" % (occ, map, boss, name, key, gameEdition)
     if percent_key in app.percent_data:
         table = json.loads(app.percent_data[percent_key]["value"])
         rank = getRank(value, table)
@@ -517,19 +517,19 @@ def receiveReplay(jdata, cursor):
     with open("database/ReplayProStat/%d" % shortID, "w") as f:
         f.write(str(statistics))
 
-    scoreRank = getRankFromKeys(score, occ, map, boss, "stat", "score")
+    scoreRank = getRankFromKeys(score, occ, map, boss, "stat", "score", gameEdition)
     rhps = statistics["skill"]["healer"].get("rhps", 0)
-    rhpsRank = getRankFromKeys(score, occ, map, boss, "stat", "rhps")
+    rhpsRank = getRankFromKeys(score, occ, map, boss, "stat", "rhps", gameEdition)
     hps = statistics["skill"]["healer"].get("hps", 0)
-    hpsRank = getRankFromKeys(score, occ, map, boss, "stat", "hps")
+    hpsRank = getRankFromKeys(score, occ, map, boss, "stat", "hps", gameEdition)
     rdps = statistics["skill"]["general"].get("rdps", 0)
-    rdpsRank = getRankFromKeys(score, occ, map, boss, "stat", "rdps")
+    rdpsRank = getRankFromKeys(score, occ, map, boss, "stat", "rdps", gameEdition)
     ndps = statistics["skill"]["general"].get("ndps", 0)
-    ndpsRank = getRankFromKeys(score, occ, map, boss, "stat", "ndps")
+    ndpsRank = getRankFromKeys(score, occ, map, boss, "stat", "ndps", gameEdition)
     mrdps = statistics["skill"]["general"].get("mrdps", 0)
-    mrdpsRank = getRankFromKeys(score, occ, map, boss, "stat", "mrdps")
+    mrdpsRank = getRankFromKeys(score, occ, map, boss, "stat", "mrdps", gameEdition)
     mndps = statistics["skill"]["general"].get("mndps", 0)
-    mndpsRank = getRankFromKeys(score, occ, map, boss, "stat", "mndps")
+    mndpsRank = getRankFromKeys(score, occ, map, boss, "stat", "mndps", gameEdition)
     hold = 1
 
     del statistics
