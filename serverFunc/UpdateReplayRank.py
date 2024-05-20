@@ -41,7 +41,10 @@ def getSingleStat(record):
         print("Problem:", record[8])
         return {}
 
-    if record[1] != d["overall"]["playerID"]:
+    playerIDloaded = d["overall"]["playerID"]
+    if "·" in playerIDloaded:
+        playerIDloaded = playerIDloaded.split("·")[0]
+    if record[1] != playerIDloaded:
         return {}
     else:
         pass
@@ -116,8 +119,8 @@ def getAllStat(records):
         allFilteredResults[key] = []
         for uid in allResults[key]:
             allFilteredResults[key].append(allResults[key][uid])
-        if key == "linghaijue-670-葛木寒-general-mrdps-111":
-            print(key, allFilteredResults[key])
+        # if key == "linghaijue-670-葛木寒-general-mrdps-111":
+        #     print(key, allFilteredResults[key], allResults[key])
     return allFilteredResults
 
 def getPercent(records):
