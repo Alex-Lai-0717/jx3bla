@@ -19,6 +19,8 @@ for line in result:
     id = line[0]
     f = "database/ReplayProStat/%s" % id
     os.system("rm %s" % f)
+    sql = '''DELETE FROM ReplayProStat WHERE shortID=%s;''' % id
+    cursor.execute(sql)
 
 db.commit()
 db.close()
