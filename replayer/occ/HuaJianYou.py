@@ -1100,7 +1100,12 @@ class HuaJianYouReplayer(DpsReplayer):
         self.myRdpsSource = {}
         # print("[Keys]", self.act.rdps["player"].keys())
         # print("[Mykey]", self.mykey)
+        # print("[Debug]", self.mykey)
+        self.myRdpsSkill = {}
+        self.myAdjustedTime = 1000
+        self.myRdpsSource = {}
         for player in self.act.rdps["player"]:
+            # print("[Debug1]", player)
             if player == self.mykey:
                 self.myRdpsSource = self.act.rdps["player"][player]["namedSource"]
                 self.myRdpsSkill = self.act.rdps["player"][player]["namedSkill"]
@@ -1116,14 +1121,14 @@ class HuaJianYouReplayer(DpsReplayer):
         self.result["skill"]["ymz"]["rdps"] = 0
         if "阳明指" in self.myRdpsSkill:
             self.result["skill"]["ymz"]["rdps"] = int(self.myRdpsSkill["阳明指"]["sum"] / self.myAdjustedTime * 1000)
-        self.result["skill"]["ymz"]["rdpsRate"] = roundCent(self.result["skill"]["ymz"]["rdps"] / self.result["skill"]["general"]["rdps"])
+        self.result["skill"]["ymz"]["rdpsRate"] = roundCent(safe_divide(self.result["skill"]["ymz"]["rdps"] , self.result["skill"]["general"]["rdps"]))
 
         # 商阳
         self.calculateSkillInfoDirect("syz", syzBuff)
         self.result["skill"]["syz"]["rdps"] = 0
         if "商阳指(持续)" in self.myRdpsSkill:
             self.result["skill"]["syz"]["rdps"] = int(self.myRdpsSkill["商阳指(持续)"]["sum"] / self.myAdjustedTime * 1000)
-        self.result["skill"]["syz"]["rdpsRate"] = roundCent(self.result["skill"]["syz"]["rdps"] / self.result["skill"]["general"]["rdps"])
+        self.result["skill"]["syz"]["rdpsRate"] = roundCent(safe_divide(self.result["skill"]["syz"]["rdps"] , self.result["skill"]["general"]["rdps"]))
         overallHeat = []
         for target in self.dotSY:
             singleHeat = self.dotSY[target].getHeatTable(500, 1)["timeline"]
@@ -1150,7 +1155,7 @@ class HuaJianYouReplayer(DpsReplayer):
         self.result["skill"]["zlyx"]["rdps"] = 0
         if "钟林毓秀(持续)" in self.myRdpsSkill:
             self.result["skill"]["zlyx"]["rdps"] = int(self.myRdpsSkill["钟林毓秀(持续)"]["sum"] / self.myAdjustedTime * 1000)
-        self.result["skill"]["zlyx"]["rdpsRate"] = roundCent(self.result["skill"]["zlyx"]["rdps"] / self.result["skill"]["general"]["rdps"])
+        self.result["skill"]["zlyx"]["rdpsRate"] = roundCent(safe_divide(self.result["skill"]["zlyx"]["rdps"] , self.result["skill"]["general"]["rdps"]))
         overallHeat = []
         for target in self.dotZL:
             singleHeat = self.dotZL[target].getHeatTable(500, 1)["timeline"]
@@ -1176,8 +1181,8 @@ class HuaJianYouReplayer(DpsReplayer):
         self.calculateSkillInfoDirect("lcyz", lcyzBuff)
         self.result["skill"]["lcyz"]["rdps"] = 0
         if "兰摧玉折(持续)" in self.myRdpsSkill:
-            self.result["skill"]["lcyz"]["rdps"] = int(self.myRdpsSkill["兰摧玉折(持续)"]["sum"] / self.myAdjustedTime * 1000)
-        self.result["skill"]["lcyz"]["rdpsRate"] = roundCent(self.result["skill"]["lcyz"]["rdps"] / self.result["skill"]["general"]["rdps"])
+            self.result["skill"]["lcyz"]["rdps"] = int(safe_divide(self.myRdpsSkill["兰摧玉折(持续)"]["sum"] , self.myAdjustedTime * 1000))
+        self.result["skill"]["lcyz"]["rdpsRate"] = roundCent(safe_divide(self.result["skill"]["lcyz"]["rdps"] , self.result["skill"]["general"]["rdps"]))
         overallHeat = []
         for target in self.dotLC:
             singleHeat = self.dotLC[target].getHeatTable(500, 1)["timeline"]
@@ -1203,14 +1208,14 @@ class HuaJianYouReplayer(DpsReplayer):
         kxskill = self.calculateSkillInfo("kxsq", "2636")
         self.result["skill"]["kxsq"]["rdps"] = 0
         if "快雪时晴" in self.myRdpsSkill:
-            self.result["skill"]["kxsq"]["rdps"] = int(self.myRdpsSkill["快雪时晴"]["sum"] / self.myAdjustedTime * 1000)
-        self.result["skill"]["kxsq"]["rdpsRate"] = roundCent(self.result["skill"]["kxsq"]["rdps"] / self.result["skill"]["general"]["rdps"])
+            self.result["skill"]["kxsq"]["rdps"] = int(safe_divide(self.myRdpsSkill["快雪时晴"]["sum"] , self.myAdjustedTime * 1000))
+        self.result["skill"]["kxsq"]["rdpsRate"] = roundCent(safe_divide(self.result["skill"]["kxsq"]["rdps"] , self.result["skill"]["general"]["rdps"]))
 
         self.calculateSkillInfoDirect("kxsqdot", kxsqBuff)
         self.result["skill"]["kxsqdot"]["rdps"] = 0
         if "快雪时晴(持续)" in self.myRdpsSkill:
-            self.result["skill"]["kxsqdot"]["rdps"] = int(self.myRdpsSkill["快雪时晴(持续)"]["sum"] / self.myAdjustedTime * 1000)
-        self.result["skill"]["kxsqdot"]["rdpsRate"] = roundCent(self.result["skill"]["kxsqdot"]["rdps"] / self.result["skill"]["general"]["rdps"])
+            self.result["skill"]["kxsqdot"]["rdps"] = int(safe_divide(self.myRdpsSkill["快雪时晴(持续)"]["sum"] , self.myAdjustedTime * 1000))
+        self.result["skill"]["kxsqdot"]["rdpsRate"] = roundCent(safe_divide(self.result["skill"]["kxsqdot"]["rdps"] , self.result["skill"]["general"]["rdps"]))
         overallHeat = []
         for target in self.dotKX:
             singleHeat = self.dotKX[target].getHeatTable(500, 1)["timeline"]
@@ -1236,15 +1241,15 @@ class HuaJianYouReplayer(DpsReplayer):
         ysjfSkill = self.calculateSkillInfo("ysjf", "182")
         self.result["skill"]["ysjf"]["rdps"] = 0
         if "玉石俱焚" in self.myRdpsSkill:
-            self.result["skill"]["ysjf"]["rdps"] = int(self.myRdpsSkill["玉石俱焚"]["sum"] / self.myAdjustedTime * 1000)
-        self.result["skill"]["ysjf"]["rdpsRate"] = roundCent(self.result["skill"]["ysjf"]["rdps"] / self.result["skill"]["general"]["rdps"])
+            self.result["skill"]["ysjf"]["rdps"] = int(safe_divide(self.myRdpsSkill["玉石俱焚"]["sum"] , self.myAdjustedTime * 1000))
+        self.result["skill"]["ysjf"]["rdpsRate"] = roundCent(safe_divide(self.result["skill"]["ysjf"]["rdps"] , self.result["skill"]["general"]["rdps"]))
 
         # 芙蓉
         frbdSkill = self.calculateSkillInfo("frbd", "186")
         self.result["skill"]["frbd"]["rdps"] = 0
         if "芙蓉并蒂" in self.myRdpsSkill:
-            self.result["skill"]["frbd"]["rdps"] = int(self.myRdpsSkill["芙蓉并蒂"]["sum"] / self.myAdjustedTime * 1000)
-        self.result["skill"]["frbd"]["rdpsRate"] = roundCent(self.result["skill"]["frbd"]["rdps"] / self.result["skill"]["general"]["rdps"])
+            self.result["skill"]["frbd"]["rdps"] = int(safe_divide(self.myRdpsSkill["芙蓉并蒂"]["sum"] , self.myAdjustedTime * 1000))
+        self.result["skill"]["frbd"]["rdpsRate"] = roundCent(safe_divide(self.result["skill"]["frbd"]["rdps"] , self.result["skill"]["general"]["rdps"]))
 
         # 一部分公有逻辑可以在其它心法实现后提到外面
         self.result["skill"]["general"]["efficiency"] = self.bh.getNormalEfficiency(base="dps")
