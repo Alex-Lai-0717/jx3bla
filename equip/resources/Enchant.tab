@@ -57,16 +57,16 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 56	精金战甲		护手永久增加御劲7	atToughnessBase	7	7	12																										10				0	0
 57	龙血磨石		武器永久增加吸血效果1级	atDamageToLifeForSelf	1	1	400																										0				0	0
 58	鬼虎甲片		上装全属性永久增加3点	atBasePotentialAdd	3	3	1																										2				0	0
-59	磨石		武器临时伤害提高1	atMeleeWeaponDamageBase	1	1	0																									1800	0				3	0
-60	海上磨石		武器临时伤害提高1	atMeleeWeaponDamageBase	1	1	0																									1800	0				3	0
-61	粗砂磨石		武器临时伤害提高2	atMeleeWeaponDamageBase	2	2	0																									1800	0				3	0
-62	金刚磨石		武器临时伤害提高2	atMeleeWeaponDamageBase	2	2	0																									1800	0				3	0
-63	内云磨石		武器临时伤害提高3	atMeleeWeaponDamageBase	3	3	0																									1800	0				3	0
-64	天台磨石		武器临时伤害提高3	atMeleeWeaponDamageBase	3	3	0																									1800	0				3	0
+59	磨石		武器临时伤害提高1	atMeleeWeaponDamageBase	1	1	0																									1800	0				11	0
+60	海上磨石		武器临时伤害提高1	atMeleeWeaponDamageBase	1	1	0																									1800	0				11	0
+61	粗砂磨石		武器临时伤害提高2	atMeleeWeaponDamageBase	2	2	0																									1800	0				11	0
+62	金刚磨石		武器临时伤害提高2	atMeleeWeaponDamageBase	2	2	0																									1800	0				11	0
+63	内云磨石		武器临时伤害提高3	atMeleeWeaponDamageBase	3	3	0																									1800	0				11	0
+64	天台磨石		武器临时伤害提高3	atMeleeWeaponDamageBase	3	3	0																									1800	0				11	0
 65	银龙磨石		武器全内功防御永久提升3点	atMagicShield	3	3	5																										0				0	0
 66	银龙甲片		护手体质永久提升4点	atVitalityBase	4	4	7																										10				0	0
 67	玄铁磨石		武器永久增加伤害3	atMeleeWeaponDamageBase	3	3	3																										0				0	0
-68	龙台磨石		武器临时伤害提高3	atMeleeWeaponDamageBase	3	3	0																									1800	0				3	0
+68	龙台磨石		武器临时伤害提高3	atMeleeWeaponDamageBase	3	3	0																									1800	0				11	0
 69	玄铁甲片		上装外功防御永久提升5点	atPhysicsShieldAdditional	5	5	8																										2				0	0
 70	百鬼磨石		武器永久增加外功会心13	atPhysicsCriticalStrike	13	13	11																										0				0	0
 71	獬豸甲片		上装永久增加体质6点	atVitalityBase	6	6	10																										2				0	0
@@ -406,10 +406,10 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 407	田黄甲片（鞋子）		治疗量永久提升14点（鞋子）	atTherapyPowerBase	14	14	25																										9				0	0
 408	云英甲片（头部）		破招永久提升18点（头部）	atSurplusValueBase	18	18	15																										3				0	0
 409	云锡甲片（鞋子）		破招永久提升18点（鞋子）	atSurplusValueBase	18	18	15																										9				0	0
-410	瀑沙熔锭		武器临时伤害提升4点（武器）	atMeleeWeaponDamageBase	4	4	0																									1800	0				3	0
-411	坠宵熔锭		内功临时攻击提升16点（武器）	atMagicAttackPowerBase	16	16	0																									1800	0				3	0
-412	絮泊熔锭		治疗量临时提升14点（武器）	atTherapyPowerBase	14	14	0																									1800	0				3	0
-413	巨灵熔锭		仇恨临时提升3%（武器）	atActiveThreatCoefficient	0	31	0																									1800	0				3	0
+410	瀑沙熔锭		武器临时伤害提升4点（武器）	atMeleeWeaponDamageBase	4	4	0																									1800	0				11	0
+411	坠宵熔锭		内功临时攻击提升16点（武器）	atMagicAttackPowerBase	16	16	0																									1800	0				11	0
+412	絮泊熔锭		治疗量临时提升14点（武器）	atTherapyPowerBase	14	14	0																									1800	0				11	0
+413	巨灵熔锭		仇恨临时提升3%（武器）	atActiveThreatCoefficient	0	31	0																									1800	0				11	0
 414	青龙磨石		内功攻击永久提升16点（武器）	atMagicAttackPowerBase	16	16	26																										0				0	0
 415	白虎磨石		武器伤害永久提升4点（武器）	atMeleeWeaponDamageBase	4	4	5																										0				0	0
 416	燧棱磨石		仇恨永久提升3%（武器）	atActiveThreatCoefficient	0	31	35																										0				0	0
@@ -5584,7 +5584,7 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 5585	明朗·铸（外功破防）	鞋子	外功破防永久提升20点	atPhysicsOvercomeBase	20	20	17																										9				0	0
 5586	明朗·铸（内功破防）	鞋子	内功破防永久提升20点	atMagicOvercome	20	20	17																										9				0	0
 5587	明朗·铸（仇恨）	鞋子	仇恨百分比永久提升4%	atActiveThreatCoefficient	0	41	47																										9				0	0
-5588	明朗·熔锭（疗伤）		疗伤量永久提升16点	atTherapyPowerBase	16	16	0																									1800	0				3	0
+5588	明朗·熔锭（疗伤）		疗伤量永久提升16点	atTherapyPowerBase	16	16	0																									1800	0				11	0
 5589	彩·征服·固本·吸星(肆)	35357		atBasePotentialAdd	110	110	0	5	3	12	60	atManaReplenishExt	301	301	5	3	14	72				0	0	0	0									5	25434			
 5590	彩·征服·固本·吸星(伍)	35358		atBasePotentialAdd	137	137	0	5	3	14	75	atManaReplenishExt	377	377	5	3	16	90				0	0	0	0									5	0			
 5591	彩·征服·固本·嗜血(肆)	35097		atBasePotentialAdd	110	110	0	5	3	12	60	atDamageToLifeForSelf	51	51	5	3	14	72				0	0	0	0									5	25436			
@@ -5943,8 +5943,8 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 5944	行军·铸（内破）	鞋子	内功破防提升12	atMagicOvercome	12	12	0																										9				0	0
 5945	行军·磨石（外伤）	武器	外功攻击提升12	atPhysicsAttackPowerBase	12	12	0																										0				0	0
 5946	行军·磨石（内伤）	武器	内功攻击提升12	atMagicAttackPowerBase	12	12	0																										0				0	0
-5947	行军·熔锭（外伤）	武器	外功攻击提升12	atPhysicsAttackPowerBase	12	12	0																									1800	0				3	0
-5948	行军·熔锭（内伤）	武器	内功攻击提升12	atMagicAttackPowerBase	12	12	0																									1800	0				3	0
+5947	行军·熔锭（外伤）	武器	外功攻击提升12	atPhysicsAttackPowerBase	12	12	0																									1800	0				11	0
+5948	行军·熔锭（内伤）	武器	内功攻击提升12	atMagicAttackPowerBase	12	12	0																									1800	0				11	0
 5949	安戎·锻（根骨）	头部	根骨提升14	atSpiritBase	14	14	0																										3				0	0
 5950	安戎·锻（身法）	头部	身法提升14	atAgilityBase	14	14	0																										3				0	0
 5951	安戎·锻（外破）	头部	外功破防提升24	atPhysicsOvercomeBase	24	24	0																										3				0	0
@@ -5969,10 +5969,10 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 5970	安戎·磨石（内伤）	武器	内功攻击提升22	atMagicAttackPowerBase	22	22	0																										0				0	0
 5971	安戎·磨石（疗伤）	武器	疗伤成效提升19	atTherapyPowerBase	19	19	0																										0				0	0
 5972	安戎·磨石（武伤）	武器	武器伤害提升4	atMeleeWeaponDamageBase	4	4	0																										0				0	0
-5973	安戎·熔锭（外伤）	武器	外功攻击提升27	atPhysicsAttackPowerBase	27	27	0																									1800	0				3	0
-5974	安戎·熔锭（内伤）	武器	内功攻击提升33	atMagicAttackPowerBase	33	33	0																									1800	0				3	0
-5975	安戎·熔锭（疗伤）	武器	疗伤成效提升29	atTherapyPowerBase	29	29	0																									1800	0				3	0
-5976	安戎·熔锭（武伤）	武器	武器伤害提升6	atMeleeWeaponDamageBase	6	6	0																									1800	0				3	0
+5973	安戎·熔锭（外伤）	武器	外功攻击提升27	atPhysicsAttackPowerBase	27	27	0																									1800	0				11	0
+5974	安戎·熔锭（内伤）	武器	内功攻击提升33	atMagicAttackPowerBase	33	33	0																									1800	0				11	0
+5975	安戎·熔锭（疗伤）	武器	疗伤成效提升29	atTherapyPowerBase	29	29	0																									1800	0				11	0
+5976	安戎·熔锭（武伤）	武器	武器伤害提升6	atMeleeWeaponDamageBase	6	6	0																									1800	0				11	0
 5977	固·安戎·锻（根骨）	头部	根骨提升15	atSpiritBase	15	15	58																										3				0	0
 5978	固·安戎·锻（身法）	头部	身法提升15	atAgilityBase	15	15	58																										3				0	0
 5979	固·安戎·锻（外破）	头部	外功破防提升27	atPhysicsOvercomeBase	27	27	23																										3				0	0
@@ -5997,10 +5997,10 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 5998	固·安戎·磨石（内伤）	武器	内功攻击提升25	atMagicAttackPowerBase	25	25	41																										0				0	0
 5999	固·安戎·磨石（疗伤）	武器	疗伤成效提升22	atTherapyPowerBase	22	22	41																										0				0	0
 6000	固·安戎·磨石（武伤）	武器	武器伤害提升5	atMeleeWeaponDamageBase	5	5	6																										0				0	0
-6001	固·安戎·熔锭（外伤）	武器	外功攻击提升31	atPhysicsAttackPowerBase	31	31	0																									1800	0				3	0
-6002	固·安戎·熔锭（内伤）	武器	内功攻击提升37	atMagicAttackPowerBase	37	37	0																									1800	0				3	0
-6003	固·安戎·熔锭（疗伤）	武器	疗伤成效提升32	atTherapyPowerBase	32	32	0																									1800	0				3	0
-6004	固·安戎·熔锭（武伤）	武器	武器伤害提升7	atMeleeWeaponDamageBase	7	7	0																									1800	0				3	0
+6001	固·安戎·熔锭（外伤）	武器	外功攻击提升31	atPhysicsAttackPowerBase	31	31	0																									1800	0				11	0
+6002	固·安戎·熔锭（内伤）	武器	内功攻击提升37	atMagicAttackPowerBase	37	37	0																									1800	0				11	0
+6003	固·安戎·熔锭（疗伤）	武器	疗伤成效提升32	atTherapyPowerBase	32	32	0																									1800	0				11	0
+6004	固·安戎·熔锭（武伤）	武器	武器伤害提升7	atMeleeWeaponDamageBase	7	7	0																									1800	0				11	0
 6005	线刻·金鸣	戒指	仇恨百分比提升3%	atActiveThreatCoefficient	0	31	35																										5				0	0
 6006	线刻·韬光	戒指	外功攻击提升2	atPhysicsAttackPowerBase	2	2	4																										5				0	0
 6007	线刻·养晦	戒指	内功攻击提升3	atMagicAttackPowerBase	3	3	4																										5				0	0
@@ -6172,10 +6172,10 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 6173	剑胆·磨石（内伤）	武器	内功攻击提升44点	atMagicAttackPowerBase	44	44	70																										0				0	0
 6174	剑胆·磨石（疗伤）	武器	疗伤成效提升39点	atTherapyPowerBase	39	39	70																										0				0	0
 6175	剑胆·磨石（武伤）	武器	武器伤害提升8点	atMeleeWeaponDamageBase	8	8	9																										0				0	0
-6176	剑胆·熔锭（外伤）	武器	外功攻击提升55点	atPhysicsAttackPowerBase	55	55	0																									1800	0				3	0
-6177	剑胆·熔锭（内伤）	武器	内功攻击提升67点	atMagicAttackPowerBase	67	67	0																									1800	0				3	0
-6178	剑胆·熔锭（疗伤）	武器	疗伤成效提升58点	atTherapyPowerBase	58	58	0																									1800	0				3	0
-6179	剑胆·熔锭（武伤）	武器	武器伤害提升13点	atMeleeWeaponDamageBase	13	13	0																									1800	0				3	0
+6176	剑胆·熔锭（外伤）	武器	外功攻击提升55点	atPhysicsAttackPowerBase	55	55	0																									1800	0				11	0
+6177	剑胆·熔锭（内伤）	武器	内功攻击提升67点	atMagicAttackPowerBase	67	67	0																									1800	0				11	0
+6178	剑胆·熔锭（疗伤）	武器	疗伤成效提升58点	atTherapyPowerBase	58	58	0																									1800	0				11	0
+6179	剑胆·熔锭（武伤）	武器	武器伤害提升13点	atMeleeWeaponDamageBase	13	13	0																									1800	0				11	0
 6180	佳·剑胆·锻（根骨）	帽子	根骨提升21点	atSpiritBase	21	21	82																										3				0	0
 6181	佳·剑胆·锻（身法）	帽子	身法提升21点	atAgilityBase	21	21	82																										3				0	0
 6182	佳·剑胆·锻（外破）	帽子	外功破防等级提升56点	atPhysicsOvercomeBase	56	56	49																										3				0	0
@@ -6202,10 +6202,10 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 6203	佳·剑胆·磨石（内伤）	武器	内功攻击提升50点	atMagicAttackPowerBase	50	50	82																										0				0	0
 6204	佳·剑胆·磨石（疗伤）	武器	疗伤成效提升43点	atTherapyPowerBase	43	43	82																										0				0	0
 6205	佳·剑胆·磨石（武伤）	武器	武器伤害提升9点	atMeleeWeaponDamageBase	9	9	11																										0				0	0
-6206	佳·剑胆·熔锭（外伤）	武器	外功攻击提升62点	atPhysicsAttackPowerBase	62	62	0																									1800	0				3	0
-6207	佳·剑胆·熔锭（内伤）	武器	内功攻击提升75点	atMagicAttackPowerBase	75	75	0																									1800	0				3	0
-6208	佳·剑胆·熔锭（疗伤）	武器	疗伤成效提升65点	atTherapyPowerBase	65	65	0																									1800	0				3	0
-6209	佳·剑胆·熔锭（武伤）	武器	武器伤害提升14点	atMeleeWeaponDamageBase	14	14	0																									1800	0				3	0
+6206	佳·剑胆·熔锭（外伤）	武器	外功攻击提升62点	atPhysicsAttackPowerBase	62	62	0																									1800	0				11	0
+6207	佳·剑胆·熔锭（内伤）	武器	内功攻击提升75点	atMagicAttackPowerBase	75	75	0																									1800	0				11	0
+6208	佳·剑胆·熔锭（疗伤）	武器	疗伤成效提升65点	atTherapyPowerBase	65	65	0																									1800	0				11	0
+6209	佳·剑胆·熔锭（武伤）	武器	武器伤害提升14点	atMeleeWeaponDamageBase	14	14	0																									1800	0				11	0
 6210	五行石（一级）	153185					0																															
 6211	五行石（二级）	153186					0																															
 6212	五行石（三级）	153187					0																															
@@ -6262,7 +6262,7 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 6263	珍·风骨·铸（外会）	鞋子	外功会心等级提升68点	atPhysicsCriticalStrike	68	68	60																										9				0	0
 6264	珍·风骨·铸（内会）	鞋子	内功会心等级提升68点	atMagicCriticalStrike	68	68	60																										9				0	0
 6265	珍·风骨·磨石（疗伤）	武器	疗伤成效提升53点	atTherapyPowerBase	53	53	98																										0				0	0
-6266	珍·风骨·熔锭（疗伤）	武器限时	疗伤成效提升80点	atTherapyPowerBase	80	80	0																									1800	0				3	0
+6266	珍·风骨·熔锭（疗伤）	武器限时	疗伤成效提升80点	atTherapyPowerBase	80	80	0																									1800	0				11	0
 6267	珍·风骨·印（外伤）	下装	外功攻击提升51点	atPhysicsAttackPowerBase	51	51	100																										8				0	0
 6268	珍·风骨·印（内伤）	下装	内功攻击提升61点	atMagicAttackPowerBase	61	61	100																										8				0	0
 6269	珍·风骨·染（外伤）	护腕	外功攻击提升51点	atPhysicsAttackPowerBase	51	51	100																										10				0	0
@@ -6288,9 +6288,9 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 6289	珍·风骨·磨石（外伤）	武器	外功攻击提升51点	atPhysicsAttackPowerBase	51	51	100																										0				0	0
 6290	珍·风骨·磨石（内伤）	武器	内功攻击提升61点	atMagicAttackPowerBase	61	61	100																										0				0	0
 6291	珍·风骨·磨石（武伤）	武器	武器伤害提升12点	atMeleeWeaponDamageBase	12	12	15																										0				0	0
-6292	珍·风骨·熔锭（外伤）	武器限时	外功攻击提升92点	atPhysicsAttackPowerBase	92	92	0																									1800	0				3	0
-6293	珍·风骨·熔锭（内伤）	武器限时	内功攻击提升80点	atMagicAttackPowerBase	80	80	0																									1800	0				3	0
-6294	珍·风骨·熔锭（武伤）	武器限时	武器伤害提升17点	atMeleeWeaponDamageBase	12	12	0																									1800	0				3	0
+6292	珍·风骨·熔锭（外伤）	武器限时	外功攻击提升92点	atPhysicsAttackPowerBase	92	92	0																									1800	0				11	0
+6293	珍·风骨·熔锭（内伤）	武器限时	内功攻击提升80点	atMagicAttackPowerBase	80	80	0																									1800	0				11	0
+6294	珍·风骨·熔锭（武伤）	武器限时	武器伤害提升17点	atMeleeWeaponDamageBase	12	12	0																									1800	0				11	0
 6295	珍·重制·印（外伤）	下装	外功攻击提升62点	atPhysicsAttackPowerBase	62	62	121																										8					
 6296	珍·重制·印（内伤）	下装	内功攻击提升75点	atMagicAttackPowerBase	75	75	121																										8					
 6297	珍·重制·印（疗伤）	下装	疗伤成效提升65点	atTherapyPowerBase	65	65	121																										8					
@@ -6690,9 +6690,9 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 10317	仙踪·兵·铸（内伤）	武器	内功攻击提升82点	atMagicAttackPowerBase	82	82	133																										0				0	0
 10318	仙踪·兵·铸（疗伤）	武器	疗伤成效提升74点	atTherapyPowerBase	74	74	133																										0				0	0
 10319	仙踪·兵·铸（武伤）	武器	武器伤害提升102点	atMeleeWeaponDamageBase	102	102	133																										0				0	0
-10320	仙踪·兵·熔（外伤）	武器限时	外功攻击提升102点	atPhysicsAttackPowerBase	102	102	0																									1800	0				3	0
-10321	仙踪·兵·熔（内伤）	武器限时	内功攻击提升122点	atMagicAttackPowerBase	122	122	0																									1800	0				3	0
-10322	仙踪·兵·熔（疗伤）	武器限时	疗伤成效提升110点	atTherapyPowerBase	110	110	0																									1800	0				3	0
+10320	仙踪·兵·熔（外伤）	武器限时	外功攻击提升102点	atPhysicsAttackPowerBase	102	102	0																									1800	0				11	0
+10321	仙踪·兵·熔（内伤）	武器限时	内功攻击提升122点	atMagicAttackPowerBase	122	122	0																									1800	0				11	0
+10322	仙踪·兵·熔（疗伤）	武器限时	疗伤成效提升110点	atTherapyPowerBase	110	110	0																									1800	0				11	0
 10323	仙踪·兵·铸（仇恨）	武器	仇恨百分比提升26%	atActiveThreatCoefficient	0	266	133																										0				0	0
 10324	仙踪·裤·铸（身法）	下装	身法提升34点	atAgilityBase	34	34	133																										8				0	0
 10325	仙踪·裤·铸（元气）	下装	元气提升34点	atSpunkBase	34	34	133																										8				0	0
@@ -6942,9 +6942,9 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 10569	仙踪·兵·铸（内伤）	武器	内功攻击提升89点	atMagicAttackPowerBase	89	89	146																										0				0	0
 10570	仙踪·兵·铸（疗伤）	武器	疗伤成效提升81点	atTherapyPowerBase	81	81	146																										0				0	0
 10571	仙踪·兵·铸（武伤）	武器	武器伤害提升112点	atMeleeWeaponDamageBase	112	112	146																										0				0	0
-10572	仙踪·兵·熔（外伤）	武器限时	外功攻击提升112点	atPhysicsAttackPowerBase	112	112	0																									1800	0				3	0
-10573	仙踪·兵·熔（内伤）	武器限时	内功攻击提升134点	atMagicAttackPowerBase	134	134	0																									1800	0				3	0
-10574	仙踪·兵·熔（疗伤）	武器限时	疗伤成效提升120点	atTherapyPowerBase	120	120	0																									1800	0				3	0
+10572	仙踪·兵·熔（外伤）	武器限时	外功攻击提升112点	atPhysicsAttackPowerBase	112	112	0																									1800	0				11	0
+10573	仙踪·兵·熔（内伤）	武器限时	内功攻击提升134点	atMagicAttackPowerBase	134	134	0																									1800	0				11	0
+10574	仙踪·兵·熔（疗伤）	武器限时	疗伤成效提升120点	atTherapyPowerBase	120	120	0																									1800	0				11	0
 10575	仙踪·兵·铸（仇恨）	武器	仇恨百分比提升29%	atActiveThreatCoefficient	0	299	146																										0				0	0
 10576	仙踪·裤·铸（身法）	下装	身法提升37点	atAgilityBase	37	37	146																										8				0	0
 10577	仙踪·裤·铸（元气）	下装	元气提升37点	atSpunkBase	37	37	146																										8				0	0
@@ -6998,40 +6998,40 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 10625	仙踪·兵·铸（疗伤）	武器	疗伤成效提升40点	atTherapyPowerBase	40	40	74																										0				0	0
 10626	仙踪·兵·铸（武伤）	武器	武器伤害提升56点	atMeleeWeaponDamageBase	56	56	74																										0				0	0
 10627	仙踪·兵·熔（仇恨）	武器	仇恨百分比提升20%	atActiveThreatCoefficient	0	204	74																										0				0	0
-10628	仙踪·兵·坠（外伤）	武器限时	外功攻击提升56点	atPhysicsAttackPowerBase	56	56	0																									1800	0				3	0
-10629	仙踪·兵·坠（内伤）	武器限时	内功攻击提升67点	atMagicAttackPowerBase	67	67	0																									1800	0				3	0
-10630	仙踪·兵·坠（疗伤）	武器限时	疗伤成效提升60点	atTherapyPowerBase	60	60	0																									1800	0				3	0
+10628	仙踪·兵·坠（外伤）	武器限时	外功攻击提升56点	atPhysicsAttackPowerBase	56	56	0																									1800	0				11	0
+10629	仙踪·兵·坠（内伤）	武器限时	内功攻击提升67点	atMagicAttackPowerBase	67	67	0																									1800	0				11	0
+10630	仙踪·兵·坠（疗伤）	武器限时	疗伤成效提升60点	atTherapyPowerBase	60	60	0																									1800	0				11	0
 10631	仙踪·兵·坠（仇恨）	武器限时	仇恨百分比提升20%	atActiveThreatCoefficient	0	205	0																									1800	0				0	0
-10632	昆吾焰晶·御·腰	腰带限时		atSkillEventHandler	1702		320																									60	6				3	0
-10633	昆吾焰晶·御·鞋	鞋子限时		atExecuteScript	skill\装备\新附魔鞋子.lua		320																									60	9				3	0
-10634	昆吾焰晶·御·腕	护手限时		atSkillEventHandler	1703		320																									60	10				3	0
-10635	昆吾焰晶·御·衣	上装限时		atSkillEventHandler	1701		459																									60	2				3	0
-10636	昆吾焰晶·御·头	帽子限时		atSkillEventHandler	1700		413																									60	3				3	0
-10637	昆吾焰晶·疗·腰	腰带限时		atExecuteScript	skill/装备/腰带_新附魔_治疗满血群体AOE.lua		320																									60	6				3	0
-10638	昆吾焰晶·疗·鞋	鞋子限时		atExecuteScript	skill/装备/鞋子_新附魔_治疗站立加疗效.lua		320																									60	9				3	0
-10639	昆吾焰晶·疗·腕	护手限时		atSkillEventHandler	1706		320																									60	10				3	0
-10640	昆吾焰晶·疗·衣	上装限时		atSkillEventHandler	1709		459																									60	2				3	0
+10632	昆吾焰晶·御·腰	腰带限时		atSkillEventHandler	1702		320																									60	6				11	0
+10633	昆吾焰晶·御·鞋	鞋子限时		atExecuteScript	skill\装备\新附魔鞋子.lua		320																									60	9				11	0
+10634	昆吾焰晶·御·腕	护手限时		atSkillEventHandler	1703		320																									60	10				11	0
+10635	昆吾焰晶·御·衣	上装限时		atSkillEventHandler	1701		459																									60	2				11	0
+10636	昆吾焰晶·御·头	帽子限时		atSkillEventHandler	1700		413																									60	3				11	0
+10637	昆吾焰晶·疗·腰	腰带限时		atExecuteScript	skill/装备/腰带_新附魔_治疗满血群体AOE.lua		320																									60	6				11	0
+10638	昆吾焰晶·疗·鞋	鞋子限时		atExecuteScript	skill/装备/鞋子_新附魔_治疗站立加疗效.lua		320																									60	9				11	0
+10639	昆吾焰晶·疗·腕	护手限时		atSkillEventHandler	1706		320																									60	10				11	0
+10640	昆吾焰晶·疗·衣	上装限时		atSkillEventHandler	1709		459																									60	2				11	0
 10641	昆吾焰晶·疗·头	帽子限时		atExecuteScript	skill/装备/帽子_新附魔_治疗非战斗附魔减读条.lua		413																									60	3				3	0
-10642	昆吾焰晶·伤·腰	腰带限时		atSkillEventHandler	1705		320																									60	6				3	0
-10643	昆吾焰晶·伤·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子.lua		320																									60	9				3	0
-10644	昆吾焰晶·伤·腕	护手限时		atSkillEventHandler	1704		320																									60	10				3	0
-10645	昆吾焰晶·伤·衣	上装限时		atExecuteScript	skill/装备/输出衣服附魔.lua		459																									60	2				3	0
-10646	昆吾焰晶·伤·头	帽子限时		atExecuteScript	skill/装备/输出帽子附魔.lua		413																									60	3				3	0
-10647	昆吾焰砂·御·腰	腰带限时		atSkillEventHandler	1702		320																									60	6				3	0
-10648	昆吾焰砂·御·鞋	鞋子限时		atExecuteScript	skill\装备\新附魔鞋子.lua		320																									60	9				3	0
-10649	昆吾焰砂·御·腕	护手限时		atSkillEventHandler	1703		320																									60	10				3	0
-10650	昆吾焰砂·御·衣	上装限时		atSkillEventHandler	1701		459																									60	2				3	0
-10651	昆吾焰砂·御·头	帽子限时		atSkillEventHandler	1700		413																									60	3				3	0
-10652	昆吾焰砂·疗·腰	腰带限时		atExecuteScript	skill/装备/腰带_新附魔_治疗满血群体AOE.lua		320																									60	6				3	0
-10653	昆吾焰砂·疗·鞋	鞋子限时		atExecuteScript	skill/装备/鞋子_新附魔_治疗站立加疗效.lua		320																									60	9				3	0
-10654	昆吾焰砂·疗·腕	护手限时		atSkillEventHandler	1706		320																									60	10				3	0
-10655	昆吾焰砂·疗·衣	上装限时		atSkillEventHandler	1709		459																									60	2				3	0
+10642	昆吾焰晶·伤·腰	腰带限时		atSkillEventHandler	1705		320																									60	6				11	0
+10643	昆吾焰晶·伤·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子.lua		320																									60	9				11	0
+10644	昆吾焰晶·伤·腕	护手限时		atSkillEventHandler	1704		320																									60	10				11	0
+10645	昆吾焰晶·伤·衣	上装限时		atExecuteScript	skill/装备/输出衣服附魔.lua		459																									60	2				11	0
+10646	昆吾焰晶·伤·头	帽子限时		atExecuteScript	skill/装备/输出帽子附魔.lua		413																									60	3				11	0
+10647	昆吾焰砂·御·腰	腰带限时		atSkillEventHandler	1702		320																									60	6				11	0
+10648	昆吾焰砂·御·鞋	鞋子限时		atExecuteScript	skill\装备\新附魔鞋子.lua		320																									60	9				11	0
+10649	昆吾焰砂·御·腕	护手限时		atSkillEventHandler	1703		320																									60	10				11	0
+10650	昆吾焰砂·御·衣	上装限时		atSkillEventHandler	1701		459																									60	2				11	0
+10651	昆吾焰砂·御·头	帽子限时		atSkillEventHandler	1700		413																									60	3				11	0
+10652	昆吾焰砂·疗·腰	腰带限时		atExecuteScript	skill/装备/腰带_新附魔_治疗满血群体AOE.lua		320																									60	6				11	0
+10653	昆吾焰砂·疗·鞋	鞋子限时		atExecuteScript	skill/装备/鞋子_新附魔_治疗站立加疗效.lua		320																									60	9				11	0
+10654	昆吾焰砂·疗·腕	护手限时		atSkillEventHandler	1706		320																									60	10				11	0
+10655	昆吾焰砂·疗·衣	上装限时		atSkillEventHandler	1709		459																									60	2				11	0
 10656	昆吾焰砂·疗·头	帽子限时		atExecuteScript	skill/装备/帽子_新附魔_治疗非战斗附魔减读条.lua		413																									60	3				3	0
-10657	昆吾焰砂·伤·腰	腰带限时		atSkillEventHandler	1705		320																									60	6				3	0
-10658	昆吾焰砂·伤·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子.lua		320																									60	9				3	0
-10659	昆吾焰砂·伤·腕	护手限时		atSkillEventHandler	1704		320																									60	10				3	0
-10660	昆吾焰砂·伤·衣	上装限时		atExecuteScript	skill/装备/输出衣服附魔.lua		459																									60	2				3	0
-10661	昆吾焰砂·伤·头	帽子限时		atExecuteScript	skill/装备/输出帽子附魔.lua		413																									60	3				3	0
+10657	昆吾焰砂·伤·腰	腰带限时		atSkillEventHandler	1705		320																									60	6				11	0
+10658	昆吾焰砂·伤·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子.lua		320																									60	9				11	0
+10659	昆吾焰砂·伤·腕	护手限时		atSkillEventHandler	1704		320																									60	10				11	0
+10660	昆吾焰砂·伤·衣	上装限时		atExecuteScript	skill/装备/输出衣服附魔.lua		459																									60	2				11	0
+10661	昆吾焰砂·伤·头	帽子限时		atExecuteScript	skill/装备/输出帽子附魔.lua		413																									60	3				11	0
 10662	仙踪·腕·绣（身法）	护手	身法提升42点	atAgilityBase	42	42	165																										10				0	0
 10663	仙踪·腕·绣（元气）	护手	元气提升42点	atSpunkBase	42	42	165																										10				0	0
 10664	仙踪·腕·绣（力道）	护手	力道提升42点	atStrengthBase	42	42	165																										10				0	0
@@ -7153,29 +7153,29 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 10780	烨阳晶石·暗器（外破）	暗器	外功破防等级提升188点	atPhysicsOvercomeBase	188	188	165																										1					
 10781	烨阳晶石·暗器（内破）	暗器	内功破防等级提升188点	atMagicOvercome	188	188	165																										1					
 10782	烨阳晶石·暗器（加速）	暗器	加速提升188点	atHasteBase	188	188	165																										1					
-10783	仙踪·兵·坠（外伤）	武器限时	外功攻击提升128点	atPhysicsAttackPowerBase	128	128	0																									1800	0				3	0
-10784	仙踪·兵·坠（内伤）	武器限时	内功攻击提升152点	atMagicAttackPowerBase	152	152	0																									1800	0				3	0
-10785	仙踪·兵·坠（疗伤）	武器限时	疗伤成效提升136点	atTherapyPowerBase	136	136	0																									1800	0				3	0
+10783	仙踪·兵·坠（外伤）	武器限时	外功攻击提升128点	atPhysicsAttackPowerBase	128	128	0																									1800	0				11	0
+10784	仙踪·兵·坠（内伤）	武器限时	内功攻击提升152点	atMagicAttackPowerBase	152	152	0																									1800	0				11	0
+10785	仙踪·兵·坠（疗伤）	武器限时	疗伤成效提升136点	atTherapyPowerBase	136	136	0																									1800	0				11	0
 10786	仙踪·兵·坠（仇恨）	武器限时	仇恨百分比提升40%	atActiveThreatCoefficient	0	409	0																									1800	0				0	0
-10787	仙踪·兵·坠（外伤）	武器限时	外功攻击提升64点	atPhysicsAttackPowerBase	64	64	0																									1800	0				3	0
-10788	仙踪·兵·坠（内伤）	武器限时	内功攻击提升76点	atMagicAttackPowerBase	76	76	0																									1800	0				3	0
-10789	仙踪·兵·坠（疗伤）	武器限时	疗伤成效提升68点	atTherapyPowerBase	68	68	0																									1800	0				3	0
+10787	仙踪·兵·坠（外伤）	武器限时	外功攻击提升64点	atPhysicsAttackPowerBase	64	64	0																									1800	0				11	0
+10788	仙踪·兵·坠（内伤）	武器限时	内功攻击提升76点	atMagicAttackPowerBase	76	76	0																									1800	0				11	0
+10789	仙踪·兵·坠（疗伤）	武器限时	疗伤成效提升68点	atTherapyPowerBase	68	68	0																									1800	0				11	0
 10790	仙踪·兵·坠（仇恨）	武器限时	仇恨百分比提升20%	atActiveThreatCoefficient	0	205	0																									1800	0				0	0
-10791	昆吾焰珀·御·腰	腰带限时		atSkillEventHandler	1792		356																									60	6				3	0
-10792	昆吾焰珀·御·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子凌雪藏锋.lua		356																									60	9				3	0
-10793	昆吾焰珀·御·腕	护手限时		atSkillEventHandler	1793		356																									60	10				3	0
-10794	昆吾焰珀·御·衣	上装限时		atSkillEventHandler	1791		510																									60	2				3	0
-10795	昆吾焰珀·御·头	帽子限时		atSkillEventHandler	1790		459																									60	3				3	0
-10796	昆吾焰珀·疗·腰	腰带限时		atExecuteScript	skill/装备/腰带_新附魔_治疗满血群体AOE.lua		356																									60	6				3	0
-10797	昆吾焰珀·疗·鞋	鞋子限时		atExecuteScript	skill/装备/鞋子_新附魔_治疗站立加疗效.lua		356																									60	9				3	0
-10798	昆吾焰珀·疗·腕	护手限时		atSkillEventHandler	1706		356																									60	10				3	0
-10799	昆吾焰珀·疗·衣	上装限时		atSkillEventHandler	1709		510																									60	2				3	0
+10791	昆吾焰珀·御·腰	腰带限时		atSkillEventHandler	1792		356																									60	6				11	0
+10792	昆吾焰珀·御·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子凌雪藏锋.lua		356																									60	9				11	0
+10793	昆吾焰珀·御·腕	护手限时		atSkillEventHandler	1793		356																									60	10				11	0
+10794	昆吾焰珀·御·衣	上装限时		atSkillEventHandler	1791		510																									60	2				11	0
+10795	昆吾焰珀·御·头	帽子限时		atSkillEventHandler	1790		459																									60	3				11	0
+10796	昆吾焰珀·疗·腰	腰带限时		atExecuteScript	skill/装备/腰带_新附魔_治疗满血群体AOE.lua		356																									60	6				11	0
+10797	昆吾焰珀·疗·鞋	鞋子限时		atExecuteScript	skill/装备/鞋子_新附魔_治疗站立加疗效.lua		356																									60	9				11	0
+10798	昆吾焰珀·疗·腕	护手限时		atSkillEventHandler	1706		356																									60	10				11	0
+10799	昆吾焰珀·疗·衣	上装限时		atSkillEventHandler	1709		510																									60	2				11	0
 10800	昆吾焰珀·疗·头	帽子限时		atExecuteScript	skill/装备/帽子_新附魔_治疗非战斗附魔减读条.lua		459																									60	3				3	0
-10801	昆吾焰珀·伤·腰	腰带限时		atSkillEventHandler	1705		356																									60	6				3	0
-10802	昆吾焰珀·伤·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子.lua		356																									60	9				3	0
-10803	昆吾焰珀·伤·腕	护手限时		atSkillEventHandler	1704		356																									60	10				3	0
-10804	昆吾焰珀·伤·衣	上装限时		atExecuteScript	skill/装备/凌雪藏风输出衣服附魔.lua		510																									60	2				3	0
-10805	昆吾焰珀·伤·头	帽子限时		atExecuteScript	skill/装备/凌雪藏风输出帽子附魔.lua		459																									60	3				3	0
+10801	昆吾焰珀·伤·腰	腰带限时		atSkillEventHandler	1705		356																									60	6				11	0
+10802	昆吾焰珀·伤·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子.lua		356																									60	9				11	0
+10803	昆吾焰珀·伤·腕	护手限时		atSkillEventHandler	1704		356																									60	10				11	0
+10804	昆吾焰珀·伤·衣	上装限时		atExecuteScript	skill/装备/凌雪藏风输出衣服附魔.lua		510																									60	2				11	0
+10805	昆吾焰珀·伤·头	帽子限时		atExecuteScript	skill/装备/凌雪藏风输出帽子附魔.lua		459																									60	3				11	0
 10806	霁月·裤·甲（会心）	下装	全会心提升80点	atAllTypeCriticalStrike	80	80	70																										8				0	0
 10807	霁月·腕·染（会心）	护手	全会心提升80点	atAllTypeCriticalStrike	80	80	70																										10				0	0
 10808	霁月·头·甲（急速）	帽子	加速提升80点	atHasteBase	80	80	70																										3				0	0
@@ -7325,29 +7325,29 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 10952	烨阳晶石·暗器（外破）	暗器	外功破防等级提升209点	atPhysicsOvercomeBase	209	209	185																										1					
 10953	烨阳晶石·暗器（内破）	暗器	内功破防等级提升209点	atMagicOvercome	209	209	185																										1					
 10954	烨阳晶石·暗器（加速）	暗器	加速提升209点	atHasteBase	209	209	185																										1					
-10955	仙踪·兵·坠（外伤）	武器限时	外功攻击提升142点	atPhysicsAttackPowerBase	142	142	0																									1800	0				3	0
-10956	仙踪·兵·坠（内伤）	武器限时	内功攻击提升169点	atMagicAttackPowerBase	169	169	0																									1800	0				3	0
-10957	仙踪·兵·坠（疗伤）	武器限时	疗伤成效提升153点	atTherapyPowerBase	153	153	0																									1800	0				3	0
+10955	仙踪·兵·坠（外伤）	武器限时	外功攻击提升142点	atPhysicsAttackPowerBase	142	142	0																									1800	0				11	0
+10956	仙踪·兵·坠（内伤）	武器限时	内功攻击提升169点	atMagicAttackPowerBase	169	169	0																									1800	0				11	0
+10957	仙踪·兵·坠（疗伤）	武器限时	疗伤成效提升153点	atTherapyPowerBase	153	153	0																									1800	0				11	0
 10958	仙踪·兵·坠（仇恨）	武器限时	仇恨百分比提升55%	atActiveThreatCoefficient	0	563	0																									1800	0				0	0
-10959	仙踪·兵·坠（外伤）	武器限时	外功攻击提升71点	atPhysicsAttackPowerBase	71	71	0																									1800	0				3	0
-10960	仙踪·兵·坠（内伤）	武器限时	内功攻击提升85点	atMagicAttackPowerBase	85	85	0																									1800	0				3	0
-10961	仙踪·兵·坠（疗伤）	武器限时	疗伤成效提升77点	atTherapyPowerBase	77	77	0																									1800	0				3	0
+10959	仙踪·兵·坠（外伤）	武器限时	外功攻击提升71点	atPhysicsAttackPowerBase	71	71	0																									1800	0				11	0
+10960	仙踪·兵·坠（内伤）	武器限时	内功攻击提升85点	atMagicAttackPowerBase	85	85	0																									1800	0				11	0
+10961	仙踪·兵·坠（疗伤）	武器限时	疗伤成效提升77点	atTherapyPowerBase	77	77	0																									1800	0				11	0
 10962	仙踪·兵·坠（仇恨）	武器限时	仇恨百分比提升27%	atActiveThreatCoefficient	0	282	0																									1800	0				0	0
-10963	昆吾焰珩·御·腰	腰带限时		atSkillEventHandler	1840		396																									60	6				3	0
-10964	昆吾焰珩·御·鞋	鞋子限时		atExecuteScript	skill\装备\新附魔鞋子结庐在江湖.lua		396																									60	9				3	0
-10965	昆吾焰珩·御·腕	护手限时		atSkillEventHandler	1841		396																									60	10				3	0
-10966	昆吾焰珩·御·衣	上装限时		atSkillEventHandler	1839		567																									60	2				3	0
-10967	昆吾焰珩·御·头	帽子限时		atSkillEventHandler	1838		510																									60	3				3	0
-10968	昆吾焰珩·疗·腰	腰带限时		atExecuteScript	skill/装备/腰带_新附魔_治疗满血群体AOE.lua		396																									60	6				3	0
-10969	昆吾焰珩·疗·鞋	鞋子限时		atExecuteScript	skill/装备/鞋子_新附魔_治疗站立加疗效_结庐在江湖.lua		396																									60	9				3	0
-10970	昆吾焰珩·疗·腕	护手限时		atSkillEventHandler	1706		396																									60	10				3	0
-10971	昆吾焰珩·疗·衣	上装限时		atSkillEventHandler	1709		567																									60	2				3	0
+10963	昆吾焰珩·御·腰	腰带限时		atSkillEventHandler	1840		396																									60	6				11	0
+10964	昆吾焰珩·御·鞋	鞋子限时		atExecuteScript	skill\装备\新附魔鞋子结庐在江湖.lua		396																									60	9				11	0
+10965	昆吾焰珩·御·腕	护手限时		atSkillEventHandler	1841		396																									60	10				11	0
+10966	昆吾焰珩·御·衣	上装限时		atSkillEventHandler	1839		567																									60	2				11	0
+10967	昆吾焰珩·御·头	帽子限时		atSkillEventHandler	1838		510																									60	3				11	0
+10968	昆吾焰珩·疗·腰	腰带限时		atExecuteScript	skill/装备/腰带_新附魔_治疗满血群体AOE.lua		396																									60	6				11	0
+10969	昆吾焰珩·疗·鞋	鞋子限时		atExecuteScript	skill/装备/鞋子_新附魔_治疗站立加疗效_结庐在江湖.lua		396																									60	9				11	0
+10970	昆吾焰珩·疗·腕	护手限时		atSkillEventHandler	1706		396																									60	10				11	0
+10971	昆吾焰珩·疗·衣	上装限时		atSkillEventHandler	1709		567																									60	2				11	0
 10972	昆吾焰珩·疗·头	帽子限时		atExecuteScript	skill/装备/帽子_新附魔_治疗非战斗附魔减读条.lua		510																									60	3				3	0
-10973	昆吾焰珩·伤·腰	腰带限时		atSkillEventHandler	1705		396																									60	6				3	0
-10974	昆吾焰珩·伤·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子结庐在江湖.lua		396																									60	9				3	0
-10975	昆吾焰珩·伤·腕	护手限时		atSkillEventHandler	1843		396																									60	10				3	0
-10976	昆吾焰珩·伤·衣	上装限时		atExecuteScript	skill/装备/结庐版本输出衣服附魔.lua		567																									60	2				3	0
-10977	昆吾焰珩·伤·头	帽子限时		atExecuteScript	skill/装备/结庐版本输出帽子附魔.lua		510																									60	3				3	0
+10973	昆吾焰珩·伤·腰	腰带限时		atSkillEventHandler	1705		396																									60	6				11	0
+10974	昆吾焰珩·伤·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子结庐在江湖.lua		396																									60	9				11	0
+10975	昆吾焰珩·伤·腕	护手限时		atSkillEventHandler	1843		396																									60	10				11	0
+10976	昆吾焰珩·伤·衣	上装限时		atExecuteScript	skill/装备/结庐版本输出衣服附魔.lua		567																									60	2				11	0
+10977	昆吾焰珩·伤·头	帽子限时		atExecuteScript	skill/装备/结庐版本输出帽子附魔.lua		510																									60	3				11	0
 10978	霁月·裤·甲（会心）	下装	全会心提升94点	atAllTypeCriticalStrike	94	94	83																										8				0	0
 10979	霁月·腕·染（会心）	护手	全会心提升94点	atAllTypeCriticalStrike	94	94	83																										10				0	0
 10980	霁月·头·甲（急速）	帽子	加速提升94点	atHasteBase	94	94	83																										3				0	0
@@ -7376,10 +7376,10 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 11003	霁月·衣·染（减仇）	上装	招式仇恨降低4%	atActiveThreatCoefficient	0	-42	47																										2					
 11004	霁月·腰·甲（无双）	腰带	无双等级提升71点	atStrainBase	71	71	62																										6				0	0
 11005	霁月·腰·甲（减仇）	腰带	招式仇恨降低4%	atActiveThreatCoefficient	0	-42	47																										6				0	0
-11006	奉天·瀑沙熔锭（外攻）	武器限时	外功攻击提升220点	atPhysicsAttackPowerBase	220	220	0																									1800	0				3	0
-11007	奉天·坠宵熔锭（内攻）	武器限时	内功攻击提升262点	atMagicAttackPowerBase	262	262	0																									1800	0				3	0
-11008	奉天·絮泊熔锭（疗伤）	武器限时	疗伤成效提升237点	atTherapyPowerBase	237	237	0																									1800	0				3	0
-11009	奉天·巨灵熔锭（仇恨）	武器限时	仇恨百分比提升55%	atActiveThreatCoefficient	0	563	0																									1800	0				3	0
+11006	奉天·瀑沙熔锭（外攻）	武器限时	外功攻击提升220点	atPhysicsAttackPowerBase	220	220	0																									1800	0				11	0
+11007	奉天·坠宵熔锭（内攻）	武器限时	内功攻击提升262点	atMagicAttackPowerBase	262	262	0																									1800	0				11	0
+11008	奉天·絮泊熔锭（疗伤）	武器限时	疗伤成效提升237点	atTherapyPowerBase	237	237	0																									1800	0				11	0
+11009	奉天·巨灵熔锭（仇恨）	武器限时	仇恨百分比提升55%	atActiveThreatCoefficient	0	563	0																									1800	0				11	0
 11010	奉天·兵·铸（外攻）	武器	外功攻击提升146点	atPhysicsAttackPowerBase	146	146	288																										0				0	0
 11011	奉天·兵·铸（内攻）	武器	内功攻击提升175点	atMagicAttackPowerBase	175	175	288																										0				0	0
 11012	奉天·兵·铸（疗伤）	武器	疗伤成效提升158点	atTherapyPowerBase	158	158	288																										0				0	0
@@ -7436,10 +7436,10 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 11063	奉天·兵·甲（疗伤）	武器	疗伤成效提升140点	atTherapyPowerBase	140	140	255																										0				0	0
 11064	奉天·兵·甲（武伤）	武器	武器伤害提升195点	atMeleeWeaponDamageBase	195	195	255																										0				0	0
 11065	奉天·兵·甲（仇恨）	武器	仇恨百分比提升18%	atActiveThreatCoefficient	0	184	215																										0				0	0
-11066	奉天·瀑沙磨石（外攻）	武器限时	外功攻击提升195点	atPhysicsAttackPowerBase	195	195	0																									1800	0				3	0
-11067	奉天·坠宵磨石（内攻）	武器限时	内功攻击提升233点	atMagicAttackPowerBase	233	233	0																									1800	0				3	0
-11068	奉天·絮泊磨石（疗伤）	武器限时	疗伤成效提升210点	atTherapyPowerBase	210	210	0																									1800	0				3	0
-11069	奉天·巨灵磨石（仇恨）	武器限时	仇恨百分比提升27%	atActiveThreatCoefficient	0	282	0																									1800	0				3	0
+11066	奉天·瀑沙磨石（外攻）	武器限时	外功攻击提升195点	atPhysicsAttackPowerBase	195	195	0																									1800	0				11	0
+11067	奉天·坠宵磨石（内攻）	武器限时	内功攻击提升233点	atMagicAttackPowerBase	233	233	0																									1800	0				11	0
+11068	奉天·絮泊磨石（疗伤）	武器限时	疗伤成效提升210点	atTherapyPowerBase	210	210	0																									1800	0				11	0
+11069	奉天·巨灵磨石（仇恨）	武器限时	仇恨百分比提升27%	atActiveThreatCoefficient	0	282	0																									1800	0				11	0
 11070	奉天·腕·绣（身法）	护手	身法提升73点	atAgilityBase	73	73	286																										10				0	0
 11071	奉天·腕·绣（元气）	护手	元气提升73点	atSpunkBase	73	73	286																										10				0	0
 11072	奉天·腕·绣（力道）	护手	力道提升73点	atStrengthBase	73	73	286																										10				0	0
@@ -7487,36 +7487,36 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 11114	奉天·衣·染（化劲）	上装	化劲提升144点	atDecriticalDamagePowerBase	144	144	255																										2				0	0
 11115	奉天·衣·染（御劲）	上装	御劲提升144点	atToughnessBase	144	144	255																										2				0	0
 11116	奉天·鞋·染（跑速）	鞋子	跑步速度提升5%（鞋子）	atMoveSpeedPercent	56	56	5																										9				0	0
-11117	山市鬼楼·御·腰	腰带限时		atSkillEventHandler	1904		441																									60	6				3	0
-11118	山市鬼楼·御·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子奉天证道T.lua		441																									60	9				3	0
-11119	山市鬼楼·御·腕	护手限时		atSkillEventHandler	1905		441																									60	10				3	0
-11120	山市鬼楼·御·衣	上装限时		atSkillEventHandler	1906		630																									60	2				3	0
-11121	山市鬼楼·御·头	帽子限时		atSkillEventHandler	1907		567																									60	3				3	0
-11122	山市鬼楼·疗·腰	腰带限时		atExecuteScript	skill/装备/腰带_新附魔_治疗满血群体AOE.lua		441																									60	6				3	0
-11123	山市鬼楼·疗·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子奉天证道奶.lua		441																									60	9				3	0
-11124	山市鬼楼·疗·腕	护手限时		atSkillEventHandler	1706		441																									60	10				3	0
-11125	山市鬼楼·疗·衣	上装限时		atSkillEventHandler	1709		630																									60	2				3	0
+11117	山市鬼楼·御·腰	腰带限时		atSkillEventHandler	1904		441																									60	6				11	0
+11118	山市鬼楼·御·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子奉天证道T.lua		441																									60	9				11	0
+11119	山市鬼楼·御·腕	护手限时		atSkillEventHandler	1905		441																									60	10				11	0
+11120	山市鬼楼·御·衣	上装限时		atSkillEventHandler	1906		630																									60	2				11	0
+11121	山市鬼楼·御·头	帽子限时		atSkillEventHandler	1907		567																									60	3				11	0
+11122	山市鬼楼·疗·腰	腰带限时		atExecuteScript	skill/装备/腰带_新附魔_治疗满血群体AOE.lua		441																									60	6				11	0
+11123	山市鬼楼·疗·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子奉天证道奶.lua		441																									60	9				11	0
+11124	山市鬼楼·疗·腕	护手限时		atSkillEventHandler	1706		441																									60	10				11	0
+11125	山市鬼楼·疗·衣	上装限时		atSkillEventHandler	1709		630																									60	2				11	0
 11126	山市鬼楼·疗·头	帽子限时		atExecuteScript	skill/装备/帽子_新附魔_治疗非战斗附魔减读条.lua		567																									60	3				3	0
-11127	山市鬼楼·伤·腰	腰带限时		atSkillEventHandler	1705		441																									60	6				3	0
-11128	山市鬼楼·伤·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子奉天证道.lua		441																									60	9				3	0
-11129	山市鬼楼·伤·腕	护手限时		atSkillEventHandler	1843		441																									60	10				3	0
-11130	山市鬼楼·伤·衣	上装限时		atExecuteScript	skill/装备/奉天证道输出衣服附魔.lua		630																									60	2				3	0
-11131	山市鬼楼·伤·头	帽子限时		atExecuteScript	skill/装备/奉天证道输出帽子附魔.lua		567																									60	3				3	0
-11132	山市鬼冢·御·腰	腰带限时		atSkillEventHandler	1904		441																									60	6				3	0
-11133	山市鬼冢·御·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子奉天证道T.lua		441																									60	9				3	0
-11134	山市鬼冢·御·腕	护手限时		atSkillEventHandler	1905		441																									60	10				3	0
-11135	山市鬼冢·御·衣	上装限时		atSkillEventHandler	1906		630																									60	2				3	0
-11136	山市鬼冢·御·帽	帽子限时		atSkillEventHandler	1907		567																									60	3				3	0
-11137	山市鬼冢·疗·腰	腰带限时		atExecuteScript	skill/装备/腰带_新附魔_治疗满血群体AOE.lua		441																									60	6				3	0
-11138	山市鬼冢·疗·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子奉天证道奶.lua		441																									60	9				3	0
-11139	山市鬼冢·疗·腕	护手限时		atSkillEventHandler	1706		441																									60	10				3	0
-11140	山市鬼冢·疗·衣	上装限时		atSkillEventHandler	1709		630																									60	2				3	0
+11127	山市鬼楼·伤·腰	腰带限时		atSkillEventHandler	1705		441																									60	6				11	0
+11128	山市鬼楼·伤·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子奉天证道.lua		441																									60	9				11	0
+11129	山市鬼楼·伤·腕	护手限时		atSkillEventHandler	1843		441																									60	10				11	0
+11130	山市鬼楼·伤·衣	上装限时		atExecuteScript	skill/装备/奉天证道输出衣服附魔.lua		630																									60	2				11	0
+11131	山市鬼楼·伤·头	帽子限时		atExecuteScript	skill/装备/奉天证道输出帽子附魔.lua		567																									60	3				11	0
+11132	山市鬼冢·御·腰	腰带限时		atSkillEventHandler	1904		441																									60	6				11	0
+11133	山市鬼冢·御·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子奉天证道T.lua		441																									60	9				11	0
+11134	山市鬼冢·御·腕	护手限时		atSkillEventHandler	1905		441																									60	10				11	0
+11135	山市鬼冢·御·衣	上装限时		atSkillEventHandler	1906		630																									60	2				11	0
+11136	山市鬼冢·御·帽	帽子限时		atSkillEventHandler	1907		567																									60	3				11	0
+11137	山市鬼冢·疗·腰	腰带限时		atExecuteScript	skill/装备/腰带_新附魔_治疗满血群体AOE.lua		441																									60	6				11	0
+11138	山市鬼冢·疗·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子奉天证道奶.lua		441																									60	9				11	0
+11139	山市鬼冢·疗·腕	护手限时		atSkillEventHandler	1706		441																									60	10				11	0
+11140	山市鬼冢·疗·衣	上装限时		atSkillEventHandler	1709		630																									60	2				11	0
 11141	山市鬼冢·疗·帽	帽子限时		atExecuteScript	skill/装备/帽子_新附魔_治疗非战斗附魔减读条.lua		567																									60	3				3	0
-11142	山市鬼冢·伤·腰	腰带限时		atSkillEventHandler	1705		441																									60	6				3	0
-11143	山市鬼冢·伤·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子奉天证道.lua		441																									60	9				3	0
-11144	山市鬼冢·伤·腕	护手限时		atSkillEventHandler	1843		441																									60	10				3	0
-11145	山市鬼冢·伤·衣	上装限时		atExecuteScript	skill/装备/奉天证道输出衣服附魔.lua		630																									60	2				3	0
-11146	山市鬼冢·伤·帽	帽子限时		atExecuteScript	skill/装备/奉天证道输出帽子附魔.lua		567																									60	3				3	0
+11142	山市鬼冢·伤·腰	腰带限时		atSkillEventHandler	1705		441																									60	6				11	0
+11143	山市鬼冢·伤·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子奉天证道.lua		441																									60	9				11	0
+11144	山市鬼冢·伤·腕	护手限时		atSkillEventHandler	1843		441																									60	10				11	0
+11145	山市鬼冢·伤·衣	上装限时		atExecuteScript	skill/装备/奉天证道输出衣服附魔.lua		630																									60	2				11	0
+11146	山市鬼冢·伤·帽	帽子限时		atExecuteScript	skill/装备/奉天证道输出帽子附魔.lua		567																									60	3				11	0
 11147	阴山鬼晶·项链（体质）	项链	体质提升120点	atVitalityBase	120	120	212																										4					
 11148	阴山鬼晶·项链（御劲）	项链	御劲提升163点	atToughnessBase	163	163	289																										4					
 11149	阴山鬼晶·腰坠（体质）	腰坠	体质提升120点	atVitalityBase	120	120	212																										7					
@@ -7563,10 +7563,10 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 11190	云扇·衣·减仇	上装	上衣招式产生威胁降低5%	atActiveThreatCoefficient	0	-42	60																										2					
 11191	云扇·腰·无双	腰带	腰带无双等级提高174	atStrainBase	174	174	154																										6				0	0
 11192	云扇·腰·减仇	腰带	腰带招式产生威胁降低5%	atActiveThreatCoefficient	0	-42	60																										6				0	0
-11193	奉天·瀑沙熔锭（外攻）	武器限时	外功攻击提升268点	atPhysicsAttackPowerBase	268	268	0																									1800	0				3	0
-11194	奉天·坠宵熔锭（内攻）	武器限时	内功攻击提升320点	atMagicAttackPowerBase	320	320	0																									1800	0				3	0
-11195	奉天·絮泊熔锭（疗伤）	武器限时	疗伤成效提升289点	atTherapyPowerBase	289	289	0																									1800	0				3	0
-11196	奉天·巨灵熔锭（仇恨）	武器限时	仇恨百分比提升67%	atActiveThreatCoefficient	0	688	0																									1800	0				3	0
+11193	奉天·瀑沙熔锭（外攻）	武器限时	外功攻击提升268点	atPhysicsAttackPowerBase	268	268	0																									1800	0				11	0
+11194	奉天·坠宵熔锭（内攻）	武器限时	内功攻击提升320点	atMagicAttackPowerBase	320	320	0																									1800	0				11	0
+11195	奉天·絮泊熔锭（疗伤）	武器限时	疗伤成效提升289点	atTherapyPowerBase	289	289	0																									1800	0				11	0
+11196	奉天·巨灵熔锭（仇恨）	武器限时	仇恨百分比提升67%	atActiveThreatCoefficient	0	688	0																									1800	0				11	0
 11197	奉天·兵·铸（外攻）	武器	外功攻击提升179点	atPhysicsAttackPowerBase	179	179	352																										0				0	0
 11198	奉天·兵·铸（内攻）	武器	内功攻击提升214点	atMagicAttackPowerBase	214	214	352																										0				0	0
 11199	奉天·兵·铸（疗伤）	武器	疗伤成效提升193点	atTherapyPowerBase	193	193	352																										0				0	0
@@ -7636,25 +7636,25 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 11263	阴山鬼晶·暗器（外破）	暗器	外功破防等级提升397点	atPhysicsOvercomeBase	397	397	352																										1					
 11264	阴山鬼晶·暗器（内破）	暗器	内功破防等级提升397点	atMagicOvercome	397	397	352																										1					
 11265	阴山鬼晶·暗器（加速）	暗器	加速提升397点	atHasteBase	397	397	352																										1					
-11266	山市鬼船·御·腰	腰带限时		atSkillEventHandler	2017		490																									60	6				3	0
-11267	山市鬼船·御·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子白帝风云T.lua		490																									60	9				3	0
-11268	山市鬼船·御·腕	护手限时		atSkillEventHandler	2018		490																									60	10				3	0
-11269	山市鬼船·御·衣	上装限时		atSkillEventHandler	2019		701																									60	2				3	0
-11270	山市鬼船·御·帽	帽子限时		atSkillEventHandler	2020		630																									60	3				3	0
-11271	山市鬼船·疗·腰	腰带限时		atExecuteScript	skill/装备/腰带_新附魔_治疗满血群体AOE.lua		490																									60	6				3	0
-11272	山市鬼船·疗·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子白帝风云奶.lua		490																									60	9				3	0
-11273	山市鬼船·疗·腕	护手限时		atSkillEventHandler	1706		490																									60	10				3	0
-11274	山市鬼船·疗·衣	上装限时		atSkillEventHandler	1709		701																									60	2				3	0
+11266	山市鬼船·御·腰	腰带限时		atSkillEventHandler	2017		490																									60	6				11	0
+11267	山市鬼船·御·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子白帝风云T.lua		490																									60	9				11	0
+11268	山市鬼船·御·腕	护手限时		atSkillEventHandler	2018		490																									60	10				11	0
+11269	山市鬼船·御·衣	上装限时		atSkillEventHandler	2019		701																									60	2				11	0
+11270	山市鬼船·御·帽	帽子限时		atSkillEventHandler	2020		630																									60	3				11	0
+11271	山市鬼船·疗·腰	腰带限时		atExecuteScript	skill/装备/腰带_新附魔_治疗满血群体AOE.lua		490																									60	6				11	0
+11272	山市鬼船·疗·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子白帝风云奶.lua		490																									60	9				11	0
+11273	山市鬼船·疗·腕	护手限时		atSkillEventHandler	1706		490																									60	10				11	0
+11274	山市鬼船·疗·衣	上装限时		atSkillEventHandler	1709		701																									60	2				11	0
 11275	山市鬼船·疗·帽	帽子限时		atExecuteScript	skill/装备/帽子_新附魔_治疗非战斗附魔减读条.lua		630																									60	3				3	0
-11276	山市鬼船·伤·腰	腰带限时		atSkillEventHandler	1705		490																									60	6				3	0
-11277	山市鬼船·伤·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子白帝风云.lua		490																									60	9				3	0
-11278	山市鬼船·伤·腕	护手限时		atSkillEventHandler	1843		490																									60	10				3	0
-11279	山市鬼船·伤·衣	上装限时		atExecuteScript	skill/装备/白帝风云输出衣服附魔.lua		701																									60	2				3	0
-11280	山市鬼船·伤·帽	帽子限时		atExecuteScript	skill/装备/白帝风云输出帽子附魔.lua		630																									60	3				3	0
-11281	奉天·瀑沙熔锭（外攻）	武器限时	外功攻击提升298点	atPhysicsAttackPowerBase	298	298	0																									1800	0				3	0
-11282	奉天·坠宵熔锭（内攻）	武器限时	内功攻击提升355点	atMagicAttackPowerBase	355	355	0																									1800	0				3	0
-11283	奉天·絮泊熔锭（疗伤）	武器限时	疗伤成效提升321点	atTherapyPowerBase	321	321	0																									1800	0				3	0
-11284	奉天·巨灵熔锭（仇恨）	武器限时	仇恨百分比提升74%	atActiveThreatCoefficient	0	757	0																									1800	0				3	0
+11276	山市鬼船·伤·腰	腰带限时		atSkillEventHandler	1705		490																									60	6				11	0
+11277	山市鬼船·伤·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子白帝风云.lua		490																									60	9				11	0
+11278	山市鬼船·伤·腕	护手限时		atSkillEventHandler	1843		490																									60	10				11	0
+11279	山市鬼船·伤·衣	上装限时		atExecuteScript	skill/装备/白帝风云输出衣服附魔.lua		701																									60	2				11	0
+11280	山市鬼船·伤·帽	帽子限时		atExecuteScript	skill/装备/白帝风云输出帽子附魔.lua		630																									60	3				11	0
+11281	奉天·瀑沙熔锭（外攻）	武器限时	外功攻击提升298点	atPhysicsAttackPowerBase	298	298	0																									1800	0				11	0
+11282	奉天·坠宵熔锭（内攻）	武器限时	内功攻击提升355点	atMagicAttackPowerBase	355	355	0																									1800	0				11	0
+11283	奉天·絮泊熔锭（疗伤）	武器限时	疗伤成效提升321点	atTherapyPowerBase	321	321	0																									1800	0				11	0
+11284	奉天·巨灵熔锭（仇恨）	武器限时	仇恨百分比提升74%	atActiveThreatCoefficient	0	757	0																									1800	0				11	0
 11285	奉天·兵·铸（外攻）	武器	外功攻击提升198点	atPhysicsAttackPowerBase	198	198	390																										0				0	0
 11286	奉天·兵·铸（内攻）	武器	内功攻击提升237点	atMagicAttackPowerBase	237	237	390																										0				0	0
 11287	奉天·兵·铸（疗伤）	武器	疗伤成效提升214点	atTherapyPowerBase	214	214	390																										0				0	0
@@ -7780,25 +7780,25 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 11407	云山经·玉简·无方	下装限时		atExecuteScript	skill/装备/无方技能大附魔1.lua		1635																									18000	8				1	10627
 11408	云山经·残卷·灵素	下装限时		atExecuteScript	skill/装备/灵素技能小附魔1.lua		981																									18000	8				1	10626
 11409	云山经·玉简·灵素	下装限时		atExecuteScript	skill/装备/灵素技能大附魔1.lua		1635																									18000	8				1	10626
-11410	山市鬼域·御·腰	腰带限时		atSkillEventHandler	2140		545																									60	6				3	0
-11411	山市鬼域·御·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子北天药宗T.lua		545																									60	9				3	0
-11412	山市鬼域·御·腕	护手限时		atSkillEventHandler	2141		545																									60	10				3	0
-11413	山市鬼域·御·衣	上装限时		atSkillEventHandler	2142		779																									60	2				3	0
-11414	山市鬼域·御·帽	帽子限时		atSkillEventHandler	2143		701																									60	3				3	0
-11415	山市鬼域·疗·腰	腰带限时		atExecuteScript	skill/装备/腰带_新附魔_治疗满血群体AOE.lua		545																									60	6				3	0
-11416	山市鬼域·疗·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子北天药宗治疗.lua		545																									60	9				3	0
-11417	山市鬼域·疗·腕	护手限时		atSkillEventHandler	1706		545																									60	10				3	0
-11418	山市鬼域·疗·衣	上装限时		atSkillEventHandler	1709		779																									60	2				3	0
+11410	山市鬼域·御·腰	腰带限时		atSkillEventHandler	2140		545																									60	6				11	0
+11411	山市鬼域·御·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子北天药宗T.lua		545																									60	9				11	0
+11412	山市鬼域·御·腕	护手限时		atSkillEventHandler	2141		545																									60	10				11	0
+11413	山市鬼域·御·衣	上装限时		atSkillEventHandler	2142		779																									60	2				11	0
+11414	山市鬼域·御·帽	帽子限时		atSkillEventHandler	2143		701																									60	3				11	0
+11415	山市鬼域·疗·腰	腰带限时		atExecuteScript	skill/装备/腰带_新附魔_治疗满血群体AOE.lua		545																									60	6				11	0
+11416	山市鬼域·疗·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子北天药宗治疗.lua		545																									60	9				11	0
+11417	山市鬼域·疗·腕	护手限时		atSkillEventHandler	1706		545																									60	10				11	0
+11418	山市鬼域·疗·衣	上装限时		atSkillEventHandler	1709		779																									60	2				11	0
 11419	山市鬼域·疗·帽	帽子限时		atExecuteScript	skill/装备/帽子_新附魔_治疗非战斗附魔减读条.lua		701																									60	3				3	0
-11420	山市鬼域·伤·腰	腰带限时		atSkillEventHandler	1705		545																									60	6				3	0
-11421	山市鬼域·伤·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子北天药宗.lua		545																									60	9				3	0
-11422	山市鬼域·伤·腕	护手限时		atSkillEventHandler	1843		545																									60	10				3	0
-11423	山市鬼域·伤·衣	上装限时		atExecuteScript	skill/装备/北天药宗输出衣服附魔.lua		779																									60	2				3	0
-11424	山市鬼域·伤·帽	帽子限时		atExecuteScript	skill/装备/北天药宗输出帽子附魔.lua		701																									60	3				3	0
-11425	奉天·瀑沙熔锭（外攻）	武器限时	外功攻击提升332点	atPhysicsAttackPowerBase	332	332	0																									1800	0				3	0
-11426	奉天·坠宵熔锭（内攻）	武器限时	内功攻击提升396点	atMagicAttackPowerBase	396	396	0																									1800	0				3	0
-11427	奉天·絮泊熔锭（疗伤）	武器限时	疗伤成效提升358点	atTherapyPowerBase	358	358	0																									1800	0				3	0
-11428	奉天·巨灵熔锭（仇恨）	武器限时	仇恨百分比提升82.4%	atActiveThreatCoefficient	0	844	0																									1800	0				3	0
+11420	山市鬼域·伤·腰	腰带限时		atSkillEventHandler	1705		545																									60	6				11	0
+11421	山市鬼域·伤·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子北天药宗.lua		545																									60	9				11	0
+11422	山市鬼域·伤·腕	护手限时		atSkillEventHandler	1843		545																									60	10				11	0
+11423	山市鬼域·伤·衣	上装限时		atExecuteScript	skill/装备/北天药宗输出衣服附魔.lua		779																									60	2				11	0
+11424	山市鬼域·伤·帽	帽子限时		atExecuteScript	skill/装备/北天药宗输出帽子附魔.lua		701																									60	3				11	0
+11425	奉天·瀑沙熔锭（外攻）	武器限时	外功攻击提升332点	atPhysicsAttackPowerBase	332	332	0																									1800	0				11	0
+11426	奉天·坠宵熔锭（内攻）	武器限时	内功攻击提升396点	atMagicAttackPowerBase	396	396	0																									1800	0				11	0
+11427	奉天·絮泊熔锭（疗伤）	武器限时	疗伤成效提升358点	atTherapyPowerBase	358	358	0																									1800	0				11	0
+11428	奉天·巨灵熔锭（仇恨）	武器限时	仇恨百分比提升82.4%	atActiveThreatCoefficient	0	844	0																									1800	0				11	0
 11429	奉天·兵·铸（外攻）	武器	外功攻击提升221点	atPhysicsAttackPowerBase	221	221	437																										0				0	0
 11430	奉天·兵·铸（内攻）	武器	内功攻击提升264点	atMagicAttackPowerBase	264	264	437																										0				0	0
 11431	奉天·兵·铸（疗伤）	武器	疗伤成效提升238点	atTherapyPowerBase	238	238	437																										0				0	0
@@ -7868,25 +7868,25 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 11495	阴山鬼晶·暗器（外破）	暗器	外功破防等级提升491点	atPhysicsOvercomeBase	491	491	437																										1					
 11496	阴山鬼晶·暗器（内破）	暗器	内功破防等级提升491点	atMagicOvercome	491	491	437																										1					
 11497	阴山鬼晶·暗器（加速）	暗器	加速提升491点	atHasteBase	491	491	437																										1					
-11498	山市鬼洲·御·腰	腰带限时		atSkillEventHandler	2210		863																									60	6				3	0
-11499	山市鬼洲·御·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子江湖无限T.lua		863																									60	9				3	0
-11500	山市鬼洲·御·腕	护手限时		atSkillEventHandler	2211		863																									60	10				3	0
-11501	山市鬼洲·御·衣	上装限时		atSkillEventHandler	2212		1234																									60	2				3	0
-11502	山市鬼洲·御·帽	帽子限时		atSkillEventHandler	2213		1110																									60	3				3	0
-11503	山市鬼洲·疗·腰	腰带限时		atExecuteScript	skill/装备/腰带_新附魔_治疗满血群体AOE.lua		863																									60	6				3	0
-11504	山市鬼洲·疗·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子江湖无限治疗.lua		863																									60	9				3	0
-11505	山市鬼洲·疗·腕	护手限时		atSkillEventHandler	1706		863																									60	10				3	0
-11506	山市鬼洲·疗·衣	上装限时		atSkillEventHandler	1709		1234																									60	2				3	0
+11498	山市鬼洲·御·腰	腰带限时		atSkillEventHandler	2210		863																									60	6				11	0
+11499	山市鬼洲·御·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子江湖无限T.lua		863																									60	9				11	0
+11500	山市鬼洲·御·腕	护手限时		atSkillEventHandler	2211		863																									60	10				11	0
+11501	山市鬼洲·御·衣	上装限时		atSkillEventHandler	2212		1234																									60	2				11	0
+11502	山市鬼洲·御·帽	帽子限时		atSkillEventHandler	2213		1110																									60	3				11	0
+11503	山市鬼洲·疗·腰	腰带限时		atExecuteScript	skill/装备/腰带_新附魔_治疗满血群体AOE.lua		863																									60	6				11	0
+11504	山市鬼洲·疗·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子江湖无限治疗.lua		863																									60	9				11	0
+11505	山市鬼洲·疗·腕	护手限时		atSkillEventHandler	1706		863																									60	10				11	0
+11506	山市鬼洲·疗·衣	上装限时		atSkillEventHandler	1709		1234																									60	2				11	0
 11507	山市鬼洲·疗·帽	帽子限时		atExecuteScript	skill/装备/帽子_新附魔_治疗非战斗附魔减读条.lua		1110																									60	3				3	0
-11508	山市鬼洲·伤·腰	腰带限时		atSkillEventHandler	1705		863																									60	6				3	0
-11509	山市鬼洲·伤·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子江湖无限.lua		863																									60	9				3	0
-11510	山市鬼洲·伤·腕	护手限时		atSkillEventHandler	1843		863																									60	10				3	0
-11511	山市鬼洲·伤·衣	上装限时		atExecuteScript	skill/装备/江湖无限输出衣服附魔.lua		1234																									60	2				3	0
-11512	山市鬼洲·伤·帽	帽子限时		atExecuteScript	skill/装备/江湖无限输出帽子附魔.lua		1110																									60	3				3	0
-11513	断浪·瀑沙熔锭（外攻）	武器限时	外功攻击提升489点	atPhysicsAttackPowerBase	489	489	0																									1800	0				3	0
-11514	断浪·坠宵熔锭（内攻）	武器限时	内功攻击提升583点	atMagicAttackPowerBase	583	583	0																									1800	0				3	0
-11515	断浪·絮泊熔锭（疗伤）	武器限时	疗伤成效提升527点	atTherapyPowerBase	527	527	0																									1800	0				3	0
-11516	断浪·巨灵熔锭（仇恨）	武器限时	仇恨百分比提升122%	atActiveThreatCoefficient	0	1249	0																									1800	0				3	0
+11508	山市鬼洲·伤·腰	腰带限时		atSkillEventHandler	1705		863																									60	6				11	0
+11509	山市鬼洲·伤·鞋	鞋子限时		atExecuteScript	skill/装备/新附魔鞋子江湖无限.lua		863																									60	9				11	0
+11510	山市鬼洲·伤·腕	护手限时		atSkillEventHandler	1843		863																									60	10				11	0
+11511	山市鬼洲·伤·衣	上装限时		atExecuteScript	skill/装备/江湖无限输出衣服附魔.lua		1234																									60	2				11	0
+11512	山市鬼洲·伤·帽	帽子限时		atExecuteScript	skill/装备/江湖无限输出帽子附魔.lua		1110																									60	3				11	0
+11513	断浪·瀑沙熔锭（外攻）	武器限时	外功攻击提升489点	atPhysicsAttackPowerBase	489	489	0																									1800	0				11	0
+11514	断浪·坠宵熔锭（内攻）	武器限时	内功攻击提升583点	atMagicAttackPowerBase	583	583	0																									1800	0				11	0
+11515	断浪·絮泊熔锭（疗伤）	武器限时	疗伤成效提升527点	atTherapyPowerBase	527	527	0																									1800	0				11	0
+11516	断浪·巨灵熔锭（仇恨）	武器限时	仇恨百分比提升122%	atActiveThreatCoefficient	0	1249	0																									1800	0				11	0
 11517	断浪·兵·铸（外攻）	武器	外功攻击提升326点	atPhysicsAttackPowerBase	326	326	644																										0				0	0
 11518	断浪·兵·铸（内攻）	武器	内功攻击提升389点	atMagicAttackPowerBase	389	389	644																										0				0	0
 11519	断浪·兵·铸（疗伤）	武器	疗伤成效提升351点	atTherapyPowerBase	351	351	644																										0				0	0
@@ -7943,10 +7943,10 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 11570	断浪·兵·甲（疗伤）	武器	疗伤成效提升176点	atTherapyPowerBase	176	176	322																										0				0	0
 11571	断浪·兵·甲（武伤）	武器	武器伤害提升244点	atMeleeWeaponDamageBase	244	244	322																										0				0	0
 11572	断浪·兵·甲（仇恨）	武器	仇恨百分比提升41%	atActiveThreatCoefficient	0	420	322																										0				0	0
-11573	断浪·瀑沙磨石（外伤）	武器限时	外功攻击提升244点	atPhysicsAttackPowerBase	244	244	0																									1800	0				3	0
-11574	断浪·坠宵磨石（内伤）	武器限时	内功攻击提升292点	atMagicAttackPowerBase	292	292	0																									1800	0				3	0
-11575	断浪·絮泊磨石（疗伤）	武器限时	疗伤成效提升263点	atTherapyPowerBase	263	263	0																									1800	0				3	0
-11576	断浪·巨灵磨石（仇恨）	武器限时	仇恨百分比提升61%	atActiveThreatCoefficient	0	624	0																									1800	0				3	0
+11573	断浪·瀑沙磨石（外伤）	武器限时	外功攻击提升244点	atPhysicsAttackPowerBase	244	244	0																									1800	0				11	0
+11574	断浪·坠宵磨石（内伤）	武器限时	内功攻击提升292点	atMagicAttackPowerBase	292	292	0																									1800	0				11	0
+11575	断浪·絮泊磨石（疗伤）	武器限时	疗伤成效提升263点	atTherapyPowerBase	263	263	0																									1800	0				11	0
+11576	断浪·巨灵磨石（仇恨）	武器限时	仇恨百分比提升61%	atActiveThreatCoefficient	0	624	0																									1800	0				11	0
 11577	断浪·腕·绣（身法）	护手	身法提升162点	atAgilityBase	162	162	644																										10				0	0
 11578	断浪·腕·绣（元气）	护手	元气提升162点	atSpunkBase	162	162	644																										10				0	0
 11579	断浪·腕·绣（力道）	护手	力道提升162点	atStrengthBase	162	162	644																										10				0	0
@@ -8040,40 +8040,40 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 11667	断流心岩·暗器（外破）	暗器	外功破防等级提升723点	atPhysicsOvercomeBase	723	723	644																										1					
 11668	断流心岩·暗器（内破）	暗器	内功破防等级提升723点	atMagicOvercome	723	723	644																										1					
 11669	断流心岩·暗器（加速）	暗器	加速提升723点	atHasteBase	723	723	644																										1					
-11670	天堑奇琨·御·腰	腰带限时大附魔		atSkillEventHandler	2398		1157																									60	6				3	0
-11671	天堑奇琨·御·鞋	鞋子限时大附魔		atExecuteScript	skill/装备/新附魔鞋子横刀断浪T1.lua		1157																									60	9				3	0
-11672	天堑奇琨·御·腕	护手限时大附魔		atSkillEventHandler	2395		1157																									60	10				3	0
-11673	天堑奇琨·御·衣	上装限时大附魔		atSkillEventHandler	2396		1654																									60	2				3	0
-11674	天堑奇琨·御·帽	帽子限时大附魔		atSkillEventHandler	2397		1488																									60	3				3	0
-11675	天堑奇琨·疗·腰	腰带限时大附魔		atSkillEventHandler	2394		1157																									60	6				3	0
-11676	天堑奇琨·疗·鞋	鞋子限时大附魔		atExecuteScript	skill/装备/新附魔鞋子横刀断浪治疗1.lua		1157																									60	9				3	0
-11677	天堑奇琨·疗·腕	护手限时大附魔		atSkillEventHandler	1706		1157																									60	10				3	0
-11678	天堑奇琨·疗·衣	上装限时大附魔		atSkillEventHandler	1709		1654																									60	2				3	0
+11670	天堑奇琨·御·腰	腰带限时大附魔		atSkillEventHandler	2398		1157																									60	6				11	0
+11671	天堑奇琨·御·鞋	鞋子限时大附魔		atExecuteScript	skill/装备/新附魔鞋子横刀断浪T1.lua		1157																									60	9				11	0
+11672	天堑奇琨·御·腕	护手限时大附魔		atSkillEventHandler	2395		1157																									60	10				11	0
+11673	天堑奇琨·御·衣	上装限时大附魔		atSkillEventHandler	2396		1654																									60	2				11	0
+11674	天堑奇琨·御·帽	帽子限时大附魔		atSkillEventHandler	2397		1488																									60	3				11	0
+11675	天堑奇琨·疗·腰	腰带限时大附魔		atSkillEventHandler	2394		1157																									60	6				11	0
+11676	天堑奇琨·疗·鞋	鞋子限时大附魔		atExecuteScript	skill/装备/新附魔鞋子横刀断浪治疗1.lua		1157																									60	9				11	0
+11677	天堑奇琨·疗·腕	护手限时大附魔		atSkillEventHandler	1706		1157																									60	10				11	0
+11678	天堑奇琨·疗·衣	上装限时大附魔		atSkillEventHandler	1709		1654																									60	2				11	0
 11679	天堑奇琨·疗·帽	帽子限时大附魔		atExecuteScript	skill/装备/帽子_新附魔_治疗非战斗附魔减读条.lua		1488																									60	3				3	0
-11680	天堑奇琨·伤·腰	腰带限时大附魔		atSkillEventHandler	1705		1157																									60	6				3	0
-11681	天堑奇琨·伤·鞋	鞋子限时大附魔		atSkillEventHandler	2393		1157																									60	9				3	0
-11682	天堑奇琨·伤·腕	护手限时大附魔		atSkillEventHandler	1843		1157																									60	10				3	0
-11683	天堑奇琨·伤·衣	上装限时大附魔		atExecuteScript	skill/装备/横刀断浪输出衣服附魔1.lua		1654																									60	2				3	0
-11684	天堑奇琨·伤·帽	帽子限时大附魔		atExecuteScript	skill/装备/横刀断浪输出帽子附魔1.lua		1488																									60	3				3	0
-11685	天堑奇珂·御·腰	腰带限时大附魔		atSkillEventHandler	2385		1272																									60	6				3	0
-11686	天堑奇珂·御·鞋	鞋子限时大附魔		atExecuteScript	skill/装备/新附魔鞋子横刀断浪T.lua		1272																									60	9				3	0
-11687	天堑奇珂·御·腕	护手限时大附魔		atSkillEventHandler	2395		1272																									60	10				3	0
-11688	天堑奇珂·御·衣	上装限时大附魔		atSkillEventHandler	2383		1819																									60	2				3	0
-11689	天堑奇珂·御·帽	帽子限时大附魔		atSkillEventHandler	2384		1636																									60	3				3	0
-11690	天堑奇珂·疗·腰	腰带限时大附魔		atSkillEventHandler	2394		1272																									60	6				3	0
-11691	天堑奇珂·疗·鞋	鞋子限时大附魔		atExecuteScript	skill/装备/新附魔鞋子横刀断浪治疗.lua		1272																									60	9				3	0
-11692	天堑奇珂·疗·腕	护手限时大附魔		atSkillEventHandler	1706		1272																									60	10				3	0
-11693	天堑奇珂·疗·衣	上装限时大附魔		atSkillEventHandler	1709		1819																									60	2				3	0
+11680	天堑奇琨·伤·腰	腰带限时大附魔		atSkillEventHandler	1705		1157																									60	6				11	0
+11681	天堑奇琨·伤·鞋	鞋子限时大附魔		atSkillEventHandler	2393		1157																									60	9				11	0
+11682	天堑奇琨·伤·腕	护手限时大附魔		atSkillEventHandler	1843		1157																									60	10				11	0
+11683	天堑奇琨·伤·衣	上装限时大附魔		atExecuteScript	skill/装备/横刀断浪输出衣服附魔1.lua		1654																									60	2				11	0
+11684	天堑奇琨·伤·帽	帽子限时大附魔		atExecuteScript	skill/装备/横刀断浪输出帽子附魔1.lua		1488																									60	3				11	0
+11685	天堑奇珂·御·腰	腰带限时大附魔		atSkillEventHandler	2385		1272																									60	6				11	0
+11686	天堑奇珂·御·鞋	鞋子限时大附魔		atExecuteScript	skill/装备/新附魔鞋子横刀断浪T.lua		1272																									60	9				11	0
+11687	天堑奇珂·御·腕	护手限时大附魔		atSkillEventHandler	2395		1272																									60	10				11	0
+11688	天堑奇珂·御·衣	上装限时大附魔		atSkillEventHandler	2383		1819																									60	2				11	0
+11689	天堑奇珂·御·帽	帽子限时大附魔		atSkillEventHandler	2384		1636																									60	3				11	0
+11690	天堑奇珂·疗·腰	腰带限时大附魔		atSkillEventHandler	2394		1272																									60	6				11	0
+11691	天堑奇珂·疗·鞋	鞋子限时大附魔		atExecuteScript	skill/装备/新附魔鞋子横刀断浪治疗.lua		1272																									60	9				11	0
+11692	天堑奇珂·疗·腕	护手限时大附魔		atSkillEventHandler	1706		1272																									60	10				11	0
+11693	天堑奇珂·疗·衣	上装限时大附魔		atSkillEventHandler	1709		1819																									60	2				11	0
 11694	天堑奇珂·疗·帽	帽子限时大附魔		atExecuteScript	skill/装备/帽子_新附魔_治疗非战斗附魔减读条.lua		1636																									60	3				3	0
-11695	天堑奇珂·伤·腰	腰带限时大附魔		atSkillEventHandler	1705		1272																									60	6				3	0
-11696	天堑奇珂·伤·鞋	鞋子限时大附魔		atSkillEventHandler	2393		1272																									60	9				3	0
-11697	天堑奇珂·伤·腕	护手限时大附魔		atSkillEventHandler	1843		1272																									60	10				3	0
-11698	天堑奇珂·伤·衣	上装限时大附魔		atExecuteScript	skill/装备/横刀断浪输出衣服附魔.lua		1819																									60	2				3	0
-11699	天堑奇珂·伤·帽	帽子限时大附魔		atExecuteScript	skill/装备/横刀断浪输出帽子附魔.lua		1636																									60	3				3	0
-11700	断浪·瀑沙熔锭（外攻）	武器限时	外功攻击提升540点	atPhysicsAttackPowerBase	540	540																										1800	0				3	0
-11701	断浪·坠宵熔锭（内攻）	武器限时	内功攻击提升645点	atMagicAttackPowerBase	645	645																										1800	0				3	0
-11702	断浪·絮泊熔锭（疗伤）	武器限时	疗伤成效提升582点	atTherapyPowerBase	582	582																										1800	0				3	0
-11703	断浪·巨灵熔锭（仇恨）	武器限时	仇恨百分比提升134%	atActiveThreatCoefficient	0	1372																										1800	0				3	0
+11695	天堑奇珂·伤·腰	腰带限时大附魔		atSkillEventHandler	1705		1272																									60	6				11	0
+11696	天堑奇珂·伤·鞋	鞋子限时大附魔		atSkillEventHandler	2393		1272																									60	9				11	0
+11697	天堑奇珂·伤·腕	护手限时大附魔		atSkillEventHandler	1843		1272																									60	10				11	0
+11698	天堑奇珂·伤·衣	上装限时大附魔		atExecuteScript	skill/装备/横刀断浪输出衣服附魔.lua		1819																									60	2				11	0
+11699	天堑奇珂·伤·帽	帽子限时大附魔		atExecuteScript	skill/装备/横刀断浪输出帽子附魔.lua		1636																									60	3				11	0
+11700	断浪·瀑沙熔锭（外攻）	武器限时	外功攻击提升540点	atPhysicsAttackPowerBase	540	540																										1800	0				11	0
+11701	断浪·坠宵熔锭（内攻）	武器限时	内功攻击提升645点	atMagicAttackPowerBase	645	645																										1800	0				11	0
+11702	断浪·絮泊熔锭（疗伤）	武器限时	疗伤成效提升582点	atTherapyPowerBase	582	582																										1800	0				11	0
+11703	断浪·巨灵熔锭（仇恨）	武器限时	仇恨百分比提升134%	atActiveThreatCoefficient	0	1372																										1800	0				11	0
 11704	断浪·兵·铸（外攻）	武器	外功攻击提升360点	atPhysicsAttackPowerBase	360	360	783																										0				0	0
 11705	断浪·兵·铸（内攻）	武器	内功攻击提升430点	atMagicAttackPowerBase	430	430	783																										0				0	0
 11706	断浪·兵·铸（疗伤）	武器	疗伤成效提升388点	atTherapyPowerBase	388	388	783																										0				0	0
@@ -8130,10 +8130,10 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 11757	断浪·兵·甲（疗伤）	武器	疗伤成效提升194点	atTherapyPowerBase	194	194	391																										0				0	0
 11758	断浪·兵·甲（武伤）	武器	武器伤害提升270点	atMeleeWeaponDamageBase	270	270	391																										0				0	0
 11759	断浪·兵·甲（仇恨）	武器	仇恨百分比提升44.5%	atActiveThreatCoefficient	0	456	391																										0				0	0
-11760	断浪·瀑沙磨石（外伤）	武器限时	外功攻击提升270点	atPhysicsAttackPowerBase	270	270																										1800	0				3	0
-11761	断浪·坠宵磨石（内伤）	武器限时	内功攻击提升322点	atMagicAttackPowerBase	322	322																										1800	0				3	0
-11762	断浪·絮泊磨石（疗伤）	武器限时	疗伤成效提升291点	atTherapyPowerBase	291	291																										1800	0				3	0
-11763	断浪·巨灵磨石（仇恨）	武器限时	仇恨百分比提升67%	atActiveThreatCoefficient	0	686																										1800	0				3	0
+11760	断浪·瀑沙磨石（外伤）	武器限时	外功攻击提升270点	atPhysicsAttackPowerBase	270	270																										1800	0				11	0
+11761	断浪·坠宵磨石（内伤）	武器限时	内功攻击提升322点	atMagicAttackPowerBase	322	322																										1800	0				11	0
+11762	断浪·絮泊磨石（疗伤）	武器限时	疗伤成效提升291点	atTherapyPowerBase	291	291																										1800	0				11	0
+11763	断浪·巨灵磨石（仇恨）	武器限时	仇恨百分比提升67%	atActiveThreatCoefficient	0	686																										1800	0				11	0
 11764	断浪·腕·绣（身法）	护手	身法提升179点	atAgilityBase	179	179	783																										10				0	0
 11765	断浪·腕·绣（元气）	护手	元气提升179点	atSpunkBase	179	179	783																										10				0	0
 11766	断浪·腕·绣（力道）	护手	力道提升179点	atStrengthBase	179	179	783																										10				0	0
@@ -8224,25 +8224,25 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 11851	断流心岩·暗器（外破）	暗器	外功破防等级提升799点	atPhysicsOvercomeBase	799	799	783																										1					
 11852	断流心岩·暗器（内破）	暗器	内功破防等级提升799点	atMagicOvercome	799	799	783																										1					
 11853	断流心岩·暗器（加速）	暗器	加速提升799点	atHasteBase	799	799	783																										1					
-11854	天堑奇瑛·御·腰	腰带限时大附魔		atSkillEventHandler	2481		1575																									60	6				3	0
-11855	天堑奇瑛·御·鞋	鞋子限时大附魔		atExecuteScript	skill/装备/群侠万变T鞋子附魔.lua		1575																									60	9				3	0
-11856	天堑奇瑛·御·腕	护手限时大附魔		atSkillEventHandler	2482		1575																									60	10				3	0
-11857	天堑奇瑛·御·衣	上装限时大附魔		atSkillEventHandler	2483		2252																									60	2				3	0
-11858	天堑奇瑛·御·帽	帽子限时大附魔		atSkillEventHandler	2484		2025																									60	3				3	0
-11859	天堑奇瑛·疗·腰	腰带限时大附魔		atSkillEventHandler	2494		1575																									60	6				3	0
-11860	天堑奇瑛·疗·鞋	鞋子限时大附魔		atExecuteScript	skill/装备/群侠万变治疗鞋子附魔.lua		1575																									60	9				3	0
-11861	天堑奇瑛·疗·腕	护手限时大附魔		atSkillEventHandler	2479		1575																									60	10				3	0
-11862	天堑奇瑛·疗·衣	上装限时大附魔		atSkillEventHandler	2480		2252																									60	2				3	0
-11863	天堑奇瑛·疗·帽	帽子限时大附魔		atExecuteScript	skill/装备/群侠万变治疗帽子附魔.lua		2025																									60	3				3	0
-11864	天堑奇瑛·伤·腰	腰带限时大附魔		atSkillEventHandler	2478		1575																									60	6				3	0
-11865	天堑奇瑛·伤·鞋	鞋子限时大附魔		atSkillEventHandler	2495		1575																									60	9				3	0
-11866	天堑奇瑛·伤·腕	护手限时大附魔		atSkillEventHandler	2485		1575																									60	10				3	0
-11867	天堑奇瑛·伤·衣	上装限时大附魔		atExecuteScript	skill/装备/群侠万变输出衣服附魔.lua		2252																									60	2				3	0
-11868	天堑奇瑛·伤·帽	帽子限时大附魔		atExecuteScript	skill/装备/群侠万变输出帽子附魔.lua		2025																									60	3				3	0
-11869	断浪·瀑沙熔锭（外攻）	武器限时	外功攻击提升597点	atPhysicsAttackPowerBase	597	597																										1800	0				3	0
-11870	断浪·坠宵熔锭（内攻）	武器限时	内功攻击提升712点	atMagicAttackPowerBase	712	712																										1800	0				3	0
-11871	断浪·絮泊熔锭（疗伤）	武器限时	疗伤成效提升643点	atTherapyPowerBase	643	643																										1800	0				3	0
-11872	断浪·巨灵熔锭（仇恨）	武器限时	仇恨百分比提升149%	atActiveThreatCoefficient	0	1526																										1800	0				3	0
+11854	天堑奇瑛·御·腰	腰带限时大附魔		atSkillEventHandler	2481		1575																									60	6				11	0
+11855	天堑奇瑛·御·鞋	鞋子限时大附魔		atExecuteScript	skill/装备/群侠万变T鞋子附魔.lua		1575																									60	9				11	0
+11856	天堑奇瑛·御·腕	护手限时大附魔		atSkillEventHandler	2482		1575																									60	10				11	0
+11857	天堑奇瑛·御·衣	上装限时大附魔		atSkillEventHandler	2483		2252																									60	2				11	0
+11858	天堑奇瑛·御·帽	帽子限时大附魔		atSkillEventHandler	2484		2025																									60	3				11	0
+11859	天堑奇瑛·疗·腰	腰带限时大附魔		atSkillEventHandler	2494		1575																									60	6				11	0
+11860	天堑奇瑛·疗·鞋	鞋子限时大附魔		atExecuteScript	skill/装备/群侠万变治疗鞋子附魔.lua		1575																									60	9				11	0
+11861	天堑奇瑛·疗·腕	护手限时大附魔		atSkillEventHandler	2479		1575																									60	10				11	0
+11862	天堑奇瑛·疗·衣	上装限时大附魔		atSkillEventHandler	2480		2252																									60	2				11	0
+11863	天堑奇瑛·疗·帽	帽子限时大附魔		atExecuteScript	skill/装备/群侠万变治疗帽子附魔.lua		2025																									60	3				11	0
+11864	天堑奇瑛·伤·腰	腰带限时大附魔		atSkillEventHandler	2478		1575																									60	6				11	0
+11865	天堑奇瑛·伤·鞋	鞋子限时大附魔		atSkillEventHandler	2495		1575																									60	9				11	0
+11866	天堑奇瑛·伤·腕	护手限时大附魔		atSkillEventHandler	2485		1575																									60	10				11	0
+11867	天堑奇瑛·伤·衣	上装限时大附魔		atExecuteScript	skill/装备/群侠万变输出衣服附魔.lua		2252																									60	2				11	0
+11868	天堑奇瑛·伤·帽	帽子限时大附魔		atExecuteScript	skill/装备/群侠万变输出帽子附魔.lua		2025																									60	3				11	0
+11869	断浪·瀑沙熔锭（外攻）	武器限时	外功攻击提升597点	atPhysicsAttackPowerBase	597	597																										1800	0				11	0
+11870	断浪·坠宵熔锭（内攻）	武器限时	内功攻击提升712点	atMagicAttackPowerBase	712	712																										1800	0				11	0
+11871	断浪·絮泊熔锭（疗伤）	武器限时	疗伤成效提升643点	atTherapyPowerBase	643	643																										1800	0				11	0
+11872	断浪·巨灵熔锭（仇恨）	武器限时	仇恨百分比提升149%	atActiveThreatCoefficient	0	1526																										1800	0				11	0
 11873	断浪·兵·铸（外攻）	武器	外功攻击提升398点	atPhysicsAttackPowerBase	398	398	952																										0				0	0
 11874	断浪·兵·铸（内攻）	武器	内功攻击提升475点	atMagicAttackPowerBase	475	475	952																										0				0	0
 11875	断浪·兵·铸（疗伤）	武器	疗伤成效提升429点	atTherapyPowerBase	429	429	952																										0				0	0
@@ -8299,10 +8299,10 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 11926	断浪·兵·甲（疗伤）	武器	疗伤成效提升214点	atTherapyPowerBase	214	214	475																										0				0	0
 11927	断浪·兵·甲（武伤）	武器	武器伤害提升298点	atMeleeWeaponDamageBase	298	298	475																										0				0	0
 11928	断浪·兵·甲（仇恨）	武器	仇恨百分比提升50%	atActiveThreatCoefficient	0	512	475																										0				0	0
-11929	断浪·瀑沙磨石（外攻）	武器限时	外功攻击提升298点	atPhysicsAttackPowerBase	298	298																										1800	0				3	0
-11930	断浪·坠宵磨石（内攻）	武器限时	内功攻击提升356点	atMagicAttackPowerBase	356	356																										1800	0				3	0
-11931	断浪·絮泊磨石（疗伤）	武器限时	疗伤成效提升321点	atTherapyPowerBase	321	321																										1800	0				3	0
-11932	断浪·巨灵磨石（仇恨）	武器限时	仇恨百分比提升74%	atActiveThreatCoefficient	0	758																										1800	0				3	0
+11929	断浪·瀑沙磨石（外攻）	武器限时	外功攻击提升298点	atPhysicsAttackPowerBase	298	298																										1800	0				11	0
+11930	断浪·坠宵磨石（内攻）	武器限时	内功攻击提升356点	atMagicAttackPowerBase	356	356																										1800	0				11	0
+11931	断浪·絮泊磨石（疗伤）	武器限时	疗伤成效提升321点	atTherapyPowerBase	321	321																										1800	0				11	0
+11932	断浪·巨灵磨石（仇恨）	武器限时	仇恨百分比提升74%	atActiveThreatCoefficient	0	758																										1800	0				11	0
 11933	断浪·腕·绣（身法）	护手	身法提升198点	atAgilityBase	198	198	952																										10				0	0
 11934	断浪·腕·绣（元气）	护手	元气提升198点	atSpunkBase	198	198	952																										10				0	0
 11935	断浪·腕·绣（力道）	护手	力道提升198点	atStrengthBase	198	198	952																										10				0	0
@@ -8393,25 +8393,25 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 12020	断流心岩·暗器（外破）	暗器	外功破防等级提升883点	atPhysicsOvercomeBase	883	883	952																										1					
 12021	断流心岩·暗器（内破）	暗器	内功破防等级提升883点	atMagicOvercome	883	883	952																										1					
 12022	断流心岩·暗器（加速）	暗器	加速提升883点	atHasteBase	883	883	952																										1					
-12023	天堑奇玿·御·腰	腰带限时大附魔		atSkillEventHandler	2559		1914																									60	6				3	0
-12024	天堑奇玿·御·鞋	鞋子限时大附魔		atExecuteScript	skill/装备/万灵当歌t鞋子附魔.lua		1914																									60	9				3	0
-12025	天堑奇玿·御·腕	护手限时大附魔		atSkillEventHandler	2560		1914																									60	10				3	0
-12026	天堑奇玿·御·衣	上装限时大附魔		atSkillEventHandler	2561		2737																									60	2				3	0
-12027	天堑奇玿·御·帽	帽子限时大附魔		atSkillEventHandler	2562		2461																									60	3				3	0
-12028	天堑奇玿·疗·腰	腰带限时大附魔		atSkillEventHandler	2558		1914																									60	6				3	0
-12029	天堑奇玿·疗·鞋	鞋子限时大附魔		atExecuteScript	skill/装备/万灵当歌治疗鞋子附魔.lua		1914																									60	9				3	0
-12030	天堑奇玿·疗·腕	护手限时大附魔		atSkillEventHandler	2556		1914																									60	10				3	0
-12031	天堑奇玿·疗·衣	上装限时大附魔		atSkillEventHandler	2557		2737																									60	2				3	0
+12023	天堑奇玿·御·腰	腰带限时大附魔		atSkillEventHandler	2559		1914																									60	6				11	0
+12024	天堑奇玿·御·鞋	鞋子限时大附魔		atExecuteScript	skill/装备/万灵当歌t鞋子附魔.lua		1914																									60	9				11	0
+12025	天堑奇玿·御·腕	护手限时大附魔		atSkillEventHandler	2560		1914																									60	10				11	0
+12026	天堑奇玿·御·衣	上装限时大附魔		atSkillEventHandler	2561		2737																									60	2				11	0
+12027	天堑奇玿·御·帽	帽子限时大附魔		atSkillEventHandler	2562		2461																									60	3				11	0
+12028	天堑奇玿·疗·腰	腰带限时大附魔		atSkillEventHandler	2558		1914																									60	6				11	0
+12029	天堑奇玿·疗·鞋	鞋子限时大附魔		atExecuteScript	skill/装备/万灵当歌治疗鞋子附魔.lua		1914																									60	9				11	0
+12030	天堑奇玿·疗·腕	护手限时大附魔		atSkillEventHandler	2556		1914																									60	10				11	0
+12031	天堑奇玿·疗·衣	上装限时大附魔		atSkillEventHandler	2557		2737																									60	2				11	0
 12032	天堑奇玿·疗·帽	帽子限时大附魔		atExecuteScript	skill/装备/帽子_新附魔_治疗非战斗附魔减读条.lua		2461																									60	3				3	0
-12033	天堑奇玿·伤·腰	腰带限时大附魔		atSkillEventHandler	2553		1914																									60	6				3	0
-12034	天堑奇玿·伤·鞋	鞋子限时大附魔		atSkillEventHandler	2555		1914																									60	9				3	0
-12035	天堑奇玿·伤·腕	护手限时大附魔		atSkillEventHandler	2554		1914																									60	10				3	0
-12036	天堑奇玿·伤·衣	上装限时大附魔		atExecuteScript	skill/装备/万灵当歌输出衣服附魔.lua		2737																									60	2				3	0
-12037	天堑奇玿·伤·帽	帽子限时大附魔		atExecuteScript	skill/装备/万灵当歌输出帽子附魔.lua		2461																									60	3				3	0
-12038	断浪·瀑沙熔锭（外攻）	武器限时	外功攻击提升658点	atPhysicsAttackPowerBase	658	658																										1800	0				3	0
-12039	断浪·坠宵熔锭（内攻）	武器限时	内功攻击提升786点	atMagicAttackPowerBase	786	786																										1800	0				3	0
-12040	断浪·絮泊熔锭（疗伤）	武器限时	疗伤成效提升710点	atTherapyPowerBase	710	710																										1800	0				3	0
-12041	断浪·巨灵熔锭（仇恨）	武器限时	仇恨百分比提升164%	atActiveThreatCoefficient	0	1679																										1800	0				3	0
+12033	天堑奇玿·伤·腰	腰带限时大附魔		atSkillEventHandler	2553		1914																									60	6				11	0
+12034	天堑奇玿·伤·鞋	鞋子限时大附魔		atSkillEventHandler	2555		1914																									60	9				11	0
+12035	天堑奇玿·伤·腕	护手限时大附魔		atSkillEventHandler	2554		1914																									60	10				11	0
+12036	天堑奇玿·伤·衣	上装限时大附魔		atExecuteScript	skill/装备/万灵当歌输出衣服附魔.lua		2737																									60	2				11	0
+12037	天堑奇玿·伤·帽	帽子限时大附魔		atExecuteScript	skill/装备/万灵当歌输出帽子附魔.lua		2461																									60	3				11	0
+12038	断浪·瀑沙熔锭（外攻）	武器限时	外功攻击提升658点	atPhysicsAttackPowerBase	658	658																										1800	0				11	0
+12039	断浪·坠宵熔锭（内攻）	武器限时	内功攻击提升786点	atMagicAttackPowerBase	786	786																										1800	0				11	0
+12040	断浪·絮泊熔锭（疗伤）	武器限时	疗伤成效提升710点	atTherapyPowerBase	710	710																										1800	0				11	0
+12041	断浪·巨灵熔锭（仇恨）	武器限时	仇恨百分比提升164%	atActiveThreatCoefficient	0	1679																										1800	0				11	0
 12042	断浪·兵·铸（外攻）	武器	外功攻击提升439点	atPhysicsAttackPowerBase	439	439	1050																										0				0	0
 12043	断浪·兵·铸（内攻）	武器	内功攻击提升524点	atMagicAttackPowerBase	524	524	1050																										0				0	0
 12044	断浪·兵·铸（疗伤）	武器	疗伤成效提升473点	atTherapyPowerBase	473	473	1050																										0				0	0
@@ -8468,10 +8468,10 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 12095	断浪·兵·甲（疗伤）	武器	疗伤成效提升236点	atTherapyPowerBase	236	236	524																										0				0	0
 12096	断浪·兵·甲（武伤）	武器	武器伤害提升329点	atMeleeWeaponDamageBase	329	329	524																										0				0	0
 12097	断浪·兵·甲（仇恨）	武器	仇恨百分比提升55%	atActiveThreatCoefficient	0	563	524																										0				0	0
-12098	断浪·瀑沙磨石（外攻）	武器限时	外功攻击提升329点	atPhysicsAttackPowerBase	329	329																										1800	0				3	0
-12099	断浪·坠宵磨石（内攻）	武器限时	内功攻击提升393点	atMagicAttackPowerBase	393	393																										1800	0				3	0
-12100	断浪·絮泊磨石（疗伤）	武器限时	疗伤成效提升355点	atTherapyPowerBase	355	355																										1800	0				3	0
-12101	断浪·巨灵磨石（仇恨）	武器限时	仇恨百分比提升82%	atActiveThreatCoefficient	0	839																										1800	0				3	0
+12098	断浪·瀑沙磨石（外攻）	武器限时	外功攻击提升329点	atPhysicsAttackPowerBase	329	329																										1800	0				11	0
+12099	断浪·坠宵磨石（内攻）	武器限时	内功攻击提升393点	atMagicAttackPowerBase	393	393																										1800	0				11	0
+12100	断浪·絮泊磨石（疗伤）	武器限时	疗伤成效提升355点	atTherapyPowerBase	355	355																										1800	0				11	0
+12101	断浪·巨灵磨石（仇恨）	武器限时	仇恨百分比提升82%	atActiveThreatCoefficient	0	839																										1800	0				11	0
 12102	断浪·腕·绣（身法）	护手	身法提升218点	atAgilityBase	218	218	1050																										10				0	0
 12103	断浪·腕·绣（元气）	护手	元气提升218点	atSpunkBase	218	218	1050																										10				0	0
 12104	断浪·腕·绣（力道）	护手	力道提升218点	atStrengthBase	218	218	1050																										10				0	0
@@ -8562,18 +8562,18 @@ ID	Name	UIID	AttriName	Attribute1ID	Attribute1Value1	Attribute1Value2	Score	Diam
 12189	断流心岩·暗器（外破）	暗器	外功破防等级提升974点	atPhysicsOvercomeBase	974	974	1050																										1					
 12190	断流心岩·暗器（内破）	暗器	内功破防等级提升974点	atMagicOvercome	974	974	1050																										1					
 12191	断流心岩·暗器（加速）	暗器	加速提升974点	atHasteBase	974	974	1050																										1					
-12192	天堑奇珵·御·腰	腰带限时大附魔		atSkillEventHandler	2629		2112																									60	6				3	0
-12193	天堑奇珵·御·鞋	鞋子限时大附魔		atExecuteScript	skill/装备/无界赛季t鞋子附魔.lua		2112																									60	9				3	0
-12194	天堑奇珵·御·腕	护手限时大附魔		atSkillEventHandler	2630		2112																									60	10				3	0
-12195	天堑奇珵·御·衣	上装限时大附魔		atSkillEventHandler	2631		3020																									60	2				3	0
-12196	天堑奇珵·御·帽	帽子限时大附魔		atSkillEventHandler	2632		2716																									60	3				3	0
-12197	天堑奇珵·疗·腰	腰带限时大附魔		atSkillEventHandler	2628		2112																									60	6				3	0
-12198	天堑奇珵·疗·鞋	鞋子限时大附魔		atExecuteScript	skill/装备/无界赛季治疗鞋子附魔.lua		2112																									60	9				3	0
-12199	天堑奇珵·疗·腕	护手限时大附魔		atSkillEventHandler	2626		2112																									60	10				3	0
-12200	天堑奇珵·疗·衣	上装限时大附魔		atSkillEventHandler	2627		3020																									60	2				3	0
+12192	天堑奇珵·御·腰	腰带限时大附魔		atSkillEventHandler	2629		2112																									60	6				11	0
+12193	天堑奇珵·御·鞋	鞋子限时大附魔		atExecuteScript	skill/装备/无界赛季t鞋子附魔.lua		2112																									60	9				11	0
+12194	天堑奇珵·御·腕	护手限时大附魔		atSkillEventHandler	2630		2112																									60	10				11	0
+12195	天堑奇珵·御·衣	上装限时大附魔		atSkillEventHandler	2631		3020																									60	2				11	0
+12196	天堑奇珵·御·帽	帽子限时大附魔		atSkillEventHandler	2632		2716																									60	3				11	0
+12197	天堑奇珵·疗·腰	腰带限时大附魔		atSkillEventHandler	2628		2112																									60	6				11	0
+12198	天堑奇珵·疗·鞋	鞋子限时大附魔		atExecuteScript	skill/装备/无界赛季治疗鞋子附魔.lua		2112																									60	9				11	0
+12199	天堑奇珵·疗·腕	护手限时大附魔		atSkillEventHandler	2626		2112																									60	10				11	0
+12200	天堑奇珵·疗·衣	上装限时大附魔		atSkillEventHandler	2627		3020																									60	2				11	0
 12201	天堑奇珵·疗·帽	帽子限时大附魔		atExecuteScript	skill/装备/帽子_新附魔_治疗非战斗附魔减读条.lua		2716																									60	3				3	0
-12202	天堑奇珵·伤·腰	腰带限时大附魔		atSkillEventHandler	2623		2112																									60	6				3	0
-12203	天堑奇珵·伤·鞋	鞋子限时大附魔		atSkillEventHandler	2625		2112																									60	9				3	0
-12204	天堑奇珵·伤·腕	护手限时大附魔		atSkillEventHandler	2624		2112																									60	10				3	0
-12205	天堑奇珵·伤·衣	上装限时大附魔		atExecuteScript	skill/装备/无界赛季输出衣服附魔.lua		3020																									60	2				3	0
-12206	天堑奇珵·伤·帽	帽子限时大附魔		atExecuteScript	skill/装备/无界赛季输出帽子附魔.lua		2716																									60	3				3	0
+12202	天堑奇珵·伤·腰	腰带限时大附魔		atSkillEventHandler	2623		2112																									60	6				11	0
+12203	天堑奇珵·伤·鞋	鞋子限时大附魔		atSkillEventHandler	2625		2112																									60	9				11	0
+12204	天堑奇珵·伤·腕	护手限时大附魔		atSkillEventHandler	2624		2112																									60	10				11	0
+12205	天堑奇珵·伤·衣	上装限时大附魔		atExecuteScript	skill/装备/无界赛季输出衣服附魔.lua		3020																									60	2				11	0
+12206	天堑奇珵·伤·帽	帽子限时大附魔		atExecuteScript	skill/装备/无界赛季输出帽子附魔.lua		2716																									60	3				11	0
