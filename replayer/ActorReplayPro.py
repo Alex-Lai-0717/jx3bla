@@ -145,7 +145,7 @@ class ActorProReplayer(ReplayerBase):
             occDetailList[key] = self.bld.info.player[key].occ
             # 如果是jcl数据，立刻进行心法推断（由于直接从游戏中读取，这个心法推断是准确的）
             if self.bld.info.player[key].xinfaCode != "0":
-                print("[XinfaCode]", self.bld.info.player[key].xinfaCode)
+                # print("[XinfaCode]", self.bld.info.player[key].xinfaCode)
                 res = getOccDetailFromXinfaCode(self.bld.info.player[key].xinfaCode)
                 if res != "0":
                     occDetailList[key] = res

@@ -148,7 +148,7 @@ class BoostCounter():
             targetBoosts.append(self.targetBoost[target][boost]["effect"])
         for baseBoost in self.boost:
 
-            # if baseBoost == "2,673,11":
+            # if baseBoost == "2,29294,1":
             #     print("[pfStart]", coeffAll, finalAttrib1)
             #     print("[boostValue]", self.boost[baseBoost])
 
@@ -167,10 +167,10 @@ class BoostCounter():
             self.attributeData2.addBoostAndGetAttrib(self.boost[baseBoost]["effect"])
             coeffSpecific2 = getDamageCoeff(self.occ, finalAttrib2, targetBoosts, lvl=self.lvl, isPoZhao=isPoZhao, isSangRou=isSangRou)
 
-            # if baseBoost == "2,673,11":
+            # if baseBoost == "2,29294,1":
             #     print("[pfAfter]", coeffSpecific2, finalAttrib2)
 
-            # if baseBoost == "2,9724,7" and coeffAll != coeffSpecific2:
+            # if baseBoost == "2,29294,1" and coeffAll != coeffSpecific2:
             #     print("[pfStart]", coeffAll, finalAttrib1, targetBoosts)
             #     print("[boostValue]", self.boost[baseBoost])
             #     print("[pfAfter]", coeffSpecific2, finalAttrib2, targetBoosts)

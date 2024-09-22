@@ -6,141 +6,276 @@ import time
 
 
 # TODO 130主属性表
-OCC_ATTRIB = {
-    '1d': {'类型': 2, '主属性': '元气', '攻击': 1.85, '会心': 0.38},  # 易筋
-    '1t': {'类型': 2, '主属性': '体质', '气血': 2.5, '防御': 0.1, '攻击': 0.05},  # 洗髓   0.1攻击0.05破防
-    '2d': {'类型': 4, '主属性': '元气', '攻击': 1.95, '破防': 0.19},  # 花间
-    '2h': {'类型': 4, '主属性': '根骨', '治疗': 1.65, '会心': 0.41},  # 奶花
-    '3d': {'类型': 1, '主属性': '力道', '攻击': 1.6, '破防': 0.25},  # 傲血
-    '3t': {'类型': 1, '主属性': '体质', '气血': 1.5, '防御': 0.1, '招架': 0.1, '攻击': 0.04},  # 铁牢   0.1攻击0.05破防
-    '4p': {'类型': 1, '主属性': '身法', '攻击': 1.45, '会心': 0.58},  # 剑纯
-    '4m': {'类型': 4, '主属性': '根骨', '攻击': 1.75, '会心': 0.56},  # 气纯
-    '5d': {'类型': 3, '主属性': '根骨', '攻击': 1.9, '会心': 0.28},  # 冰心
-    '5h': {'类型': 3, '主属性': '根骨', '治疗': 1.75, '会心': 0.21},  # 奶秀
-    '6d': {'类型': 5, '主属性': '根骨', '攻击': 1.95, '破防': 0.19},  # 毒经
-    '6h': {'类型': 5, '主属性': '根骨', '治疗': 1.85},  # 奶毒
-    '7p': {'类型': 1, '主属性': '力道', '攻击': 1.45, '会心': 0.59},  # 惊羽
-    '7m': {'类型': 5, '主属性': '元气', '攻击': 1.75, '会心': 0.57},  # 田螺
-    '8': {'类型': 1, '主属性': '身法', '攻击': 1.6, '破防': 0.25},  # 藏剑
-    '9': {'类型': 1, '主属性': '力道', '攻击': 1.5, '破防': 0.47},  # 丐帮
-    '10d': {'类型': 2, '主属性': '元气', '攻击': 1.9, '会心': 0.29},  # 焚影
-    '10t': {'类型': 1, '主属性': '体质', '气血': 1.25, '闪避': 0.225, '攻击': 0.05},  # 明尊   0.11攻击0.06破防
-    '21d': {'类型': 1, '主属性': '身法', '攻击': 1.71, '招架': 0.1, '拆招': 1},  # 分山
-    '21t': {'类型': 1, '主属性': '体质', '气血': 2.2, '招架': 0.15, '拆招': 0.5, '攻击': 0.04},  # 铁骨 0.04攻击0.02破防
-    '22d': {'类型': 3, '主属性': '根骨', '攻击': 1.85, '会心': 0.38},  # 莫问
-    '22h': {'类型': 3, '主属性': '根骨', '治疗': 1.7, '会心': 0.31},  # 奶歌
-    '23': {'类型': 1, '主属性': '力道', '攻击': 1.55, '破防': 0.36},  # 霸刀
-    '24': {'类型': 1, '主属性': '身法', '攻击': 1.55, '会心': 0.36},  # 蓬莱
-    '25': {'类型': 1, '主属性': '身法', '攻击': 1.5, '破防': 0.47},  # 凌雪
-    '211':  {'类型': 4, '主属性': '元气', '攻击': 1.8, '会心': 0.47},  # 衍天
-    '212d': {'类型': 5, '主属性': '根骨', '攻击': 1.8, '破防': 0.47},  # 无方
-    '212h': {'类型': 5, '主属性': '根骨', '治疗': 1.8, '会心': 0.11},  # 奶药
-    '213': {'类型': 1, '主属性': '力道', '攻击': 1.6, '会心': 0.25},  # 刀宗
-    '214': {'类型': 1, '主属性': '身法', '攻击': 1.45, '会心': 0.58},  # 万灵
-    '215': {'类型': 4, '主属性': '元气', '攻击': 1.95, '会心': 0.45},  # 段氏
-    '1dw': {'类型': 2, '主属性': '元气', '攻击': 1.85, '会心': 0.38},  # 易筋
-    '1tw': {'类型': 2, '主属性': '体质', '气血': 2.5, '防御': 0.1, '攻击': 0.05},  # 洗髓   0.1攻击0.05破防
-    '2dw': {'类型': 4, '主属性': '元气', '攻击': 1.95, '破防': 0.19},  # 花间
-    '2hw': {'类型': 4, '主属性': '根骨', '治疗': 1.65, '会心': 0.41},  # 奶花
-    '3dw': {'类型': 1, '主属性': '力道', '攻击': 1.6, '破防': 0.25},  # 傲血
-    '3tw': {'类型': 1, '主属性': '体质', '气血': 1.5, '防御': 0.1, '招架': 0.1, '攻击': 0.04},  # 铁牢   0.1攻击0.05破防
-    '4pw': {'类型': 1, '主属性': '身法', '攻击': 1.45, '会心': 0.58},  # 剑纯
-    '4mw': {'类型': 4, '主属性': '根骨', '攻击': 1.75, '会心': 0.56},  # 气纯
-    '5dw': {'类型': 3, '主属性': '根骨', '攻击': 1.9, '会心': 0.28},  # 冰心
-    '5hw': {'类型': 3, '主属性': '根骨', '治疗': 1.75, '会心': 0.21},  # 奶秀
-    '6dw': {'类型': 5, '主属性': '根骨', '攻击': 1.95, '破防': 0.19},  # 毒经
-    '6hw': {'类型': 5, '主属性': '根骨', '治疗': 1.85},  # 奶毒
-    '7pw': {'类型': 1, '主属性': '力道', '攻击': 1.45, '会心': 0.59},  # 惊羽
-    '7mw': {'类型': 5, '主属性': '元气', '攻击': 1.75, '会心': 0.57},  # 田螺
-    '8w': {'类型': 1, '主属性': '身法', '攻击': 1.6, '破防': 0.25},  # 藏剑
-    '9w': {'类型': 1, '主属性': '力道', '攻击': 1.5, '破防': 0.47},  # 丐帮
-    '10dw': {'类型': 2, '主属性': '元气', '攻击': 1.9, '会心': 0.29},  # 焚影
-    '10tw': {'类型': 1, '主属性': '体质', '气血': 1.25, '闪避': 0.225, '攻击': 0.05},  # 明尊   0.11攻击0.06破防
-    '21dw': {'类型': 1, '主属性': '身法', '攻击': 1.71, '招架': 0.1, '拆招': 1},  # 分山
-    '21tw': {'类型': 1, '主属性': '体质', '气血': 2.2, '招架': 0.15, '拆招': 0.5, '攻击': 0.04},  # 铁骨 0.04攻击0.02破防
-    '22dw': {'类型': 3, '主属性': '根骨', '攻击': 1.85, '会心': 0.38},  # 莫问
-    '22hw': {'类型': 3, '主属性': '根骨', '治疗': 1.7, '会心': 0.31},  # 奶歌
-    '23w': {'类型': 1, '主属性': '力道', '攻击': 1.55, '破防': 0.36},  # 霸刀
-    '24w': {'类型': 1, '主属性': '身法', '攻击': 1.55, '会心': 0.36},  # 蓬莱
-    '25w': {'类型': 1, '主属性': '身法', '攻击': 1.5, '破防': 0.47},  # 凌雪
-    '211w': {'类型': 4, '主属性': '元气', '攻击': 1.8, '会心': 0.47},  # 衍天
-    '212dw': {'类型': 5, '主属性': '根骨', '攻击': 1.8, '破防': 0.47},  # 无方
-    '212hw': {'类型': 5, '主属性': '根骨', '治疗': 1.8, '会心': 0.11},  # 奶药
-    '213w': {'类型': 1, '主属性': '力道', '攻击': 1.6, '会心': 0.25},  # 刀宗
-    '214w': {'类型': 1, '主属性': '身法', '攻击': 1.45, '会心': 0.58},  # 万灵
-    '215w': {'类型': 4, '主属性': '元气', '攻击': 1.95, '会心': 0.45},  # 段氏
-    # TODO Tbuff
-}
 
-OCC_BASE = {  # 心法自带的基础值
-    '1d': {'atSolarAttackPowerBase': 4139},  # 易筋
-    '1t': {},  # 洗髓
-    '2d': {'atNeutralAttackPowerBase': 4139},  # 花间
-    '2h': {'atTherapyPowerBase': 5901},  # 奶花
-    '3d': {'atPhysicsAttackPowerBase': 3794},  # 傲血
-    '3t': {'atParryBase': 1207, 'atParryValueBase': 4651},  # 铁牢
-    '4p': {'atPhysicsAttackPowerBase': 3277, 'atPhysicsCriticalStrike': 2929},  # 剑纯
-    '4m': {'atNeutralAttackPowerBase': 3725, 'atNeutralCriticalStrike': 1788},  # 气纯
-    '5d': {'atLunarAttackPowerBase': 4222},  # 冰心
-    '5h': {'atTherapyPowerBase': 6323},  # 奶秀
-    '6d': {'atPoisonAttackPowerBase': 4139},  # 毒经
-    '6h': {'atTherapyPowerBase': 6112},  # 奶毒
-    '7p': {'atPhysicsAttackPowerBase': 3277, 'atPhysicsOvercomeBase': 2929},  # 惊羽
-    '7m': {'atPoisonAttackPowerBase': 3725, 'atPhysicsCriticalStrike': 1279},  # 田螺
-    '8': {'atPhysicsAttackPowerBase': 3449, 'atPhysicsCriticalStrike': 2544},  # 藏剑
-    '9': {'atPhysicsAttackPowerBase': 3621},  # 丐帮
-    '10d': {'atSolarAttackPowerBase': 4346, 'atLunarAttackPowerBase': 4346},  # 焚影
-    '10t': {},  # 明尊
-    '21d': {'atPhysicsAttackPowerBase': 3449, 'atPhysicsOvercomeBase': 1526, 'atParryBase': 1220},  # 分山
-    '21t': {'atParryBase': 2011, 'atParryValueBase': 4651},  # 铁骨
-    '22d': {'atLunarAttackPowerBase': 3725, 'atLunarCriticalStrike': 1279},  # 莫问
-    '22h': {'atTherapyPowerBase': 6535},  # 奶歌
-    '23': {'atPhysicsAttackPowerBase': 3725},  # 霸刀
-    '24': {'atPhysicsAttackPowerBase': 3621, 'atPhysicsCriticalStrike': 2158},  # 蓬莱
-    '25': {'atPhysicsAttackPowerBase': 3656, 'atPhysicsOvercomeBase': 2081},  # 凌雪
-    '211': {'atNeutralAttackPowerBase': 4222, 'atNeutralCriticalStrike': 2390},  # 衍天
-    '212d': {'atPoisonAttackPowerBase': 3808, 'atPoisonOvercomeBase': 1788},  # 无方
-    '212h': {'atTherapyPowerBase': 6533},  # 奶药
-    '213': {'atPhysicsAttackPowerBase': 3346, 'atPhysicsCriticalStrike': 2775},  # 刀宗
-    '214': {'atPhysicsAttackPowerBase': 3277, 'atPhysicsCriticalStrike': 2929},  # 万灵
-    '215': {'atNeutralAttackPowerBase': 6518, 'atNeutralCriticalStrike': 5527},  # 段氏
-    '1dw': {'atSolarAttackPowerBase': 4139},  # 易筋
-    '1tw': {},  # 洗髓
-    '2dw': {'atNeutralAttackPowerBase': 4139},  # 花间
-    '2hw': {'atTherapyPowerBase': 5901},  # 奶花
-    '3dw': {'atPhysicsAttackPowerBase': 3794},  # 傲血
-    '3tw': {'atParryBase': 1207, 'atParryValueBase': 4651},  # 铁牢
-    '4pw': {'atPhysicsAttackPowerBase': 3277, 'atPhysicsCriticalStrike': 2929},  # 剑纯
-    '4mw': {'atNeutralAttackPowerBase': 3725, 'atNeutralCriticalStrike': 1788},  # 气纯
-    '5dw': {'atLunarAttackPowerBase': 4222},  # 冰心
-    '5hw': {'atTherapyPowerBase': 6323},  # 奶秀
-    '6dw': {'atPoisonAttackPowerBase': 4139},  # 毒经
-    '6hw': {'atTherapyPowerBase': 6112},  # 奶毒
-    '7pw': {'atPhysicsAttackPowerBase': 3277, 'atPhysicsOvercomeBase': 2929},  # 惊羽
-    '7mw': {'atPoisonAttackPowerBase': 3725, 'atPhysicsCriticalStrike': 1279},  # 田螺
-    '8w': {'atPhysicsAttackPowerBase': 3449, 'atPhysicsCriticalStrike': 2544},  # 藏剑
-    '9w': {'atPhysicsAttackPowerBase': 3621},  # 丐帮
-    '10dw': {'atSolarAttackPowerBase': 4346, 'atLunarAttackPowerBase': 4346},  # 焚影
-    '10tw': {},  # 明尊
-    '21dw': {'atPhysicsAttackPowerBase': 3449, 'atPhysicsOvercomeBase': 1526, 'atParryBase': 1220},  # 分山
-    '21tw': {'atParryBase': 2011, 'atParryValueBase': 4651},  # 铁骨
-    '22dw': {'atLunarAttackPowerBase': 3725, 'atLunarCriticalStrike': 1279},  # 莫问
-    '22hw': {'atTherapyPowerBase': 6535},  # 奶歌
-    '23w': {'atPhysicsAttackPowerBase': 3725},  # 霸刀
-    '24w': {'atPhysicsAttackPowerBase': 3621, 'atPhysicsCriticalStrike': 2158},  # 蓬莱
-    '25w': {'atPhysicsAttackPowerBase': 3656, 'atPhysicsOvercomeBase': 2081},  # 凌雪
-    '211w': {'atNeutralAttackPowerBase': 4222, 'atNeutralCriticalStrike': 2390},  # 衍天
-    '212dw': {'atPoisonAttackPowerBase': 3808, 'atPoisonOvercomeBase': 1788},  # 无方
-    '212hw': {'atTherapyPowerBase': 6533},  # 奶药
-    '213w': {'atPhysicsAttackPowerBase': 3346, 'atPhysicsCriticalStrike': 2775},  # 刀宗
-    '214w': {'atPhysicsAttackPowerBase': 3277, 'atPhysicsCriticalStrike': 2929},  # 万灵
-    '215w': {'atNeutralAttackPowerBase': 6518, 'atNeutralCriticalStrike': 5527},  # 段氏
-}
+if CHAPTER == 130:
+    OCC_ATTRIB = {
+        '1d': {'类型': 2, '主属性': '元气', '攻击': 1.96, '会心': 0.4},  # 易筋
+        '1t': {'类型': 2, '主属性': '体质', '气血': 2.2, '防御': 0.18, '攻击': 0.05, '拆招': 1.75},  # 洗髓   0.50攻击0.45破防
+        '2d': {'类型': 4, '主属性': '元气', '攻击': 2.03, '破防': 0.2},  # 花间
+        '2h': {'类型': 4, '主属性': '根骨', '治疗': 2.98, '会心': 0.74},  # 奶花
+        '3d': {'类型': 1, '主属性': '力道', '攻击': 1.8, '破防': 0.28},  # 傲血
+        '3t': {'类型': 1, '主属性': '体质', '气血': 2.2, '防御': 0.18, '攻击': 0.04, '拆招': 1.75},  # 铁牢   0.54攻击0.45破防
+        '4p': {'类型': 1, '主属性': '身法', '攻击': 1.69, '会心': 0.68},  # 剑纯
+        '4m': {'类型': 4, '主属性': '根骨', '攻击': 1.9, '会心': 0.61},  # 气纯
+        '5d': {'类型': 3, '主属性': '根骨', '攻击': 2, '会心': 0.29},  # 冰心
+        '5h': {'类型': 3, '主属性': '根骨', '治疗': 3.16, '会心': 0.38},  # 奶秀
+        '6d': {'类型': 5, '主属性': '根骨', '攻击': 2.03, '破防': 0.2},  # 毒经
+        '6h': {'类型': 5, '主属性': '根骨', '治疗': 3.34},  # 奶毒
+        '7p': {'类型': 1, '主属性': '力道', '攻击': 1.69, '会心': 0.69},  # 惊羽
+        '7m': {'类型': 5, '主属性': '元气', '攻击': 1.9, '会心': 0.62},  # 田螺
+        '8': {'类型': 1, '主属性': '身法', '攻击': 1.8, '破防': 0.28},  # 藏剑
+        '9': {'类型': 1, '主属性': '力道', '攻击': 1.73, '破防': 0.54},  # 丐帮
+        '10d': {'类型': 2, '主属性': '元气', '攻击': 1.99, '会心': 0.3},  # 焚影
+        '10t': {'类型': 1, '主属性': '体质', '气血': 2.2, '闪避': 0.18, '攻击': 0.05, '拆招': 1.75},  # 明尊   0.56攻击0.54破防
+        '21d': {'类型': 1, '主属性': '身法', '攻击': 1.88, '招架': 0.11, '拆招': 1},  # 分山
+        '21t': {'类型': 1, '主属性': '体质', '气血': 2.2, '招架': 0.18, '拆招': 2.25, '攻击': 0.04},  # 铁骨 0.17攻击0.14破防
+        '22d': {'类型': 3, '主属性': '根骨', '攻击': 1.96, '会心': 0.4},  # 莫问
+        '22h': {'类型': 3, '主属性': '根骨', '治疗': 3.07, '会心': 0.56},  # 奶歌
+        '23': {'类型': 1, '主属性': '力道', '攻击': 1.76, '破防': 0.41},  # 霸刀
+        '24': {'类型': 1, '主属性': '身法', '攻击': 1.76, '会心': 0.41},  # 蓬莱
+        '25': {'类型': 1, '主属性': '身法', '攻击': 1.73, '破防': 0.54},  # 凌雪
+        '211':  {'类型': 4, '主属性': '元气', '攻击': 1.93, '会心': 0.5},  # 衍天
+        '212d': {'类型': 5, '主属性': '根骨', '攻击': 1.93, '破防': 0.5},  # 无方
+        '212h': {'类型': 5, '主属性': '根骨', '治疗': 3.24, '会心': 0.2},  # 奶药
+        '213': {'类型': 1, '主属性': '力道', '攻击': 1.8, '会心': 0.28},  # 刀宗
+        '214': {'类型': 1, '主属性': '身法', '攻击': 1.69, '会心': 0.68},  # 万灵
+        '215': {'类型': 4, '主属性': '元气', '攻击': 1.95, '会心': 0.45},  # 段氏
 
-if CHAPTER == 120:
-    OVERALL_OCC_BASE = {'atStrengthBase': 38, 'atAgilityBase': 38, 'atSpunkBase': 38, 'atSpiritBase': 38, 'atVitalityBase': 38}
-elif CHAPTER == 130:
-    OVERALL_OCC_BASE = {'atStrengthBase': 44, 'atAgilityBase': 44, 'atSpunkBase': 44, 'atSpiritBase': 44,  'atVitalityBase': 45}
+
+        '1dw': {'类型': 2, '主属性': '元气', '攻击': 1.85, '会心': 0.38},  # 易筋
+        '1tw': {'类型': 2, '主属性': '体质', '气血': 2.5, '防御': 0.1, '攻击': 0.05},  # 洗髓   0.1攻击0.05破防
+        '2dw': {'类型': 4, '主属性': '元气', '攻击': 1.95, '破防': 0.19},  # 花间
+        '2hw': {'类型': 4, '主属性': '根骨', '治疗': 1.65, '会心': 0.41},  # 奶花
+        '3dw': {'类型': 1, '主属性': '力道', '攻击': 1.6, '破防': 0.25},  # 傲血
+        '3tw': {'类型': 1, '主属性': '体质', '气血': 1.5, '防御': 0.1, '招架': 0.1, '攻击': 0.04},  # 铁牢   0.1攻击0.05破防
+        '4pw': {'类型': 1, '主属性': '身法', '攻击': 1.45, '会心': 0.58},  # 剑纯
+        '4mw': {'类型': 4, '主属性': '根骨', '攻击': 1.9, '会心': 0.61},  # 气纯
+        '5dw': {'类型': 3, '主属性': '根骨', '攻击': 1.9, '会心': 0.28},  # 冰心
+        '5hw': {'类型': 3, '主属性': '根骨', '治疗': 1.75, '会心': 0.21},  # 奶秀
+        '6dw': {'类型': 5, '主属性': '根骨', '攻击': 1.95, '破防': 0.19},  # 毒经
+        '6hw': {'类型': 5, '主属性': '根骨', '治疗': 1.85},  # 奶毒
+        '7pw': {'类型': 1, '主属性': '力道', '攻击': 1.45, '会心': 0.59},  # 惊羽
+        '7mw': {'类型': 5, '主属性': '元气', '攻击': 1.75, '会心': 0.57},  # 田螺
+        '8w': {'类型': 1, '主属性': '身法', '攻击': 1.6, '破防': 0.25},  # 藏剑
+        '9w': {'类型': 1, '主属性': '力道', '攻击': 1.5, '破防': 0.47},  # 丐帮
+        '10dw': {'类型': 2, '主属性': '元气', '攻击': 1.9, '会心': 0.29},  # 焚影
+        '10tw': {'类型': 1, '主属性': '体质', '气血': 1.25, '闪避': 0.225, '攻击': 0.05},  # 明尊   0.11攻击0.06破防
+        '21dw': {'类型': 1, '主属性': '身法', '攻击': 1.71, '招架': 0.1, '拆招': 1},  # 分山
+        '21tw': {'类型': 1, '主属性': '体质', '气血': 2.2, '招架': 0.15, '拆招': 0.5, '攻击': 0.04},  # 铁骨 0.04攻击0.02破防
+        '22dw': {'类型': 3, '主属性': '根骨', '攻击': 1.85, '会心': 0.38},  # 莫问
+        '22hw': {'类型': 3, '主属性': '根骨', '治疗': 1.7, '会心': 0.31},  # 奶歌
+        '23w': {'类型': 1, '主属性': '力道', '攻击': 1.55, '破防': 0.36},  # 霸刀
+        '24w': {'类型': 1, '主属性': '身法', '攻击': 1.76, '会心': 0.41},  # 蓬莱
+        '25w': {'类型': 1, '主属性': '身法', '攻击': 1.5, '破防': 0.47},  # 凌雪
+        '211w': {'类型': 4, '主属性': '元气', '攻击': 1.8, '会心': 0.47},  # 衍天
+        '212dw': {'类型': 5, '主属性': '根骨', '攻击': 1.8, '破防': 0.47},  # 无方
+        '212hw': {'类型': 5, '主属性': '根骨', '治疗': 1.8, '会心': 0.11},  # 奶药
+        '213w': {'类型': 1, '主属性': '力道', '攻击': 1.6, '会心': 0.25},  # 刀宗
+        '214w': {'类型': 1, '主属性': '身法', '攻击': 1.45, '会心': 0.58},  # 万灵
+        '215w': {'类型': 4, '主属性': '元气', '攻击': 1.95, '会心': 0.45},  # 段氏
+        # TODO Tbuff
+    }
+    OCC_BASE = {  # 心法自带的基础值
+        '1d': {'atSolarAttackPowerBase': 7242, 'atPhysicsShieldBase': 1800, 'atMagicShield': 2113},  # 易筋 36%
+        '1t': {'atPhysicsShieldBase': 3913, 'atMagicShield': 6522},  # 洗髓 36%
+        '2d': {'atNeutralAttackPowerBase': 7242, 'atMagicShield': 1565},  # 花间 24%
+        '2h': {'atTherapyPowerBase': 17725, 'atMagicShield': 3913},  # 奶花 24%
+        '3d': {'atPhysicsAttackPowerBase': 7164, 'atPhysicsShieldBase': 2715},  # 傲血 24%
+        '3t': {'atParryBase': 3913, 'atParryValueBase': 15085, 'atPhysicsShieldBase': 6522},  # 铁牢 24%
+        '4p': {'atPhysicsAttackPowerBase': 6187, 'atPhysicsCriticalStrike': 9025},  # 剑纯 24%
+        '4m': {'atNeutralAttackPowerBase': 6518, 'atNeutralCriticalStrike': 5527, 'atMagicShield': 2347},  # 气纯 24%
+        '5d': {'atLunarAttackPowerBase': 7387, 'atPhysicsShieldBase': 1721, 'atMagicShield': 2191},  # 冰心 24%
+        '5h': {'atTherapyPowerBase': 18992, 'atMagicShield': 3913},  # 奶秀 24%
+        '6d': {'atPoisonAttackPowerBase': 7242, 'atMagicShield': 3913},  # 毒经 24%
+        '6h': {'atTherapyPowerBase': 18358, 'atMagicShield': 3913},  # 奶毒 24%
+        '7p': {'atPhysicsAttackPowerBase': 6187, 'atPhysicsOvercomeBase': 9025},  # 惊羽 24%
+        '7m': {'atPoisonAttackPowerBase': 3962, 'atPhysicsCriticalStrike': 6518, 'atMagicShield': 3130},  # 田螺 24%
+        '8': {'atPhysicsAttackPowerBase': 6513, 'atPhysicsCriticalStrike': 7827},  # 藏剑 24%
+        '9': {'atPhysicsAttackPowerBase': 6839, 'atPhysicsShieldBase': 3314},  # 丐帮 24%
+        '10d': {'atSolarAttackPowerBase': 7604, 'atLunarAttackPowerBase': 7604, 'atMagicShield': 3314},  # 焚影 24%
+        '10t': {'atPhysicsShieldBase': 3261, 'atMagicShield': 3261, 'atDodge': 6522},  # 明尊
+        '21d': {'atPhysicsAttackPowerBase': 6513, 'atPhysicsOvercomeBase': 4696, 'atParryBase': 3756},  # 分山 24%
+        '21t': {'atPhysicsShieldBase': 3913, 'atParryBase': 6522, 'atParryValueBase': 15085},  # 铁骨 24%
+        '22d': {'atLunarAttackPowerBase': 6518, 'atLunarCriticalStrike': 3962, 'atMagicShield': 3130},  # 莫问 24%
+        '22h': {'atTherapyPowerBase': 19625, 'atMagicShield': 3913},  # 奶歌 24%
+        '23': {'atPhysicsAttackPowerBase': 7034, 'atPhysicsShieldBase': 2955},  # 霸刀 24%
+        '24': {'atPhysicsAttackPowerBase': 6839, 'atPhysicsCriticalStrike': 6628},  # 蓬莱 24%
+        '25': {'atPhysicsAttackPowerBase': 6904, 'atPhysicsOvercomeBase': 6389},  # 凌雪 24%
+        '211': {'atNeutralAttackPowerBase': 7387, 'atNeutralCriticalStrike': 7347},  # 衍天 24%
+        '212d': {'atPoisonAttackPowerBase': 6663, 'atPoisonOvercomeBase': 5527, 'atPhysicsOvercomeBase': 2347},  # 无方 24%
+        '212h': {'atTherapyPowerBase': 19625, 'atPhysicsOvercomeBase': 4695},  # 奶药 24%
+        '213': {'atPhysicsAttackPowerBase': 6318, 'atPhysicsCriticalStrike': 8546},  # 刀宗 24%
+        '214': {'atPhysicsAttackPowerBase': 6187, 'atPhysicsCriticalStrike': 9025},  # 万灵 24%
+        '215': {'atNeutralAttackPowerBase': 6518, 'atNeutralCriticalStrike': 5527},  # 段氏 24%
+
+
+        '1dw': {'atSolarAttackPowerBase': 4139},  # 易筋
+        '1tw': {},  # 洗髓
+        '2dw': {'atNeutralAttackPowerBase': 4139},  # 花间
+        '2hw': {'atTherapyPowerBase': 5901},  # 奶花
+        '3dw': {'atPhysicsAttackPowerBase': 3794},  # 傲血
+        '3tw': {'atParryBase': 1207, 'atParryValueBase': 4651},  # 铁牢
+        '4pw': {'atPhysicsAttackPowerBase': 3277, 'atPhysicsCriticalStrike': 2929},  # 剑纯
+        '4mw': {'atNeutralAttackPowerBase': 3725, 'atNeutralCriticalStrike': 1788},  # 气纯
+        '5dw': {'atLunarAttackPowerBase': 4222},  # 冰心
+        '5hw': {'atTherapyPowerBase': 6323},  # 奶秀
+        '6dw': {'atPoisonAttackPowerBase': 4139},  # 毒经
+        '6hw': {'atTherapyPowerBase': 6112},  # 奶毒
+        '7pw': {'atPhysicsAttackPowerBase': 3277, 'atPhysicsOvercomeBase': 2929},  # 惊羽
+        '7mw': {'atPoisonAttackPowerBase': 3725, 'atPhysicsCriticalStrike': 1279},  # 田螺
+        '8w': {'atPhysicsAttackPowerBase': 3449, 'atPhysicsCriticalStrike': 2544},  # 藏剑
+        '9w': {'atPhysicsAttackPowerBase': 3621},  # 丐帮
+        '10dw': {'atSolarAttackPowerBase': 4346, 'atLunarAttackPowerBase': 4346},  # 焚影
+        '10tw': {},  # 明尊
+        '21dw': {'atPhysicsAttackPowerBase': 3449, 'atPhysicsOvercomeBase': 1526, 'atParryBase': 1220},  # 分山
+        '21tw': {'atParryBase': 2011, 'atParryValueBase': 4651},  # 铁骨
+        '22dw': {'atLunarAttackPowerBase': 3725, 'atLunarCriticalStrike': 1279},  # 莫问
+        '22hw': {'atTherapyPowerBase': 6535},  # 奶歌
+        '23w': {'atPhysicsAttackPowerBase': 3725},  # 霸刀
+        '24w': {'atPhysicsAttackPowerBase': 3621, 'atPhysicsCriticalStrike': 2158},  # 蓬莱
+        '25w': {'atPhysicsAttackPowerBase': 3656, 'atPhysicsOvercomeBase': 2081},  # 凌雪
+        '211w': {'atNeutralAttackPowerBase': 4222, 'atNeutralCriticalStrike': 2390},  # 衍天
+        '212dw': {'atPoisonAttackPowerBase': 3808, 'atPoisonOvercomeBase': 1788},  # 无方
+        '212hw': {'atTherapyPowerBase': 19625, 'atPhysicsOvercomeBase': 4695},  # 奶药
+        '213w': {'atPhysicsAttackPowerBase': 3346, 'atPhysicsCriticalStrike': 2775},  # 刀宗
+        '214w': {'atPhysicsAttackPowerBase': 3277, 'atPhysicsCriticalStrike': 2929},  # 万灵
+        '215w': {'atNeutralAttackPowerBase': 6518, 'atNeutralCriticalStrike': 5527},  # 段氏 24%
+    }
+    OVERALL_OCC_BASE = {'atStrengthBase': 44, 'atAgilityBase': 44, 'atSpunkBase': 44, 'atSpiritBase': 44,
+                        'atVitalityBase': 45, 'atPhysicsShieldBase': 2850, 'atMagicShield': 2850}
+else:
+    OCC_ATTRIB = {
+        '1d': {'类型': 2, '主属性': '元气', '攻击': 1.85, '会心': 0.38},  # 易筋
+        '1t': {'类型': 2, '主属性': '体质', '气血': 2.5, '防御': 0.1, '攻击': 0.05},  # 洗髓   0.1攻击0.05破防
+        '2d': {'类型': 4, '主属性': '元气', '攻击': 1.95, '破防': 0.19},  # 花间
+        '2h': {'类型': 4, '主属性': '根骨', '治疗': 1.65, '会心': 0.41},  # 奶花
+        '3d': {'类型': 1, '主属性': '力道', '攻击': 1.6, '破防': 0.25},  # 傲血
+        '3t': {'类型': 1, '主属性': '体质', '气血': 1.5, '防御': 0.1, '招架': 0.1, '攻击': 0.04},  # 铁牢   0.1攻击0.05破防
+        '4p': {'类型': 1, '主属性': '身法', '攻击': 1.45, '会心': 0.58},  # 剑纯
+        '4m': {'类型': 4, '主属性': '根骨', '攻击': 1.75, '会心': 0.56},  # 气纯
+        '5d': {'类型': 3, '主属性': '根骨', '攻击': 1.9, '会心': 0.28},  # 冰心
+        '5h': {'类型': 3, '主属性': '根骨', '治疗': 1.75, '会心': 0.21},  # 奶秀
+        '6d': {'类型': 5, '主属性': '根骨', '攻击': 1.95, '破防': 0.19},  # 毒经
+        '6h': {'类型': 5, '主属性': '根骨', '治疗': 1.85},  # 奶毒
+        '7p': {'类型': 1, '主属性': '力道', '攻击': 1.45, '会心': 0.59},  # 惊羽
+        '7m': {'类型': 5, '主属性': '元气', '攻击': 1.75, '会心': 0.57},  # 田螺
+        '8': {'类型': 1, '主属性': '身法', '攻击': 1.6, '破防': 0.25},  # 藏剑
+        '9': {'类型': 1, '主属性': '力道', '攻击': 1.5, '破防': 0.47},  # 丐帮
+        '10d': {'类型': 2, '主属性': '元气', '攻击': 1.9, '会心': 0.29},  # 焚影
+        '10t': {'类型': 1, '主属性': '体质', '气血': 1.25, '闪避': 0.225, '攻击': 0.05},  # 明尊   0.11攻击0.06破防
+        '21d': {'类型': 1, '主属性': '身法', '攻击': 1.71, '招架': 0.1, '拆招': 1},  # 分山
+        '21t': {'类型': 1, '主属性': '体质', '气血': 2.2, '招架': 0.15, '拆招': 0.5, '攻击': 0.04},  # 铁骨 0.04攻击0.02破防
+        '22d': {'类型': 3, '主属性': '根骨', '攻击': 1.85, '会心': 0.38},  # 莫问
+        '22h': {'类型': 3, '主属性': '根骨', '治疗': 1.7, '会心': 0.31},  # 奶歌
+        '23': {'类型': 1, '主属性': '力道', '攻击': 1.55, '破防': 0.36},  # 霸刀
+        '24': {'类型': 1, '主属性': '身法', '攻击': 1.55, '会心': 0.36},  # 蓬莱
+        '25': {'类型': 1, '主属性': '身法', '攻击': 1.5, '破防': 0.47},  # 凌雪
+        '211':  {'类型': 4, '主属性': '元气', '攻击': 1.8, '会心': 0.47},  # 衍天
+        '212d': {'类型': 5, '主属性': '根骨', '攻击': 1.8, '破防': 0.47},  # 无方
+        '212h': {'类型': 5, '主属性': '根骨', '治疗': 1.8, '会心': 0.11},  # 奶药
+        '213': {'类型': 1, '主属性': '力道', '攻击': 1.6, '会心': 0.25},  # 刀宗
+        '214': {'类型': 1, '主属性': '身法', '攻击': 1.45, '会心': 0.58},  # 万灵
+        '215': {'类型': 4, '主属性': '元气', '攻击': 1.95, '会心': 0.45},  # 段氏
+        '1dw': {'类型': 2, '主属性': '元气', '攻击': 1.85, '会心': 0.38},  # 易筋
+        '1tw': {'类型': 2, '主属性': '体质', '气血': 2.5, '防御': 0.1, '攻击': 0.05},  # 洗髓   0.1攻击0.05破防
+        '2dw': {'类型': 4, '主属性': '元气', '攻击': 1.95, '破防': 0.19},  # 花间
+        '2hw': {'类型': 4, '主属性': '根骨', '治疗': 1.65, '会心': 0.41},  # 奶花
+        '3dw': {'类型': 1, '主属性': '力道', '攻击': 1.6, '破防': 0.25},  # 傲血
+        '3tw': {'类型': 1, '主属性': '体质', '气血': 1.5, '防御': 0.1, '招架': 0.1, '攻击': 0.04},  # 铁牢   0.1攻击0.05破防
+        '4pw': {'类型': 1, '主属性': '身法', '攻击': 1.45, '会心': 0.58},  # 剑纯
+        '4mw': {'类型': 4, '主属性': '根骨', '攻击': 1.75, '会心': 0.56},  # 气纯
+        '5dw': {'类型': 3, '主属性': '根骨', '攻击': 1.9, '会心': 0.28},  # 冰心
+        '5hw': {'类型': 3, '主属性': '根骨', '治疗': 1.75, '会心': 0.21},  # 奶秀
+        '6dw': {'类型': 5, '主属性': '根骨', '攻击': 1.95, '破防': 0.19},  # 毒经
+        '6hw': {'类型': 5, '主属性': '根骨', '治疗': 1.85},  # 奶毒
+        '7pw': {'类型': 1, '主属性': '力道', '攻击': 1.45, '会心': 0.59},  # 惊羽
+        '7mw': {'类型': 5, '主属性': '元气', '攻击': 1.75, '会心': 0.57},  # 田螺
+        '8w': {'类型': 1, '主属性': '身法', '攻击': 1.6, '破防': 0.25},  # 藏剑
+        '9w': {'类型': 1, '主属性': '力道', '攻击': 1.5, '破防': 0.47},  # 丐帮
+        '10dw': {'类型': 2, '主属性': '元气', '攻击': 1.9, '会心': 0.29},  # 焚影
+        '10tw': {'类型': 1, '主属性': '体质', '气血': 1.25, '闪避': 0.225, '攻击': 0.05},  # 明尊   0.11攻击0.06破防
+        '21dw': {'类型': 1, '主属性': '身法', '攻击': 1.71, '招架': 0.1, '拆招': 1},  # 分山
+        '21tw': {'类型': 1, '主属性': '体质', '气血': 2.2, '招架': 0.15, '拆招': 0.5, '攻击': 0.04},  # 铁骨 0.04攻击0.02破防
+        '22dw': {'类型': 3, '主属性': '根骨', '攻击': 1.85, '会心': 0.38},  # 莫问
+        '22hw': {'类型': 3, '主属性': '根骨', '治疗': 1.7, '会心': 0.31},  # 奶歌
+        '23w': {'类型': 1, '主属性': '力道', '攻击': 1.55, '破防': 0.36},  # 霸刀
+        '24w': {'类型': 1, '主属性': '身法', '攻击': 1.55, '会心': 0.36},  # 蓬莱
+        '25w': {'类型': 1, '主属性': '身法', '攻击': 1.5, '破防': 0.47},  # 凌雪
+        '211w': {'类型': 4, '主属性': '元气', '攻击': 1.8, '会心': 0.47},  # 衍天
+        '212dw': {'类型': 5, '主属性': '根骨', '攻击': 1.8, '破防': 0.47},  # 无方
+        '212hw': {'类型': 5, '主属性': '根骨', '治疗': 1.8, '会心': 0.11},  # 奶药
+        '213w': {'类型': 1, '主属性': '力道', '攻击': 1.6, '会心': 0.25},  # 刀宗
+        '214w': {'类型': 1, '主属性': '身法', '攻击': 1.45, '会心': 0.58},  # 万灵
+        '215w': {'类型': 4, '主属性': '元气', '攻击': 1.95, '会心': 0.45},  # 段氏
+        # TODO Tbuff
+    }
+    OCC_BASE = {  # 心法自带的基础值
+        '1d': {'atSolarAttackPowerBase': 4139},  # 易筋
+        '1t': {},  # 洗髓
+        '2d': {'atNeutralAttackPowerBase': 4139},  # 花间
+        '2h': {'atTherapyPowerBase': 5901},  # 奶花
+        '3d': {'atPhysicsAttackPowerBase': 3794},  # 傲血
+        '3t': {'atParryBase': 1207, 'atParryValueBase': 4651},  # 铁牢
+        '4p': {'atPhysicsAttackPowerBase': 3277, 'atPhysicsCriticalStrike': 2929},  # 剑纯
+        '4m': {'atNeutralAttackPowerBase': 3725, 'atNeutralCriticalStrike': 1788},  # 气纯
+        '5d': {'atLunarAttackPowerBase': 4222},  # 冰心
+        '5h': {'atTherapyPowerBase': 6323},  # 奶秀
+        '6d': {'atPoisonAttackPowerBase': 4139},  # 毒经
+        '6h': {'atTherapyPowerBase': 6112},  # 奶毒
+        '7p': {'atPhysicsAttackPowerBase': 3277, 'atPhysicsOvercomeBase': 2929},  # 惊羽
+        '7m': {'atPoisonAttackPowerBase': 3725, 'atPhysicsCriticalStrike': 1279},  # 田螺
+        '8': {'atPhysicsAttackPowerBase': 3449, 'atPhysicsCriticalStrike': 2544},  # 藏剑
+        '9': {'atPhysicsAttackPowerBase': 3621},  # 丐帮
+        '10d': {'atSolarAttackPowerBase': 4346, 'atLunarAttackPowerBase': 4346},  # 焚影
+        '10t': {},  # 明尊
+        '21d': {'atPhysicsAttackPowerBase': 3449, 'atPhysicsOvercomeBase': 1526, 'atParryBase': 1220},  # 分山
+        '21t': {'atParryBase': 2011, 'atParryValueBase': 4651},  # 铁骨
+        '22d': {'atLunarAttackPowerBase': 3725, 'atLunarCriticalStrike': 1279},  # 莫问
+        '22h': {'atTherapyPowerBase': 6535},  # 奶歌
+        '23': {'atPhysicsAttackPowerBase': 3725},  # 霸刀
+        '24': {'atPhysicsAttackPowerBase': 3621, 'atPhysicsCriticalStrike': 2158},  # 蓬莱
+        '25': {'atPhysicsAttackPowerBase': 3656, 'atPhysicsOvercomeBase': 2081},  # 凌雪
+        '211': {'atNeutralAttackPowerBase': 4222, 'atNeutralCriticalStrike': 2390},  # 衍天
+        '212d': {'atPoisonAttackPowerBase': 3808, 'atPoisonOvercomeBase': 1788},  # 无方
+        '212h': {'atTherapyPowerBase': 6533},  # 奶药
+        '213': {'atPhysicsAttackPowerBase': 3346, 'atPhysicsCriticalStrike': 2775},  # 刀宗
+        '214': {'atPhysicsAttackPowerBase': 3277, 'atPhysicsCriticalStrike': 2929},  # 万灵
+        '215': {'atNeutralAttackPowerBase': 6518, 'atNeutralCriticalStrike': 5527},  # 段氏
+        '1dw': {'atSolarAttackPowerBase': 4139},  # 易筋
+        '1tw': {},  # 洗髓
+        '2dw': {'atNeutralAttackPowerBase': 4139},  # 花间
+        '2hw': {'atTherapyPowerBase': 5901},  # 奶花
+        '3dw': {'atPhysicsAttackPowerBase': 3794},  # 傲血
+        '3tw': {'atParryBase': 1207, 'atParryValueBase': 4651},  # 铁牢
+        '4pw': {'atPhysicsAttackPowerBase': 3277, 'atPhysicsCriticalStrike': 2929},  # 剑纯
+        '4mw': {'atNeutralAttackPowerBase': 3725, 'atNeutralCriticalStrike': 1788},  # 气纯
+        '5dw': {'atLunarAttackPowerBase': 4222},  # 冰心
+        '5hw': {'atTherapyPowerBase': 6323},  # 奶秀
+        '6dw': {'atPoisonAttackPowerBase': 4139},  # 毒经
+        '6hw': {'atTherapyPowerBase': 6112},  # 奶毒
+        '7pw': {'atPhysicsAttackPowerBase': 3277, 'atPhysicsOvercomeBase': 2929},  # 惊羽
+        '7mw': {'atPoisonAttackPowerBase': 3725, 'atPhysicsCriticalStrike': 1279},  # 田螺
+        '8w': {'atPhysicsAttackPowerBase': 3449, 'atPhysicsCriticalStrike': 2544},  # 藏剑
+        '9w': {'atPhysicsAttackPowerBase': 3621},  # 丐帮
+        '10dw': {'atSolarAttackPowerBase': 4346, 'atLunarAttackPowerBase': 4346},  # 焚影
+        '10tw': {},  # 明尊
+        '21dw': {'atPhysicsAttackPowerBase': 3449, 'atPhysicsOvercomeBase': 1526, 'atParryBase': 1220},  # 分山
+        '21tw': {'atParryBase': 2011, 'atParryValueBase': 4651},  # 铁骨
+        '22dw': {'atLunarAttackPowerBase': 3725, 'atLunarCriticalStrike': 1279},  # 莫问
+        '22hw': {'atTherapyPowerBase': 6535},  # 奶歌
+        '23w': {'atPhysicsAttackPowerBase': 3725},  # 霸刀
+        '24w': {'atPhysicsAttackPowerBase': 3621, 'atPhysicsCriticalStrike': 2158},  # 蓬莱
+        '25w': {'atPhysicsAttackPowerBase': 3656, 'atPhysicsOvercomeBase': 2081},  # 凌雪
+        '211w': {'atNeutralAttackPowerBase': 4222, 'atNeutralCriticalStrike': 2390},  # 衍天
+        '212dw': {'atPoisonAttackPowerBase': 3808, 'atPoisonOvercomeBase': 1788},  # 无方
+        '212hw': {'atTherapyPowerBase': 6533},  # 奶药
+        '213w': {'atPhysicsAttackPowerBase': 3346, 'atPhysicsCriticalStrike': 2775},  # 刀宗
+        '214w': {'atPhysicsAttackPowerBase': 3277, 'atPhysicsCriticalStrike': 2929},  # 万灵
+        '215w': {'atNeutralAttackPowerBase': 6518, 'atNeutralCriticalStrike': 5527},  # 段氏
+    }
+    OVERALL_OCC_BASE = {'atStrengthBase': 38, 'atAgilityBase': 38, 'atSpunkBase': 38, 'atSpiritBase': 38,
+                        'atVitalityBase': 38}
+
 
 def getExtraAttrib(occ, attrib):
     '''
