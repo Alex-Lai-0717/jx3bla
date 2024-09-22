@@ -59,7 +59,7 @@ class AttributeCal():
 
             #计算精炼
             refineLvl = int(equips[line]["star"])
-            refineLvl = 6  # 强制精6
+            # refineLvl = 6  # 强制精6
             refineRate = [0, 0.005, 0.013, 0.024, 0.038, 0.055, 0.075, 0.098, 0.124][refineLvl]
             for attrib in singleAttrib:
                 singleAttrib[attrib] = int(singleAttrib[attrib] * (1 + refineRate) + 0.5)
@@ -74,7 +74,7 @@ class AttributeCal():
                 if plugLvl != 0:
                     sumPlug += 1
                     sumPlugLvl += plugLvl
-                plugLvl = 8  # 强制插8
+                # plugLvl = 8  # 强制插8
                 # plugRate = [0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1.2, 1.55][plugLvl]
                 plugRate = [0, 0.19, 0.39, 0.585, 0.78, 0.975, 1.17, 1.75, 2.6][plugLvl]
                 plugID = feature['DiamondAttributeID%d' % i]
@@ -90,7 +90,7 @@ class AttributeCal():
                 if magicID in ['', ' ', '0']:
                     continue
                 if magicID in ["11272"]:  # 治疗鞋大附魔
-                    magicAttrib = {'atTherapyPowerBase': 241}
+                    magicAttrib = {'atTherapyPowerBase': 241}  #TODO 记得改
                 elif magicID in self.equipmentInfo.enchant:
                     magicAttribInfo = self.equipmentInfo.enchant[magicID]
                     if magicAttribInfo[0] in ["atExecuteScript"]:
@@ -174,6 +174,19 @@ if __name__ == "__main__":
 # 90545	0	11613	0
 # 90918	0	11579	11682
 # 32569	0	11568	0				12095"""
+
+    str = """38888	6	12357	0	8			25469
+100876	6	12285	0	8	8		25469
+100834	6	12227	0	8	8		25469
+41221	6	12346	0	8			25469
+41197	6	12350	0				25469
+41197	6	12350	0				25469
+100816	6	12230	0	8	8		25469
+41209	6	12348	0	8			25469
+100900	6	12219	0	8	8		25469
+100858	6	12282	0	8	8		25469
+100810	6	12274	0	8	8		25469
+38855	6	12213	0	8	8	8	25469"""
 
     ac = AttributeCal()
     res = ac.CalculateAll(str)

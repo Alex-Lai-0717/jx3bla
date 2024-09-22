@@ -701,6 +701,7 @@ class ImportExcelEquipment():
             equip["id_cat"] = self.scemeTable[i]
             equip["id_full"] = "%s,%s"%(equip["id_cat"], equip["id"])
             equips[equip["pos"]] = equip
+        # print(equips)
         return equips
 
     def __init__(self):

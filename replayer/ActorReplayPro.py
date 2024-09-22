@@ -145,6 +145,7 @@ class ActorProReplayer(ReplayerBase):
             occDetailList[key] = self.bld.info.player[key].occ
             # 如果是jcl数据，立刻进行心法推断（由于直接从游戏中读取，这个心法推断是准确的）
             if self.bld.info.player[key].xinfaCode != "0":
+                print("[XinfaCode]", self.bld.info.player[key].xinfaCode)
                 res = getOccDetailFromXinfaCode(self.bld.info.player[key].xinfaCode)
                 if res != "0":
                     occDetailList[key] = res
@@ -255,6 +256,8 @@ class ActorProReplayer(ReplayerBase):
 
         self.occDetailList = occDetailList
 
+        # print("[Checkpoint1]", self.window.playerEquipmentAnalysed)
+
         # 整理一份装备表的请求. 如果没有缓存的结果，就准备向服务器发送.
 
         # 记录当前的装分及概览. 如果没有这个数据，就读取之前的缓存；如果还没有，就放弃.
@@ -314,12 +317,15 @@ class ActorProReplayer(ReplayerBase):
         #     results[playerEquip["id"]]["base"] = ad.GetBaseAttrib(playerEquip["equipStr"], playerEquip["occ"])
         #     results[playerEquip["id"]]["panel"] = ad.GetPanelAttrib(playerEquip["equipStr"], playerEquip["occ"])
 
+        # print("[Checkpoint2]", self.window.playerEquipmentAnalysed)
 
         adr = AttributeDisplayRemote()
         results = adr.GetGroupAttributeAttrib(requests)
         # 结束
 
         iee = ImportExcelEquipment()
+
+        # print("[Checkpoint3]", self.window.playerEquipmentAnalysed)
 
         # 记录服务器返回的结果
         for id in results:
@@ -337,6 +343,8 @@ class ActorProReplayer(ReplayerBase):
                 # print("[Equip1]", jsonEquip)
             self.window.playerEquipmentAnalysed[id] = results[id]
 
+        # print("[Checkpoint4]", self.window.playerEquipmentAnalysed)
+
         # 记录属性分析的结果
         self.baseAttribDict = {}
         self.panelAttribDict = {}
@@ -344,6 +352,8 @@ class ActorProReplayer(ReplayerBase):
             if id in self.window.playerEquipmentAnalysed and self.window.playerEquipmentAnalysed[id]["status"] != "notfound":
                 self.baseAttribDict[id] = self.window.playerEquipmentAnalysed[id]["base"]
                 self.panelAttribDict[id] = self.window.playerEquipmentAnalysed[id]["panel"]
+                # print("[Equip1]", self.bld.info.getName(id))
+                # print("[Equip1]", self.panelAttribDict[id])
             else:
                 self.baseAttribDict[id] = None
                 self.panelAttribDict[id] = None
@@ -1295,7 +1305,7 @@ class ActorProReplayer(ReplayerBase):
             if self.occDetailList[id] == "2d":  # 花间
                 replayer = HuaJianYouReplayer(self.config, self.fileNameInfo, self.path, self.bldDict, self.window, name, actorData)
             if self.occDetailList[id] in ["1d", "1t", "3d", "3t", "4p", "4m", "5d", "6d", "7p", "7m", "8", "9", "10d", "10t",
-                                          "21d", "21t", "22d", "23", "24", "25", "211", "212d", "213", "214"] and rdps != 0:
+                                          "21d", "21t", "22d", "23", "24", "25", "211", "212d", "213", "214", "215"] and rdps != 0:
                 replayer = DpsReplayer(self.config, self.fileNameInfo, self.path, self.bldDict, self.window, name, actorData, self.occDetailList[id])
             if replayer is not None:
                 replayer.replay()

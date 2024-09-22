@@ -1171,6 +1171,7 @@ def getOccDetailFromXinfaCode(xinfaCode):
         "10626": "212h",
         "10698": "213",
         "10756": "214",
+        "10786": "215",
         "100053": "1dw",  # 易筋
         "100069": "1tw",  # 洗髓
         "100389": "4pw",  # 剑纯
@@ -1203,6 +1204,7 @@ def getOccDetailFromXinfaCode(xinfaCode):
         "101716": "7pw",  # 惊羽
         "101734": "7mw",  # 天罗
         "101740": "214w",  # 万灵
+        "123456": "214",  # 段氏  TODO 界
     }
     if xinfaCode in XINFA_CODE_TO_OCCDETAIL:
         return XINFA_CODE_TO_OCCDETAIL[xinfaCode]

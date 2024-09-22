@@ -1351,23 +1351,23 @@ class CombatTracker():
         if event.id in ["3980"]:  # 戒火斩
             # print("[YishangDetect]", event.time, event.id, event.caster, self.info.getName(event.caster))
             for player in self.boostCounter:
-                if event.target in self.boostCounter[player].targetBoost and "2,23305,1" in self.boostCounter[player].targetBoost[event.target]:
-                    continue  # 在有秋肃时跳过结算
+                # if event.target in self.boostCounter[player].targetBoost and "2,23305,1" in self.boostCounter[player].targetBoost[event.target]:
+                #     continue  # 在有秋肃时跳过结算
                 effect_id = "2,4058,1"
                 boostValue = BOOST_DICT[effect_id]
-                self.boostCounter[player].addTargetBoost(event.target, effect_id, boostValue, "*低等级增益", 1, event.time)
+                self.boostCounter[player].addTargetBoost(event.target, effect_id, boostValue, event.caster, 1, event.time)
                 self.boostRemove[effect_id + event.target] = {"time": event.time + 15000, "target": event.target, "boost": effect_id}
                 self.updateRemoveTime()
-        elif event.id in ["180"] and self.occDetailList.get(event.caster, "") == "2h":  # 秋肃
-            # print("[YishangDetect]", event.time, event.id, event.caster, self.info.getName(event.caster))
-            for player in self.boostCounter:
-                if event.target in self.boostCounter[player].targetBoost and "2,4058,1" in self.boostCounter[player].targetBoost[event.target]:
-                    self.boostCounter[player].removeTargetBoost(event.target, "2,4058,1", event.time)  # 在有戒火斩时移除
-                effect_id = "2,23305,1"
-                boostValue = BOOST_DICT[effect_id]
-                self.boostCounter[player].addTargetBoost(event.target, effect_id, boostValue, event.caster, 1, event.time)
-                self.boostRemove[effect_id + event.target] = {"time": event.time + 40000, "target": event.target, "boost": effect_id}
-                self.updateRemoveTime()
+        # elif event.id in ["180"] and self.occDetailList.get(event.caster, "") == "2h":  # 秋肃
+        #     # print("[YishangDetect]", event.time, event.id, event.caster, self.info.getName(event.caster))
+        #     for player in self.boostCounter:
+        #         if event.target in self.boostCounter[player].targetBoost and "2,4058,1" in self.boostCounter[player].targetBoost[event.target]:
+        #             self.boostCounter[player].removeTargetBoost(event.target, "2,4058,1", event.time)  # 在有戒火斩时移除
+        #         effect_id = "2,23305,1"
+        #         boostValue = BOOST_DICT[effect_id]
+        #         self.boostCounter[player].addTargetBoost(event.target, effect_id, boostValue, event.caster, 1, event.time)
+        #         self.boostRemove[effect_id + event.target] = {"time": event.time + 40000, "target": event.target, "boost": effect_id}
+        #         self.updateRemoveTime()
         elif event.id in ["403"] and self.occDetailList.get(event.caster, "") == "3d":  # 傲血破风
             #print("[YishangDetect1]", event.time, event.id, event.caster, self.info.getName(event.caster))
             for player in self.boostCounter:
@@ -1624,6 +1624,8 @@ class CombatTracker():
         self.mrdpsCast["*低等级增益"] = DpsCastRecorder(1)
         self.rdpsCast["*环境增益"] = DpsCastRecorder(1)
         self.mrdpsCast["*环境增益"] = DpsCastRecorder(1)
+        self.rdpsCast["*团队增益"] = DpsCastRecorder(1)
+        self.mrdpsCast["*团队增益"] = DpsCastRecorder(1)
 
         numTiance = 0
         numTielao = 0
@@ -1674,17 +1676,19 @@ class CombatTracker():
             if numTiance > 0:
                 effect_id = "2,362,8"
                 boostValue = BOOST_DICT[effect_id]
-                if numTielao == 1:
-                    self.boostCounter[player].addBoost(effect_id, boostValue, tielaoID, 1, bh.startTime)
-                else:
-                    self.boostCounter[player].addBoost(effect_id, boostValue, "*低等级增益", 1, bh.startTime)
+                self.boostCounter[player].addBoost(effect_id, boostValue, "*团队增益", 1, bh.startTime)
+                # if numTielao == 1:
+                #     self.boostCounter[player].addBoost(effect_id, boostValue, tielaoID, 1, bh.startTime)
+                # else:
+                #     self.boostCounter[player].addBoost(effect_id, boostValue, "*低等级增益", 1, bh.startTime)
             if numQixiu > 0:
                 effect_id = "2,673,11"
                 boostValue = BOOST_DICT[effect_id]
-                if numYunchang == 1:
-                    self.boostCounter[player].addBoost(effect_id, boostValue, yunchangID, 1, bh.startTime)
-                else:
-                    self.boostCounter[player].addBoost(effect_id, boostValue, "*低等级增益", 1, bh.startTime)
+                self.boostCounter[player].addBoost(effect_id, boostValue, "*团队增益", 1, bh.startTime)
+                # if numYunchang == 1:
+                #     self.boostCounter[player].addBoost(effect_id, boostValue, yunchangID, 1, bh.startTime)
+                # else:
+                #     self.boostCounter[player].addBoost(effect_id, boostValue, "*低等级增益", 1, bh.startTime)
             
         for player in info.npc:
             self.hpsCast[player] = HealCastRecorder(0)
