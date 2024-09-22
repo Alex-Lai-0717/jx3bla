@@ -3,7 +3,7 @@
 
 import time
 
-EDITION = "8.11.1"
+EDITION = "8.12.0"
 ANNOUNCEMENT = "服务器计划进行迁移，大家请尽快更新新版本，当前版本将在一段时间后无法运行！"
 # IP = "139.199.102.41"
 IP = "120.48.95.56"
@@ -83,6 +83,7 @@ COLOR_DICT = {"0": (0, 0, 0),  # 未知
              "212": (0, 172, 153),  # 药宗
              "213": (107, 183, 242),  # (64, 101, 169),  # 刀宗
              "214": (160, 135, 75), # (64, 101, 169),  # 万灵
+             "215": (0, 0, 0), # (64, 101, 169),  # 段氏
              }
 
 OCC_NAME_DICT = {"0": "未知",
@@ -127,6 +128,7 @@ OCC_NAME_DICT = {"0": "未知",
                     "212h": "灵素",
                     "213": "刀宗",
                     "214": "万灵",
+                    "215": "段氏",
                      "1dw": "易筋·悟",
                      "1tw": "洗髓·悟",
                      "2dw": "花间·悟",
@@ -157,6 +159,7 @@ OCC_NAME_DICT = {"0": "未知",
                      "212hw": "灵素·悟",
                      "213w": "刀宗·悟",
                      "214w": "万灵·悟",
+                     "215w": "段氏·悟",
 }
 
 OCC_PINYIN_DICT = {"0": "unknown",
@@ -201,6 +204,7 @@ OCC_PINYIN_DICT = {"0": "unknown",
                     "212h": "lingsu",
                     "213": "gufengjue",
                     "214": "shanhaixinjue",
+                    "215": "zhoutiangong",
                    "1dw": "yijinjing_wu",
                    "1tw": "xisuijing_wu",
                    "2dw": "huajianyou_wu",
@@ -230,7 +234,8 @@ OCC_PINYIN_DICT = {"0": "unknown",
                    "212dw": "wufang_wu",
                    "212hw": "lingsu_wu",
                    "213w": "gufengjue_wu",
-                   "214w": "shanhaixinjue_wu"
+                   "214w": "shanhaixinjue_wu",
+                   "215w": "zhoutiangong_wu",
 }
 
 CONTROL_DICT = {

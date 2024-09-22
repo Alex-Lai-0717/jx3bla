@@ -4,6 +4,8 @@
 from tools.Functions import *
 import time
 
+
+# TODO 130主属性表
 OCC_ATTRIB = {
     '1d': {'类型': 2, '主属性': '元气', '攻击': 1.85, '会心': 0.38},  # 易筋
     '1t': {'类型': 2, '主属性': '体质', '气血': 2.5, '防御': 0.1, '攻击': 0.05},  # 洗髓   0.1攻击0.05破防
@@ -35,6 +37,7 @@ OCC_ATTRIB = {
     '212h': {'类型': 5, '主属性': '根骨', '治疗': 1.8, '会心': 0.11},  # 奶药
     '213': {'类型': 1, '主属性': '力道', '攻击': 1.6, '会心': 0.25},  # 刀宗
     '214': {'类型': 1, '主属性': '身法', '攻击': 1.45, '会心': 0.58},  # 万灵
+    '215': {'类型': 4, '主属性': '元气', '攻击': 1.95, '会心': 0.45},  # 段氏
     '1dw': {'类型': 2, '主属性': '元气', '攻击': 1.85, '会心': 0.38},  # 易筋
     '1tw': {'类型': 2, '主属性': '体质', '气血': 2.5, '防御': 0.1, '攻击': 0.05},  # 洗髓   0.1攻击0.05破防
     '2dw': {'类型': 4, '主属性': '元气', '攻击': 1.95, '破防': 0.19},  # 花间
@@ -65,6 +68,7 @@ OCC_ATTRIB = {
     '212hw': {'类型': 5, '主属性': '根骨', '治疗': 1.8, '会心': 0.11},  # 奶药
     '213w': {'类型': 1, '主属性': '力道', '攻击': 1.6, '会心': 0.25},  # 刀宗
     '214w': {'类型': 1, '主属性': '身法', '攻击': 1.45, '会心': 0.58},  # 万灵
+    '215w': {'类型': 4, '主属性': '元气', '攻击': 1.95, '会心': 0.45},  # 段氏
     # TODO Tbuff
 }
 
@@ -99,6 +103,7 @@ OCC_BASE = {  # 心法自带的基础值
     '212h': {'atTherapyPowerBase': 6533},  # 奶药
     '213': {'atPhysicsAttackPowerBase': 3346, 'atPhysicsCriticalStrike': 2775},  # 刀宗
     '214': {'atPhysicsAttackPowerBase': 3277, 'atPhysicsCriticalStrike': 2929},  # 万灵
+    '215': {'atNeutralAttackPowerBase': 6518, 'atNeutralCriticalStrike': 5527},  # 段氏
     '1dw': {'atSolarAttackPowerBase': 4139},  # 易筋
     '1tw': {},  # 洗髓
     '2dw': {'atNeutralAttackPowerBase': 4139},  # 花间
@@ -129,13 +134,17 @@ OCC_BASE = {  # 心法自带的基础值
     '212hw': {'atTherapyPowerBase': 6533},  # 奶药
     '213w': {'atPhysicsAttackPowerBase': 3346, 'atPhysicsCriticalStrike': 2775},  # 刀宗
     '214w': {'atPhysicsAttackPowerBase': 3277, 'atPhysicsCriticalStrike': 2929},  # 万灵
+    '215w': {'atNeutralAttackPowerBase': 6518, 'atNeutralCriticalStrike': 5527},  # 段氏
 }
 
-OVERALL_OCC_BASE = {'atStrengthBase': 38, 'atAgilityBase': 38, 'atSpunkBase': 38, 'atSpiritBase': 38, 'atVitalityBase': 38}
+if CHAPTER == 120:
+    OVERALL_OCC_BASE = {'atStrengthBase': 38, 'atAgilityBase': 38, 'atSpunkBase': 38, 'atSpiritBase': 38, 'atVitalityBase': 38}
+elif CHAPTER == 130:
+    OVERALL_OCC_BASE = {'atStrengthBase': 44, 'atAgilityBase': 44, 'atSpunkBase': 44, 'atSpiritBase': 44,  'atVitalityBase': 45}
 
 def getExtraAttrib(occ, attrib):
     '''
-    根据心法和主属性获取额外增益的数值.
+    根据心法和主属性获取额外增益的数值，并计算全能.
     params:
     - occ: 心法代码.
     - attrib: 属性列表.
@@ -154,6 +163,28 @@ def getExtraAttrib(occ, attrib):
     for attrib in attribDict:
         if attrib not in ["类型", "主属性"]:
             res[attrib] = attribDict[attrib] * value
+
+    # 计算主属性本身的加成
+    MAIN_ATTRIB_BOOST = {}
+    if CHAPTER == 120:
+        MAIN_ATTRIB_BOOST["力道"] = {"攻击": 0.15, "破防": 0.3}
+        MAIN_ATTRIB_BOOST["身法"] = {"会心": 0.64}
+        MAIN_ATTRIB_BOOST["元气"] = {"攻击": 0.18, "破防": 0.3}
+        MAIN_ATTRIB_BOOST["根骨"] = {"会心": 0.64}
+        MAIN_ATTRIB_BOOST["体质"] = {"气血": 10}
+        MAIN_ATTRIB_BOOST["全能"] = {"破招": 1, "无双": 1, "化劲": 1}
+    elif CHAPTER == 130:
+        MAIN_ATTRIB_BOOST["力道"] = {"攻击": 0.163, "破防": 0.3}
+        MAIN_ATTRIB_BOOST["身法"] = {"会心": 0.9}
+        MAIN_ATTRIB_BOOST["元气"] = {"攻击": 0.181, "破防": 0.3}
+        MAIN_ATTRIB_BOOST["根骨"] = {"会心": 0.9}
+        MAIN_ATTRIB_BOOST["体质"] = {"气血": 10}
+        MAIN_ATTRIB_BOOST["全能"] = {"破招": 0.5, "无双": 1.5, "化劲": 1}
+    for key in attribDict:
+        if key in MAIN_ATTRIB_BOOST:
+            for attrib in MAIN_ATTRIB_BOOST[key]:
+                res[attrib] = res.get(attrib, 0) + MAIN_ATTRIB_BOOST[key][attrib] * attribDict[key]
+
     return res
 
 def getBoostAttrib(res, baseResult, attrib, playerType):

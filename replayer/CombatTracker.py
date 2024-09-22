@@ -44,10 +44,12 @@ def getDamageCoeff(occ, attrib, targetBoosts, lvl=114, isPoZhao=0, isSangRou=1, 
     for boost in targetBoosts:
         for key in boost:
             targetBoostsDict[key] = targetBoostsDict.get(key, 0) + boost[key]
-    shieldParam = {"120": 42000.75, "121": 44291.7, "122": 46582.65, "123": 48873.6, "124": 51164.55,
+    shieldParam = {"130": 126007.2, "131": 133357.62, "132": 140708.04, "133": 148058.46, "134": 155408.88,
+                   "120": 42000.75, "121": 44291.7, "122": 46582.65, "123": 48873.6, "124": 51164.55,
                    "110": 19091.25, "111": 20132.6, "112": 21173.95, "113": 22215.3, "114": 23256.6}[str(lvl)]
     shieldBase = {"110": 7060, "111": 7060, "112": 7060, "113": 11966, "114": 12528,
-                  "120": 15528, "121": 15528, "122": 15528, "123": 26317, "124": 26317}[str(lvl)]
+                  "120": 15528, "121": 15528, "122": 15528, "123": 26317, "124": 27550,
+                  "130": 46902, "131": 46902, "132": 46902, "133": 79722, "134": 79722}[str(lvl)]
 
     availableBoostDict = {}
     playerType = attrib["类型"]
@@ -1604,11 +1606,13 @@ class CombatTracker():
                 self.zhenyanExclude[symbolid] = ZHENYAN_DICT[baseid][0]
             for symbolid in ZHENYAN_DICT[baseid][4]:
                 self.zhenyanExclude[symbolid] = ZHENYAN_DICT[baseid][0]
-        self.bosslvl = 123
+
+        self.bosslvl = CHAPTER + 3
         if "10人" in info.map:
-            self.bosslvl = 122
+            self.bosslvl -= 1
         elif "英雄" in info.map:
-            self.bosslvl = 124
+            self.bosslvl += 1
+
         self.startTime = bh.startTime
         self.finalTime = bh.finalTime
         self.bossYishang = 0  # 用于控制整体的BOSS易伤

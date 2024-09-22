@@ -1067,6 +1067,11 @@ def getCoefficient(coeff):
             return COEFF120[coeff]
         else:
             return 1
+    elif CHAPTER == 130:
+        if coeff in COEFF130:
+            return COEFF130[coeff]
+        else:
+            return 1
         
 def checkOccDetailBySkill(default, skillID, damage):
     '''
