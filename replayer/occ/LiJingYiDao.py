@@ -114,12 +114,14 @@ class LiJingYiDaoWindow(HealerDisplayWindow):
         info1Displayer = SingleSkillDisplayer(self.result["skill"], self.rank)
         info1Displayer.setDouble("int", "春泥次数", "chunni", "num", "numPerSec")
         info1Displayer.setSingle("int", "清疏HPS", "qingshu", "HPS")
-        info1Displayer.setSingle("int", "寒清次数", "general", "HanQingNum")
+        info1Displayer.setSingle("percent", "秋肃覆盖率", "qiusu", "cover")
+        info1Displayer.setSingle("digit2", "秋肃层数", "qiusu", "stack")
+        info1Displayer.setSingle("percent", "秋肃存在", "qiusu", "coverAll")
+        # info1Displayer.setSingle("int", "寒清次数", "general", "HanQingNum")
         info1Displayer.export_text(frame5, 6)
 
         info2Displayer = SingleSkillDisplayer(self.result["skill"], self.rank)
         info2Displayer.setSingle("int", "rDPS", "general", "rdps")
-        info2Displayer.setSingle("percent", "秋肃覆盖率", "qiusu", "cover")
         info2Displayer.setSingle("percent", "沐风覆盖率", "mufeng", "cover")
         # info2Displayer.setSingle("int", "秋肃DPS", "qiusu", "dps")
         info2Displayer.setSingle("percent", "战斗效率", "general", "efficiency")
@@ -441,6 +443,8 @@ class LiJingYiDaoReplayer(HealerReplay):
 
         wozhenDict = {}  # 握针
         shuhuaiDict = {}  # 述怀
+        qiusuDict = {}
+        qiusuAllDict = {}
 
         for line in self.bld.info.player:
             hanqingNumDict[line] = 0
@@ -448,13 +452,15 @@ class LiJingYiDaoReplayer(HealerReplay):
             wozhenDict[line] = HotCounter("20070", self.startTime, self.finalTime)  # 握针
             shuhuaiDict[line] = HotCounter("20070", self.startTime, self.finalTime)  # 述怀
             battleStat[line] = [0, 0]
+            qiusuDict[line] = BuffCounter("29294", self.startTime, self.finalTime)  # 秋肃
+            qiusuAllDict[line] = BuffCounter("29294", self.startTime, self.finalTime)  # 秋肃
 
         lastSkillTime = self.startTime
 
         # 秋肃统计
-        qiusuTarget = ""
-        qiusuTime = 0
-        qiusuCounter = BuffCounter("0", self.startTime, self.finalTime)
+        # qiusuTarget = ""
+        # qiusuTime = 0
+        # qiusuCounter = BuffCounter("0", self.startTime, self.finalTime)
 
         # 墨意、黑白子推测（这个实现逻辑非常简单，因为不需要回溯搜索）
         self.moyiInfer = [[self.startTime, 0]]
@@ -637,14 +643,14 @@ class LiJingYiDaoReplayer(HealerReplay):
                         lzwhSkill.recordSkill(event.time, event.heal, event.healEff, event.damage, event.damageEff, lastTime=event.time)
                     if event.id in ["28645"]:  # 碎玉
                         sySkill.recordSkill(event.time, event.heal, event.healEff, event.damage, event.damageEff, lastTime=event.time)
-                    if event.id in ["180"]:  # 商阳指
-                        # 秋肃生成
-                        qiusuTarget = event.target
-                        qiusuTime = event.time
-                        if qiusuCounter.log != [] and qiusuCounter.log[-1][1] == 0 and qiusuCounter.log[-1][0] > event.time:
-                            del qiusuCounter.log[-1]
-                        qiusuCounter.setState(event.time, 1)
-                        qiusuCounter.setState(event.time + 40000, 0)
+                    # if event.id in ["180"]:  # 商阳指
+                    #     # 秋肃生成
+                    #     qiusuTarget = event.target
+                    #     qiusuTime = event.time
+                    #     if qiusuCounter.log != [] and qiusuCounter.log[-1][1] == 0 and qiusuCounter.log[-1][0] > event.time:
+                    #         del qiusuCounter.log[-1]
+                    #     qiusuCounter.setState(event.time, 1)
+                    #     qiusuCounter.setState(event.time + 40000, 0)
 
                 if event.caster == self.mykey and event.scheme == 2:
                     if event.id in ["631"]:  # 握针
@@ -657,9 +663,10 @@ class LiJingYiDaoReplayer(HealerReplay):
 
                 # 统计伤害技能
                 if event.damageEff > 0 and event.id not in ["24710", "24730", "25426", "25445"]:  # 技能黑名单
+                    pass
                     # 秋肃累计
                     if event.target in self.bld.info.npc and event.caster in self.bld.info.player:
-                        if event.target == qiusuTarget and event.time - qiusuTime < 40000:
+                        if qiusuDict[event.caster].checkState(event.time) > 0:
                             battleStat[event.caster][1] += event.damageEff
                         else:
                             battleStat[event.caster][0] += event.damageEff
@@ -680,6 +687,16 @@ class LiJingYiDaoReplayer(HealerReplay):
 
                 # if event.id in ["20399"]:
                 #     print("[ZikuRecord]", parseTime((event.time-self.startTime)/1000), event.target, event.stack)
+
+                if event.id in ["29294"] and event.target in self.bld.info.player:  # 秋肃
+                    if len(qiusuDict[event.target].log) == 1 and event.time - self.startTime < 60000:  # 假设起始时有这个buff
+                        qiusuDict[event.target].log[0][1] = 1
+                        qiusuAllDict[event.target].log[0][1] = 1
+                    qiusuDict[event.target].setState(event.time, event.stack)
+                    if event.stack > 0:
+                        qiusuAllDict[event.target].setState(event.time, 1)
+                    else:
+                        qiusuAllDict[event.target].setState(event.time, 0)
 
                 if event.id in ["12770"] and event.stack == 1 and event.target == self.mykey:  # cw特效:
                     self.bh.setSpecialSkill(event.id, "cw特效", "14404",
@@ -765,8 +782,9 @@ class LiJingYiDaoReplayer(HealerReplay):
         numdam1 = 0
         for key in battleStat:
             line = battleStat[key]
-            damageDict[key] = line[0] + line[1] / 1.05
-            numdam1 += line[1] / 1.05 * 0.05
+            # damageDict[key] = line[0] + line[1] / 1.05
+            # numdam1 += line[1] / 1.05 * 0.05
+            damageDict[key] = line[0] + line[1]
         self.result["dps"] = {"table": [], "numDPS": 0}
 
         damageList = dictToPairs(damageDict)
@@ -856,13 +874,37 @@ class LiJingYiDaoReplayer(HealerReplay):
         # 泷雾
         longwuSkill = self.calculateSkillInfo("longwu", "28541")
 
-        # 秋肃
-        self.result["skill"]["qiusu"] = {}
+        # # 秋肃
+        # self.result["skill"]["qiusu"] = {}
         # num = self.battleTimeDict[self.mykey]
         # 这里改成所有玩家里最长的那个
-        num = max(self.battleTimeDict.values())
-        sum = qiusuCounter.buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
-        sum2 = qiusuCounter.buffTimeIntegral()
+        # num = max(self.battleTimeDict.values())
+        # sum = qiusuCounter.buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
+        # sum2 = qiusuCounter.buffTimeIntegral()
+
+        # 秋肃
+        self.result["skill"]["qiusu"] = {}
+        num = 0
+        sum = 0
+        sumStack = 0
+        numStack = 0
+        for key in qiusuDict:
+            singleDict = qiusuDict[key]
+            num += self.battleTimeDict[key]
+            numStack += 1
+            sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
+            sumStack += singleDict.averageStack(exclude=self.bh.badPeriodHealerLog)
+        rate = roundCent(safe_divide(sum, num))
+        self.result["skill"]["qiusu"]["cover"] = rate
+        self.result["skill"]["qiusu"]["stack"] = roundCent(safe_divide(sumStack, numStack), 2)
+        num = 0
+        sum = 0
+        for key in qiusuAllDict:
+            singleDict = qiusuAllDict[key]
+            num += self.battleTimeDict[key]
+            sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
+        rate = roundCent(safe_divide(sum, num))
+        self.result["skill"]["qiusu"]["coverAll"] = rate
 
         # print("[qiusuDebug/Num]", num)
         # print("[qiusuDebug/Sum]", sum)
@@ -871,8 +913,9 @@ class LiJingYiDaoReplayer(HealerReplay):
         # print(self.battleTimeDict)
         # print(qiusuCounter.log)
 
-        self.result["skill"]["qiusu"]["cover"] = roundCent(safe_divide(sum, num))
-        self.result["skill"]["qiusu"]["dps"] = int(numdam1 / self.result["overall"]["sumTimeDpsEff"] * 1000)
+        # self.result["skill"]["qiusu"]["cover"] = roundCent(safe_divide(sum, num))
+        # self.result["skill"]["qiusu"]["dps"] = int(numdam1 / self.result["overall"]["sumTimeDpsEff"] * 1000)
+        self.result["skill"]["qiusu"]["dps"] = 0
         # 杂项
         self.result["skill"]["qingshu"] = {}
         self.result["skill"]["qingshu"]["HPS"] = int(qingshuHeal / self.result["overall"]["sumTimeEff"] * 1000)
@@ -891,7 +934,7 @@ class LiJingYiDaoReplayer(HealerReplay):
         self.result["replay"]["moyi"] = self.moyiInfer
         self.result["replay"]["heizi"] = self.heiziInfer
         self.result["replay"]["baizi"] = self.baiziInfer
-        self.result["replay"]["qiusu"] = qiusuCounter.log
+        # self.result["replay"]["qiusu"] = qiusuCounter.log
         self.specialKey = {"wozhen-numPerSec": 20, "general-efficiency": 20, "healer-rhps": 20, "qiusu-cover": 20}
         self.markedSkill = ["132", "136", "2663", "14963", "24911", "32750"]
         self.outstandingSkill = []

@@ -95,16 +95,18 @@ class BuTianJueWindow(HealerDisplayWindow):
         mxymDisplayer.setDouble("rate", "数量", "mxym", "num", "numPerSec")
         mxymDisplayer.setSingle("int", "HPS", "mxym", "HPS")
         mxymDisplayer.setSingle("percent", "覆盖率", "mxym", "cover")
+        mxymDisplayer.setSingle("percent", "蛊惑覆盖", "ghzs", "cover")
+        mxymDisplayer.setSingle("percent", "女娲覆盖", "nvwa", "cover")
         mxymDisplayer.export_image(frame5, 5)
 
         info1Displayer = SingleSkillDisplayer(self.result["skill"], self.rank)
         # info1Displayer.setSingle("int", "蝶旋HPS", "dx", "HPS")
         # info1Displayer.setSingle("int", "蝶旋次数", "dx", "num")
-        info1Displayer.setSingle("percent", "锅覆盖率", "xwgd", "cover")
-        info1Displayer.setSingle("int", "锅次数", "xwgd", "num")
-        info1Displayer.setSingle("percent", "蛊惑覆盖率", "ghzs", "cover")
-        info1Displayer.setSingle("percent", "女娲覆盖率", "nvwa", "cover")
-        info1Displayer.setSingle("percent", "绮栊覆盖率", "qilong", "cover")
+        info1Displayer.setSingle("percent", "鼎覆盖率", "xwgd", "cover")
+        info1Displayer.setSingle("digit2", "鼎层数", "xwgd", "stack")
+        info1Displayer.setSingle("percent", "鼎存在", "xwgd", "coverAll")
+        info1Displayer.setSingle("int", "鼎次数", "xwgd", "num")
+        # info1Displayer.setSingle("percent", "绮栊覆盖率", "qilong", "cover")
         info1Displayer.export_text(frame5, 6)
 
         info2Displayer = SingleSkillDisplayer(self.result["skill"], self.rank)
@@ -443,6 +445,7 @@ class BuTianJueReplayer(HealerReplay):
         xwgdDict = BuffCounter("?", self.startTime, self.finalTime)  # 锅记录
         ghzsDict = BuffCounter("?", self.startTime, self.finalTime)  # 蛊惑记录
         xwgdBuffDict = {}
+        xwgdAllDict = {}
 
         self.cyDict = BuffCounter("2844", self.startTime, self.finalTime)  # 蚕引
         cwDict = BuffCounter("12770", self.startTime, self.finalTime)  # cw特效
@@ -454,6 +457,7 @@ class BuTianJueReplayer(HealerReplay):
             battleStat[line] = [0]
             xwgdNumDict[line] = 0
             xwgdBuffDict[line] = BuffCounter("24742", self.startTime, self.finalTime)  # 仙王蛊鼎增益记录
+            xwgdAllDict[line] = BuffCounter("24742", self.startTime, self.finalTime)  # 仙王蛊鼎增益记录
 
         self.qilongCounter = {}
         for key in self.bld.info.player:
@@ -629,7 +633,7 @@ class BuTianJueReplayer(HealerReplay):
                     bdDict.setState(event.time, event.stack)
                 if event.id in ["24742"] and event.caster == self.mykey and event.target in xwgdBuffDict:  # 仙王蛊鼎
                     xwgdBuffDict[event.target].setState(event.time, event.stack)
-                    if event.stack == 1:
+                    if event.stack != 0:
                         if event.time - xwgdLastSkill > 10000:
                             xwgdNum.append(len(xwgdList))
                             xwgdList = []
@@ -637,6 +641,9 @@ class BuTianJueReplayer(HealerReplay):
                             xwgdSumSkill += 1
                         if event.target not in xwgdList:
                             xwgdList.append(event.target)
+                        xwgdAllDict[event.target].setState(event.time, 1)
+                    else:
+                        xwgdAllDict[event.target].setState(event.time, 0)
 
             elif event.dataType == "Shout":
                 pass
@@ -716,17 +723,41 @@ class BuTianJueReplayer(HealerReplay):
         sum = mxymDict.buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
         self.result["skill"]["mxym"]["cover"] = roundCent(safe_divide(sum, num))
         # 仙王蛊鼎
-        num = 0
-        sum = 0
-        for key in xwgdBuffDict:
-            # print("[zxyz]", num, sum)
-            singleDict = xwgdBuffDict[key]
-            num += self.battleTimeDict[key]
-            sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
-        rate = roundCent(safe_divide(sum, num))
+        # num = 0
+        # sum = 0
+        # for key in xwgdBuffDict:
+        #     # print("[zxyz]", num, sum)
+        #     singleDict = xwgdBuffDict[key]
+        #     num += self.battleTimeDict[key]
+        #     sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
+        # rate = roundCent(safe_divide(sum, num))
         self.result["skill"]["xwgd"] = {}
         self.result["skill"]["xwgd"]["num"] = xwgdSumSkill
+
+        self.result["skill"]["xwgd"] = {}
+        num = 0
+        sum = 0
+        sumStack = 0
+        numStack = 0
+        for key in xwgdBuffDict:
+            singleDict = xwgdBuffDict[key]
+            num += self.battleTimeDict[key]
+            numStack += 1
+            sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
+            sumStack += singleDict.averageStack(exclude=self.bh.badPeriodHealerLog)
+        rate = roundCent(safe_divide(sum, num))
         self.result["skill"]["xwgd"]["cover"] = rate
+        self.result["skill"]["xwgd"]["stack"] = roundCent(safe_divide(sumStack, numStack), 2)
+        num = 0
+        sum = 0
+        for key in xwgdAllDict:
+            singleDict = xwgdAllDict[key]
+            num += self.battleTimeDict[key]
+            sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
+            # print("[butian]", num, sum, xwgdAllDict[key])
+        rate = roundCent(safe_divide(sum, num))
+        self.result["skill"]["xwgd"]["coverAll"] = rate
+
         # 杂项
         self.calculateSkillInfoDirect("dx", dxSkill)  # 蝶旋
         self.result["skill"]["nvwa"] = {}

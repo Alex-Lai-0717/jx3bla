@@ -1532,7 +1532,7 @@ class CombatTracker():
                     self.boostCounter[player].addTargetBoost(bossid, effect_id, boostValue, "*环境增益", 1, event.time)
                 self.boostRemove[effect_id + bossid] = {"time": event.time + 40000, "target": bossid, "boost": effect_id}
 
-    def __init__(self, info, bh, occDetailList, zhenyanInfer, stunCounter, zxyzPrecastSource, baseAttribDict):
+    def __init__(self, info, bh, occDetailList, zhenyanInfer, stunCounter, boostPredict, baseAttribDict):
         '''
         构造方法，需要读取角色或玩家信息。
         params:
@@ -1668,11 +1668,21 @@ class CombatTracker():
             self.boostCounter[player] = BoostCounter(player, self.occDetailList[player], bh.startTime, bh.finalTime, baseAttribDict[player], lvl=self.bosslvl)
             self.shieldDict[player] = "0"
             self.zyhrDict[player] = "0"
-            if zxyzPrecastSource != "0":  # 计算第一次左旋右转
+            if boostPredict["zxyz"]["id"] != "0":  # 计算第一次左旋右转
                 effect_id = "2,20938,1"
                 boostValue = BOOST_DICT[effect_id]
-                source = zxyzPrecastSource
-                self.boostCounter[player].addBoost(effect_id, boostValue, source, 1, bh.startTime)
+                source = boostPredict["zxyz"]["id"]
+                self.boostCounter[player].addBoost(effect_id, boostValue, source, boostPredict["zxyz"]["stack"], bh.startTime)
+            if boostPredict["qs"]["id"] != "0":  # 计算第一次秋肃
+                effect_id = "2,29294,1"
+                boostValue = BOOST_DICT[effect_id]
+                source = boostPredict["qs"]["id"]
+                self.boostCounter[player].addBoost(effect_id, boostValue, source, boostPredict["qs"]["stack"], bh.startTime)
+            if boostPredict["zzm"]["id"] != "0":  # 计算第一次庄周梦
+                effect_id = "2,23543,1"
+                boostValue = BOOST_DICT[effect_id]
+                source = boostPredict["zzm"]["id"]
+                self.boostCounter[player].addBoost(effect_id, boostValue, source, boostPredict["zzm"]["stack"], bh.startTime)
             if numTiance > 0:
                 effect_id = "2,362,8"
                 boostValue = BOOST_DICT[effect_id]

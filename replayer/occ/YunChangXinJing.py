@@ -104,11 +104,14 @@ class YunChangXinJingWindow(HealerDisplayWindow):
         zxyzDisplayer = SingleSkillDisplayer(self.result["skill"], self.rank)
         zxyzDisplayer.setImage("904", "左旋右转")
         zxyzDisplayer.setSingle("int", "运功次数", "zxyz", "allNum")
-        zxyzDisplayer.setDouble("rate", "数量", "zxyz", "num", "numPerSec")
+        # zxyzDisplayer.setDouble("rate", "数量", "zxyz", "num", "numPerSec")
         zxyzDisplayer.setSingle("int", "HPS", "zxyz", "HPS")
         zxyzDisplayer.setSingle("percent", "覆盖率", "zxyz", "cover")
-        zxyzDisplayer.setSingle("percent", "全局覆盖率", "zxyz", "coverAll")
+        zxyzDisplayer.setSingle("percent", "存在时间", "zxyz", "coverAll")
+        zxyzDisplayer.setSingle("digit2", "层数", "zxyz", "stack")
         zxyzDisplayer.export_image(frame5, 5)
+
+        # print("[Display]", self.result["skill"]["zxyz"]["stack"])
 
         info1Displayer = SingleSkillDisplayer(self.result["skill"], self.rank)
         info1Displayer.setSingle("int", "垂眉HPS", "xlwl", "chuimeiHPS")
@@ -653,7 +656,7 @@ class YunChangXinJingReplayer(HealerReplay):
                 if event.id in ["681"] and event.caster == self.mykey and event.target in self.bld.info.player:  # 上元
                     shangyuanDict[event.target].setState(event.time, event.stack, int((event.end - event.frame + 3) * 62.5))
                 if event.id in ["20938"] and event.target in self.bld.info.player:  # 左旋右转
-                    if len(zxyzDict[event.target].log) == 1 and event.time - self.startTime < 60000:  # 假设起始时有这个buff
+                    if len(zxyzDict[event.target].log) == 1 and event.time - self.startTime < 120000:  # 假设起始时有这个buff
                         zxyzDict[event.target].log[0][1] = 1
                         zxyzAllDict[event.target].log[0][1] = 1
                     zxyzDict[event.target].setState(event.time, event.stack)
@@ -797,13 +800,19 @@ class YunChangXinJingReplayer(HealerReplay):
         self.result["skill"]["zxyz"]["allNum"] = zxyzSumSkill
         num = 0
         sum = 0
+        numStack = 0
+        sumStack = 0
         for key in zxyzDict:
-            # print("[zxyz]", num, sum)
+            # print("[zxyz]", num, sum, numStack, sumStack, zxyzDict[key].log)
             singleDict = zxyzDict[key]
             num += self.battleTimeDict[key]
+            numStack += 1
             sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
+            sumStack += singleDict.averageStack(exclude=self.bh.badPeriodHealerLog)
         rate = roundCent(safe_divide(sum, num))
         self.result["skill"]["zxyz"]["cover"] = rate
+        self.result["skill"]["zxyz"]["stack"] = roundCent(safe_divide(sumStack, numStack), 2)
+        # print("[yunchangtest]", self.result["skill"]["zxyz"]["stack"])
         num = 0
         sum = 0
         for key in zxyzAllDict:

@@ -515,9 +515,14 @@ class ActorProReplayer(ReplayerBase):
             for symbolid in ZHENYAN_DICT[baseid][2]:
                 zhenyanSymbol[symbolid] = baseid
 
-        # 左旋右转提前记录（一个极特殊的逻辑，但是会很大程度影响结果，所以要记录）
-        self.zxyzPrecast = 0
-        self.zxyzPrecastSource = "0"
+        # # 左旋右转提前记录（一个极特殊的逻辑，但是会很大程度影响结果，所以要记录）
+        # self.zxyzPrecast = 0
+        # self.zxyzPrecastSource = "0"
+
+        # 增益提前判定记录
+        self.boostPredict = {"zxyz": {"flag": 0, "id": "0", "stack": 0},
+                             "qs": {"flag": 0, "id": "0", "stack": 0},
+                             "zzm": {"flag": 0, "id": "0", "stack": 0}}
 
         # 记录模式
         self.logMode = 0
@@ -731,7 +736,8 @@ class ActorProReplayer(ReplayerBase):
                     self.battleDict[event.caster].setState(event.time, 1)
 
                 if event.id == "6251":  # 记录左旋右转的施放者
-                    self.zxyzPrecastSource = event.caster
+                    # self.zxyzPrecastSource = event.caster
+                    self.boostPredict["zxyz"]["id"] = event.caster
 
             elif event.dataType == "Buff":
 
@@ -824,8 +830,25 @@ class ActorProReplayer(ReplayerBase):
                         # print("[GetZhenyan2]", self.bld.info.getName(event.target), event.id, parseTime((event.time - self.startTime) / 1000), event.stack)
 
                 if event.id in ["20938"] and event.target in self.bld.info.player:  # 左旋右转
+                    if event.time - self.startTime < 120000:  # 假设起始时有这个buff
+                        # self.zxyzPrecast = 1
+                        self.boostPredict["zxyz"]["flag"] = 1
+                    if event.stack > 0:
+                        self.boostPredict["zxyz"]["stack"] = event.stack
+
+                if event.id in ["29294"] and event.target in self.bld.info.player:  # 秋肃
                     if event.time - self.startTime < 60000:  # 假设起始时有这个buff
-                        self.zxyzPrecast = 1
+                        self.boostPredict["qs"]["flag"] = 1
+                        self.boostPredict["qs"]["id"] = event.caster
+                    if event.stack > 0:
+                        self.boostPredict["qs"]["stack"] = event.stack
+
+                if event.id in ["23543"] and event.target in self.bld.info.player:  # 庄周梦
+                    if event.time - self.startTime < 12000:  # 假设起始时有这个buff
+                        self.boostPredict["zzm"]["flag"] = 1
+                        self.boostPredict["zzm"]["id"] = event.caster
+                    if event.stack > 0:
+                        self.boostPredict["zzm"]["stack"] = event.stack
 
                 if event.id in ["24941"] and event.stack > 0 and event.target in deathHitDetail:  # 李重茂业障复盘
                     deathSourceDetail = ["血量变化记录："]
@@ -978,8 +1001,12 @@ class ActorProReplayer(ReplayerBase):
             # print("[Zhenyan]", player, self.bld.info.getName(player), res)
 
         # 左旋右转最终调整
-        if self.zxyzPrecast == 0:
-            self.zxyzPrecastSource = "0"
+        # if self.zxyzPrecast == 0:
+        #     self.zxyzPrecastSource = "0"
+
+        for key in self.boostPredict:
+            if self.boostPredict[key]["flag"] == 0:
+                self.boostPredict[key]["id"] = "0"
 
         # 调整战斗时间
         self.startTime, self.finalTime, self.battleTime = self.bossAnalyser.trimTime()
@@ -1220,7 +1247,7 @@ class ActorProReplayer(ReplayerBase):
         目前实现了战斗的数值统计.
         '''
 
-        combatTracker = CombatTracker(self.bld.info, self.bh, self.occDetailList, self.zhenyanInfer, self.stunCounter, self.zxyzPrecastSource, self.baseAttribDict)
+        combatTracker = CombatTracker(self.bld.info, self.bh, self.occDetailList, self.zhenyanInfer, self.stunCounter, self.boostPredict, self.baseAttribDict)
 
         for event in self.bld.log:
             if event.time < self.startTime:

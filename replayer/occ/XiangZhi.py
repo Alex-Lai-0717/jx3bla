@@ -65,8 +65,8 @@ class XiangZhiProWindow(HealerDisplayWindow):
         mhsnDisplayer = SingleSkillDisplayer(self.result["skill"], self.rank)
         mhsnDisplayer.setImage("7059", "梅花三弄")
         mhsnDisplayer.setDouble("rate", "数量", "meihua", "num", "numPerSec")
-        mhsnDisplayer.setSingle("percent", "覆盖率", "meihua", "coverSum")
-        mhsnDisplayer.setSingle("percent", "全局覆盖率", "meihua", "cover")
+        # mhsnDisplayer.setSingle("percent", "覆盖率", "meihua", "coverSum")
+        mhsnDisplayer.setSingle("percent", "覆盖率", "meihua", "cover")
         mhsnDisplayer.setSingle("delay", "延迟", "meihua", "delay")
         mhsnDisplayer.setSingle("int", "犹香HPS", "meihua", "youxiangHPS")
         # mhsnDisplayer.setSingle("int", "平吟HPS", "meihua", "pingyinHPS")
@@ -117,7 +117,10 @@ class XiangZhiProWindow(HealerDisplayWindow):
         info1Displayer = SingleSkillDisplayer(self.result["skill"], self.rank)
         info1Displayer.setSingle("int", "相依数量", "xiangyi", "num")
         info1Displayer.setSingle("int", "相依HPS", "xiangyi", "HPS")
-        info1Displayer.setDouble("rate", "暗香次数", "meihua", "anxiangNum", "anxiangNumPerSec")
+        # info1Displayer.setDouble("rate", "暗香次数", "meihua", "anxiangNum", "anxiangNumPerSec")
+        info1Displayer.setSingle("percent", "庄周梦覆盖", "zzm", "cover")
+        info1Displayer.setSingle("digit2", "庄周梦层数", "zzm", "stack")
+        info1Displayer.setSingle("percent", "庄周梦存在", "zzm", "coverAll")
         info1Displayer.export_text(frame5, 6)
 
         info2Displayer = SingleSkillDisplayer(self.result["skill"], self.rank)
@@ -477,11 +480,13 @@ class XiangZhiProReplayer(HealerReplay):
         jueOverallCounter = BuffCounter("9463", self.startTime, self.finalTime)  # 角的全局覆盖
 
         zzmDict = {}
+        zzmAllDict = {}
 
         for line in self.bld.info.player:
             shangBuffDict[line] = HotCounter("9459", self.startTime, self.finalTime)  # 商，9460=殊曲，9461=洞天
             jueBuffDict[line] = HotCounter("9463", self.startTime, self.finalTime)  # 角，9460=殊曲，9461=洞天
-            zzmDict[line] = BuffCounter("9334", self.startTime, self.finalTime)
+            zzmDict[line] = BuffCounter("23543", self.startTime, self.finalTime)
+            zzmAllDict[line] = BuffCounter("23543", self.startTime, self.finalTime)
 
         # 杂项
         fengleiActiveTime = self.startTime
@@ -689,10 +694,20 @@ class XiangZhiProReplayer(HealerReplay):
                     # 共潮生激活
                     gcsActive = 1
 
+                # if event.id in ["23543"] and event.target in self.bld.info.player:  # 庄周梦
+                #     if len(zzmDict[event.target].log) == 1 and event.time - self.startTime < 13000 and event.stack == 0:  # 推测起始时是不是有这个buff
+                #         zzmDict[event.target].log[0][1] = 1
+                #     zzmDict[event.target].setState(event.time, event.stack)
+
                 if event.id in ["23543"] and event.target in self.bld.info.player:  # 庄周梦
-                    if len(zzmDict[event.target].log) == 1 and event.time - self.startTime < 13000 and event.stack == 0:  # 推测起始时是不是有这个buff
+                    if len(zzmDict[event.target].log) == 1 and event.time - self.startTime < 13000:  # 假设起始时有这个buff
                         zzmDict[event.target].log[0][1] = 1
+                        zzmAllDict[event.target].log[0][1] = 1
                     zzmDict[event.target].setState(event.time, event.stack)
+                    if event.stack > 0:
+                        zzmAllDict[event.target].setState(event.time, 1)
+                    else:
+                        zzmAllDict[event.target].setState(event.time, 0)
 
             elif event.dataType == "Shout":
                 pass
@@ -796,6 +811,31 @@ class XiangZhiProReplayer(HealerReplay):
         self.result["overall"]["numPlayer"] = int(self.sumPlayer * 100) / 100
         self.result["skill"] = {}
 
+        # 庄周梦
+        self.result["skill"]["zzm"] = {}
+        num = 0
+        sum = 0
+        sumStack = 0
+        numStack = 0
+        for key in zzmDict:
+            singleDict = zzmDict[key]
+            num += self.battleTimeDict[key]
+            numStack += 1
+            sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
+            sumStack += singleDict.averageStack(exclude=self.bh.badPeriodHealerLog)
+        rate = roundCent(safe_divide(sum, num))
+        self.result["skill"]["zzm"]["cover"] = rate
+        self.result["skill"]["zzm"]["stack"] = roundCent(safe_divide(sumStack, numStack), 2)
+        num = 0
+        sum = 0
+        for key in zzmAllDict:
+            singleDict = zzmAllDict[key]
+            num += self.battleTimeDict[key]
+            sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
+            # print("[zzm]", num, sum, numStack, sumStack, zzmAllDict[key].log)
+        rate = roundCent(safe_divide(sum, num))
+        self.result["skill"]["zzm"]["coverAll"] = rate
+
         # 梅花三弄
         mhsnSkill = self.calculateSkillInfo("meihua", "14231")
         self.result["skill"]["meihua"]["cover"] = roundCent(overallRate)
@@ -803,14 +843,14 @@ class XiangZhiProReplayer(HealerReplay):
         self.result["skill"]["meihua"]["anxiangNumPerSec"] = roundCent(safe_divide(numAnxiang, self.result["overall"]["sumTimeEff"] / 1000), 2)
         self.result["skill"]["meihua"]["youxiangHPS"] = int(youxiangHeal / self.result["overall"]["sumTimeEff"] * 1000)
         self.result["skill"]["meihua"]["pingyinHPS"] = int(pingyinHeal / self.result["overall"]["sumTimeEff"] * 1000)
-        num = 0
-        sum = 0
-        for key in zzmDict:
-            singleDict = zzmDict[key]
-            num += self.battleTimeDict[key]
-            sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
-        rate = roundCent(safe_divide(sum, num))
-        self.result["skill"]["meihua"]["coverSum"] = rate
+        # num = 0
+        # sum = 0
+        # for key in zzmDict:
+        #     singleDict = zzmDict[key]
+        #     num += self.battleTimeDict[key]
+        #     sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
+        # rate = roundCent(safe_divide(sum, num))
+        # self.result["skill"]["meihua"]["coverSum"] = rate
         # 宫
         gongSkill = self.calculateSkillInfo("gong", "18864")
         self.result["skill"]["gong"]["zhenliuHPS"] = int(zhenliuHeal / self.result["overall"]["sumTimeEff"] * 1000)

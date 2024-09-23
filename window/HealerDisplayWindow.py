@@ -88,6 +88,9 @@ class SingleSkillDisplayer():
             elif line[0] == "rate":
                 text = "%d(%.2f)\n" % (line[2], line[5])
                 num, percent, color = self.getSkillPercent(line[6], line[7])
+            elif line[0] == "digit2":
+                text = "%.2f\n" % line[2]
+                num, percent, color = self.getSkillPercent(line[3], line[4])
             else:
                 num, percent, color = 0, 0, "#000000"
             if num > 0:
@@ -138,6 +141,9 @@ class SingleSkillDisplayer():
             elif line[0] == "rate":
                 text = "%d(%.2f)\n" % (line[2], line[5])
                 num, percent, color = self.getSkillPercent(line[6], line[7])
+            elif line[0] == "digit2":
+                text = "%.2f\n" % line[2]
+                num, percent, color = self.getSkillPercent(line[3], line[4])
             else:
                 num, percent, color = 0, 0, "#000000"
             if num > 0:

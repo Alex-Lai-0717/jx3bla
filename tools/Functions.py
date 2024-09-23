@@ -470,6 +470,21 @@ class BuffCounter():
             res = self.log[-1][1]
         return res
 
+    def averageStack(self, exclude=[]):
+        '''
+        获取buff的平均层数.也即，除去0的数量的简单平均.
+        需要假设大部分时候层数都是一致的.
+        '''
+        num = 0
+        sum = 0
+        for i in range(1, len(self.log)):
+            if self.log[i][1] != 0:
+                sum += self.log[i][1]
+                num += 1
+        res = safe_divide(sum, num)
+        # print("[AverageStack]", sum, num, res, self.log)
+        return res
+
     def buffTimeIntegral(self, exclude=[]):
         '''
         获取全程buff层数对时间的积分.
