@@ -37,6 +37,13 @@ from replayer.boss.XiYa import XiYaWindow
 from replayer.boss.Yingyanke import YingyankeWindow
 from replayer.boss.ChiYouming import ChiYoumingWindow
 
+from replayer.boss.yizhiku.Luoyaoyang import LuoyaoyangWindow
+from replayer.boss.yizhiku.Weirousi import WeirousiWindow
+from replayer.boss.yizhiku.Songquan import SongquanWindow
+from replayer.boss.yizhiku.Wujingyuan import WujingyuanWindow
+from replayer.boss.yizhiku.Saosh import SaoshWindow
+from replayer.boss.yizhiku.Fedhri import FedhriWindow
+
 from window.PotExtendWindow import PotExtendWindow
 from window.Window import Window
 from window.ToolTip import ToolTip
@@ -270,6 +277,24 @@ class SingleBossWindow(Window):
                                                          analysedBattleData)
             elif detail["boss"] == "赤幽明":
                 self.specificBossWindow = ChiYoumingWindow(self.mainWindow.config, effectiveDPSList, detail, occResult,
+                                                         analysedBattleData)
+            elif detail["boss"] == "骆耀阳":
+                self.specificBossWindow = LuoyaoyangWindow(self.mainWindow.config, effectiveDPSList, detail, occResult,
+                                                         analysedBattleData)
+            elif detail["boss"] == "韦柔丝":
+                self.specificBossWindow = WeirousiWindow(self.mainWindow.config, effectiveDPSList, detail, occResult,
+                                                         analysedBattleData)
+            elif detail["boss"] == "宋泉":
+                self.specificBossWindow = SongquanWindow(self.mainWindow.config, effectiveDPSList, detail, occResult,
+                                                         analysedBattleData)
+            elif detail["boss"] == "伍靖远":
+                self.specificBossWindow = WujingyuanWindow(self.mainWindow.config, effectiveDPSList, detail, occResult,
+                                                         analysedBattleData)
+            elif detail["boss"] == "苏什":
+                self.specificBossWindow = SaoshWindow(self.mainWindow.config, effectiveDPSList, detail, occResult,
+                                                         analysedBattleData)
+            elif detail["boss"] == "芭德":
+                self.specificBossWindow = FedhriWindow(self.mainWindow.config, effectiveDPSList, detail, occResult,
                                                          analysedBattleData)
             else:
                 self.specificBossWindow = GeneralWindow(self.mainWindow.config, effectiveDPSList, detail, occResult,

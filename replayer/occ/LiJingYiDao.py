@@ -892,8 +892,8 @@ class LiJingYiDaoReplayer(HealerReplay):
             singleDict = qiusuDict[key]
             num += self.battleTimeDict[key]
             numStack += 1
-            sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
-            sumStack += singleDict.averageStack(exclude=self.bh.badPeriodHealerLog)
+            sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodDpsLog)
+            sumStack += singleDict.averageStack(exclude=self.bh.badPeriodDpsLog)
         rate = roundCent(safe_divide(sum, num))
         self.result["skill"]["qiusu"]["cover"] = rate
         self.result["skill"]["qiusu"]["stack"] = roundCent(safe_divide(sumStack, numStack), 2)
@@ -902,7 +902,7 @@ class LiJingYiDaoReplayer(HealerReplay):
         for key in qiusuAllDict:
             singleDict = qiusuAllDict[key]
             num += self.battleTimeDict[key]
-            sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
+            sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodDpsLog)
         rate = roundCent(safe_divide(sum, num))
         self.result["skill"]["qiusu"]["coverAll"] = rate
 

@@ -761,11 +761,11 @@ class XiangZhiProReplayer(HealerReplay):
 
         overallShieldHeat = {"interval": 500, "timeline": []}
         for key in self.shieldCountersNew:
-            liveCount = self.battleDict[key].buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)  # 存活时间比例
-            if self.battleDict[key].sumTime(exclude=self.bh.badPeriodHealerLog) - liveCount < 8000:  # 脱战缓冲时间
-                liveCount = self.battleDict[key].sumTime(exclude=self.bh.badPeriodHealerLog)
+            liveCount = self.battleDict[key].buffTimeIntegral(exclude=self.bh.badPeriodDpsLog)  # 存活时间比例
+            if self.battleDict[key].sumTime(exclude=self.bh.badPeriodDpsLog) - liveCount < 8000:  # 脱战缓冲时间
+                liveCount = self.battleDict[key].sumTime(exclude=self.bh.badPeriodDpsLog)
             self.battleTimeDict[key] = liveCount
-            self.sumPlayer += liveCount / self.battleDict[key].sumTime(exclude=self.bh.badPeriodHealerLog)
+            self.sumPlayer += liveCount / self.battleDict[key].sumTime(exclude=self.bh.badPeriodDpsLog)
             # 过滤老板，T奶，自己
             if key not in damageDict or damageDict[key] / self.result["overall"]["sumTimeEff"] * 1000 < 10000:
                 continue
@@ -775,7 +775,7 @@ class XiangZhiProReplayer(HealerReplay):
                 continue
             if key == self.mykey:
                 continue
-            time1 = self.shieldCountersNew[key].buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
+            time1 = self.shieldCountersNew[key].buffTimeIntegral(exclude=self.bh.badPeriodDpsLog)
             timeAll = liveCount
             rateDict[key] = safe_divide(time1, timeAll)
             breakDict[key] = self.shieldCountersNew[key].countBreak()
@@ -821,8 +821,8 @@ class XiangZhiProReplayer(HealerReplay):
             singleDict = zzmDict[key]
             num += self.battleTimeDict[key]
             numStack += 1
-            sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
-            sumStack += singleDict.averageStack(exclude=self.bh.badPeriodHealerLog)
+            sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodDpsLog)
+            sumStack += singleDict.averageStack(exclude=self.bh.badPeriodDpsLog)
         rate = roundCent(safe_divide(sum, num))
         self.result["skill"]["zzm"]["cover"] = rate
         self.result["skill"]["zzm"]["stack"] = roundCent(safe_divide(sumStack, numStack), 2)
@@ -831,7 +831,7 @@ class XiangZhiProReplayer(HealerReplay):
         for key in zzmAllDict:
             singleDict = zzmAllDict[key]
             num += self.battleTimeDict[key]
-            sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
+            sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodDpsLog)
             # print("[zzm]", num, sum, numStack, sumStack, zzmAllDict[key].log)
         rate = roundCent(safe_divide(sum, num))
         self.result["skill"]["zzm"]["coverAll"] = rate

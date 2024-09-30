@@ -743,8 +743,8 @@ class BuTianJueReplayer(HealerReplay):
             singleDict = xwgdBuffDict[key]
             num += self.battleTimeDict[key]
             numStack += 1
-            sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
-            sumStack += singleDict.averageStack(exclude=self.bh.badPeriodHealerLog)
+            sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodDpsLog)
+            sumStack += singleDict.averageStack(exclude=self.bh.badPeriodDpsLog)
         rate = roundCent(safe_divide(sum, num))
         self.result["skill"]["xwgd"]["cover"] = rate
         self.result["skill"]["xwgd"]["stack"] = roundCent(safe_divide(sumStack, numStack), 2)
@@ -753,7 +753,7 @@ class BuTianJueReplayer(HealerReplay):
         for key in xwgdAllDict:
             singleDict = xwgdAllDict[key]
             num += self.battleTimeDict[key]
-            sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodHealerLog)
+            sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodDpsLog)
             # print("[butian]", num, sum, xwgdAllDict[key])
         rate = roundCent(safe_divide(sum, num))
         self.result["skill"]["xwgd"]["coverAll"] = rate
