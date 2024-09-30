@@ -42,6 +42,9 @@ def Response_headers(content):
     
 @app.route('/getAnnouncement', methods=['GET'])
 def getAnnouncement():
+    edition = request.args.get('edition')
+    if parseEdition(edition) < 0:
+        return jsonify({"available": 0})
     db = pymysql.connect(host=ip, user=app.dbname, password=app.dbpwd, database="jx3bla", port=3306, charset='utf8')
     cursor = db.cursor()
     sql = '''SELECT * FROM PreloadInfo;'''
