@@ -2779,6 +2779,7 @@ ID	Duration	MinDuration	note	Usage	MaxCount	MaxDuration	CanBackup	MaxOverDraftCo
 2942	7	7	阿瓦尔技能三	64	1	7	1	0	1	0
 2943	30	30	新防御特效腰坠CD30s	42	1	30	0	0	0	0
 2944	18	18	风流云散充能	83	2	18	1	0	1	0
+2945	1	1	风流云散保护CD	83	1	1	1	0	1	0
 7016	1	1	门派技能1秒	30		1	1	0	1	
 7017	1.5	1.5	门派技能1.5秒	30		1.5	1	0	1	
 7018	2	2	门派技能2秒	30		2	1	0	1	

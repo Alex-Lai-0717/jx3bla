@@ -764,6 +764,7 @@ class XiangZhiProReplayer(HealerReplay):
             liveCount = self.battleDict[key].buffTimeIntegral(exclude=self.bh.badPeriodDpsLog)  # 存活时间比例
             if self.battleDict[key].sumTime(exclude=self.bh.badPeriodDpsLog) - liveCount < 8000:  # 脱战缓冲时间
                 liveCount = self.battleDict[key].sumTime(exclude=self.bh.badPeriodDpsLog)
+            # print("[LiveCount]", key, self.battleDict[key].log, liveCount)
             self.battleTimeDict[key] = liveCount
             self.sumPlayer += liveCount / self.battleDict[key].sumTime(exclude=self.bh.badPeriodDpsLog)
             # 过滤老板，T奶，自己
@@ -832,7 +833,7 @@ class XiangZhiProReplayer(HealerReplay):
             singleDict = zzmAllDict[key]
             num += self.battleTimeDict[key]
             sum += singleDict.buffTimeIntegral(exclude=self.bh.badPeriodDpsLog)
-            # print("[zzm]", num, sum, numStack, sumStack, zzmAllDict[key].log)
+            # print("[zzm]", key, num, sum, zzmAllDict[key].log, self.battleTimeDict[key], singleDict.buffTimeIntegral(exclude=self.bh.badPeriodDpsLog))
         rate = roundCent(safe_divide(sum, num))
         self.result["skill"]["zzm"]["coverAll"] = rate
 
