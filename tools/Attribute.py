@@ -126,6 +126,7 @@ ATTRIB_TYPE = {
     "atPoisonAttackPowerPercent": ["攻击", 0, 0, 0, 0, 0, 1, 1/1024],
     # 无双
     "atStrainBase": ["无双", 1, 1, 1, 1, 1, 1, 0],
+    "atStrainRate": ["无双", 1, 1, 1, 1, 1, 1, 1/1024],
     "atStrainPercent": ["无双", 0, 1, 1, 1, 1, 1, 1/1024],
     # 破招
     "atSurplusValueBase": ["破招", 1, 1, 1, 1, 1, 1, 0],
