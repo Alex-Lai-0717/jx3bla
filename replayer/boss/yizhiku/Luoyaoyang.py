@@ -150,15 +150,15 @@ class LuoyaoyangReplayer(SpecificReplayerPro):
             #         self.bh.setCall("28054", "绿宝石", "2652", event.time, 5000, event.target, "绿宝石点名")
 
         elif event.dataType == "Shout":
-            if event.content in ['"嘿！看我这里有很多闪闪发光的宝石，猜猜都是什么呀？"', '"嘿！看我這裡有很多閃閃發光的寶石，猜猜都是什麼呀？"']:
+            if event.content in ['"螳臂当车，不自量力！"', '""']:
                 self.bh.setBadPeriod(self.startTime, event.time - 1000, True, True)
-            elif event.content in ['"看我的宝石，咻！"', '"看我的寶石，咻！"']:
+            elif event.content in ['"喝！老子看你怎么躲！"', '""']:
                 pass
-            elif event.content in ['"用所有的宝石……创造美丽的烟花吧！"', '"用所有的寶石…創造美麗的煙花吧！"']:
+            elif event.content in ['"风卷残云，刀起莫停！"', '""']:
                 pass
-            elif event.content in ['"呼呼！停……让我休息会儿。"', '"呼呼！停…讓我休息會兒。"']:
+            elif event.content in ['"中！"', '""']:
                 pass
-            elif event.content in ['"小心哦！这枚宝石比天上的星星更绚烂！"', '"小心哦！這枚寶石比天上的星星更絢爛！"']:
+            elif event.content in ['"前后皆死，无路可逃！"', '""']:
                 pass
             elif event.content in ['""']:
                 pass
@@ -178,7 +178,7 @@ class LuoyaoyangReplayer(SpecificReplayerPro):
                 self.bh.setEnvironment("0", event.content, "341", event.time, 0, 1, "喊话", "shout")
 
         elif event.dataType == "Scene":  # 进入、离开场景
-            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["喜雅宝箱", "喜雅寶箱", "鹰眼客", "鷹眼客"]:
+            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["骆耀阳宝箱"]:
                 self.win = 1
                 self.bh.setBadPeriod(event.time, self.finalTime, True, True)
             if event.id in self.bld.info.npc and event.enter and self.bld.info.npc[event.id].name != "":

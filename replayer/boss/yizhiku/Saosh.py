@@ -153,7 +153,7 @@ class SaoshReplayer(SpecificReplayerPro):
             if event.content in ['"嘿！看我这里有很多闪闪发光的宝石，猜猜都是什么呀？"', '"嘿！看我這裡有很多閃閃發光的寶石，猜猜都是什麼呀？"']:
                 self.bh.setBadPeriod(self.startTime, event.time - 1000, True, True)
             elif event.content in ['"哈维逯！到我身边来！"']:
-                self.bh.setBadPeriod(event.time + 8000, event.time + 14000, True, False)
+                self.bh.setBadPeriod(event.time, event.time + 14000, True, True)
             elif event.content in ['"为理想燃尽……亦是圆满……"']:
                 self.win = 1
             elif event.content in ['"呼呼！停……让我休息会儿。"', '"呼呼！停…讓我休息會兒。"']:

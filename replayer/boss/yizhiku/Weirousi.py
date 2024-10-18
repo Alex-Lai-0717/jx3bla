@@ -252,7 +252,7 @@ class WeirousiReplayer(SpecificReplayerPro):
                                  "s38097", "b28971", "b28972", "b28966",  # 葬魂血爪
                                  "s38100",  # 血龙甩尾
                                  "s38101", "b28980",  # 狂龙怒吼
-                                 "b29001", "s38171", "s38176",  # 龙象般若功
+                                 "b29001", "s38171", "s38176", "s38179",  # 龙象般若功
                                  ])
         self.bhBlackList = self.mergeBlackList(self.bhBlackList, self.config)
 

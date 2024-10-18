@@ -111,6 +111,10 @@ class SongquanReplayer(SpecificReplayerPro):
                              self.binghua[id]["damageList"],
                              0])
                 idRemoveList.append(id)
+                # print("===== ", parseTime((event.time - self.startTime) / 1000))
+                # for player in self.binghua[id]["allDamage"]:
+                #     print(self.bld.info.getName(player), self.binghua[id]["allDamage"][player])
+
         for id in idRemoveList:
             del self.binghua[id]
 
@@ -139,7 +143,7 @@ class SongquanReplayer(SpecificReplayerPro):
                         if self.bld.info.getName(event.target) in ["冰晶花"]:
                             self.statDict[event.caster]["battle"]["binghuaDPS"] += event.damageEff
                             if event.target not in self.binghua:
-                                self.binghua[event.target] = {"lastDamage": event.time, "alive": 1, "damageList": [], "lastName": "未知"}
+                                self.binghua[event.target] = {"lastDamage": event.time, "alive": 1, "damageList": [], "lastName": "未知", "allDamage": {}}
                             if event.damage > 0:
                                 skillName = self.bld.info.getSkillName(event.full_id)
                                 name = self.bld.info.getName(event.caster)
@@ -151,6 +155,9 @@ class SongquanReplayer(SpecificReplayerPro):
                                     del self.binghua[event.target]["damageList"][20]
                                 self.binghua[event.target]["lastDamage"] = event.time
                                 self.binghua[event.target]["lastID"] = event.caster
+                                if event.caster not in self.binghua[event.target]["allDamage"]:
+                                    self.binghua[event.target]["allDamage"][event.caster] = 0
+                                self.binghua[event.target]["allDamage"][event.caster] += event.damageEff
 
         elif event.dataType == "Buff":
             if event.target not in self.bld.info.player:
@@ -212,11 +219,30 @@ class SongquanReplayer(SpecificReplayerPro):
                         # if key in self.bhInfo or self.debug:
                         #     self.bh.setEnvironment(self.bld.info.npc[event.id].templateID, skillName, "341", event.time, 0,
                         #                        1, "NPC出现", "npc")
-            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["冰晶花"] and event.enter == 0:
-                if self.binghuaTime != 0:
-                    # self.bh.setBadPeriod(self.binghuaTime, event.time, True, False)
-                    self.bh.setCritPeriod(self.binghuaTime - 2000, event.time, False, True)
-                    self.binghuaTime = 0
+            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["冰晶花"]:
+                if event.enter == 0:
+                    if self.binghuaTime != 0:
+                        # self.bh.setBadPeriod(self.binghuaTime, event.time, True, False)
+                        self.bh.setCritPeriod(self.binghuaTime - 2000, event.time, False, True)
+                        self.binghuaTime = 0
+                        # with open("outputStone.txt", "a") as f:
+                        #     s = "%d %d %d %d %d\n" % (event.time - self.startTime, self.bld.info.npc[event.id].x, self.bld.info.npc[event.id].y, self.bld.info.npc[event.id].z, self.bld.info.npc[event.id].dir)
+                        #     f.write(s)
+                    if event.id in self.binghua:
+                        self.binghua[event.id]["alive"] = 0
+                        self.binghua[event.id]["lastDamage"] = event.time
+                else:
+                    pass
+
+            # if event.id in self.bld.info.npc:  # 128368
+            #     if self.bld.info.npc[event.id].templateID == "129404" and event.enter == 0 and self.finalTime - event.time > 3000:
+            #         # print("[NPC]", parseTime((event.time - self.startTime) / 1000), event.id, self.bld.info.npc[event.id].templateID, self.bld.info.getName(event.id), event.enter,
+            #         #   self.bld.info.npc[event.id].x, self.bld.info.npc[event.id].y, self.bld.info.npc[event.id].z, self.bld.info.npc[event.id].dir)
+            #         pass
+            #         with open("outputSongquan25.txt", "a") as f:
+            #             s = "%d %d %d %d %d\n" % (event.time - self.startTime, self.bld.info.npc[event.id].x, self.bld.info.npc[event.id].y, self.bld.info.npc[event.id].z, self.bld.info.npc[event.id].dir)
+            #             f.write(s)
+
 
         elif event.dataType == "Death":  # 重伤记录
             if event.id in self.bld.info.npc and self.bld.info.getName(event.id) in ["宋泉"]:

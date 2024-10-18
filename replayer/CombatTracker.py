@@ -148,7 +148,7 @@ class BoostCounter():
             targetBoosts.append(self.targetBoost[target][boost]["effect"])
         for baseBoost in self.boost:
 
-            # if baseBoost == "2,29294,1":
+            # if baseBoost == "2,566,1":
             #     print("[pfStart]", coeffAll, finalAttrib1)
             #     print("[boostValue]", self.boost[baseBoost])
 
@@ -170,7 +170,7 @@ class BoostCounter():
             # if baseBoost == "2,29294,1":
             #     print("[pfAfter]", coeffSpecific2, finalAttrib2)
 
-            # if baseBoost == "2,29294,1" and coeffAll != coeffSpecific2:
+            # if baseBoost == "2,566,1" and coeffAll != coeffSpecific2:
             #     print("[pfStart]", coeffAll, finalAttrib1, targetBoosts)
             #     print("[boostValue]", self.boost[baseBoost])
             #     print("[pfAfter]", coeffSpecific2, finalAttrib2, targetBoosts)
@@ -194,11 +194,18 @@ class BoostCounter():
         for baseBoost in self.targetBoost[target]:
             if self.targetBoost[target][baseBoost]["source"] == self.playerid:
                 continue
-            targetBoosts = []
+            targetBoosts2 = []
             for boost in self.targetBoost[target]:
                 if boost != baseBoost:
-                    targetBoosts.append(self.targetBoost[target][boost]["effect"])
-            coeffSpecific = getDamageCoeff(self.occ, finalAttrib, targetBoosts, lvl=self.lvl, isPoZhao=isPoZhao, isSangRou=isSangRou)
+                    targetBoosts2.append(self.targetBoost[target][boost]["effect"])
+            coeffSpecific = getDamageCoeff(self.occ, finalAttrib, targetBoosts2, lvl=self.lvl, isPoZhao=isPoZhao, isSangRou=isSangRou)
+
+            # if baseBoost == "2,566,1" and coeffAll != coeffSpecific:
+            #     print("[pfStart]", coeffAll, finalAttrib, targetBoosts)
+            #     print("[boostValue]", self.targetBoost[target][baseBoost])
+            #     print("[pfAfter]", coeffSpecific, finalAttrib, targetBoosts2)
+            #     getDamageCoeff(self.occ, finalAttrib, targetBoosts, isPoZhao=isPoZhao, debug=1, lvl=self.lvl)
+            #     getDamageCoeff(self.occ, finalAttrib, targetBoosts2, isPoZhao=isPoZhao, debug=1, lvl=self.lvl)
 
             rdpsSeparateRate[baseBoost] = {"source": self.targetBoost[target][baseBoost]["source"],
                                            "amount": coeffAll - coeffSpecific}
