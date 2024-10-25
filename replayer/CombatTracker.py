@@ -13,7 +13,7 @@ SUM3 = 0
 SUM4 = 0
 SUM5 = 0
 
-def getDamageCoeff(occ, attrib, targetBoosts, lvl=114, isPoZhao=0, isSangRou=1, debug=0):
+def getDamageCoeff(occ, attrib, targetBoosts, lvl=114, isPoZhao=0, isSangRou=1, isPiaoHuang=0, debug=0):
     '''
     根据最终面板属性和目标增益获取伤害系数.
     params:
@@ -71,6 +71,8 @@ def getDamageCoeff(occ, attrib, targetBoosts, lvl=114, isPoZhao=0, isSangRou=1, 
 
     if debug:
         print("[Calculate]", base, crit, over, strain, damageAdd1, damageAdd2, shieldRate)
+    if isPiaoHuang:
+        return base * damageAdd2
     return base * crit * over * strain * damageAdd1 * damageAdd2 * shieldRate
 
 class BoostCounter():
@@ -88,10 +90,13 @@ class BoostCounter():
 
         isPoZhao = 0
         isSangRou = 0
+        isPiaoHuang = 0
         if skill == "破招":
             isPoZhao = 1
         if skill == "桑柔":
             isSangRou = 1
+        if skill == "逐云寒蕊":
+            isPiaoHuang = 1
 
         if target not in self.rdpsRate:
             self.rdpsRate[target] = {}
@@ -109,7 +114,7 @@ class BoostCounter():
         for boost in self.targetBoost[target]:
             if self.targetBoost[target][boost]["source"] == self.playerid:
                 targetBoosts.append(self.targetBoost[target][boost]["effect"])
-        coeffSelf = getDamageCoeff(self.occ, finalAttrib, targetBoosts, lvl=self.lvl, isPoZhao=isPoZhao, isSangRou=isSangRou)
+        coeffSelf = getDamageCoeff(self.occ, finalAttrib, targetBoosts, lvl=self.lvl, isPoZhao=isPoZhao, isSangRou=isSangRou, isPiaoHuang=isPiaoHuang)
 
         sumCoeff = 0
 
@@ -123,7 +128,7 @@ class BoostCounter():
         targetBoosts = []
         for boost in self.targetBoost[target]:
             targetBoosts.append(self.targetBoost[target][boost]["effect"])
-        coeffAll = getDamageCoeff(self.occ, finalAttrib1, targetBoosts, lvl=self.lvl, isPoZhao=isPoZhao, isSangRou=isSangRou)
+        coeffAll = getDamageCoeff(self.occ, finalAttrib1, targetBoosts, lvl=self.lvl, isPoZhao=isPoZhao, isSangRou=isSangRou, isPiaoHuang=isPiaoHuang)
 
         self.attributeData2.setBoosts(boosts)
         self.attributeData2.getFinalAttrib()
@@ -165,7 +170,7 @@ class BoostCounter():
 
             finalAttrib2 = self.attributeData2.removeBoostAndGetAttrib(self.boost[baseBoost]["effect"])
             self.attributeData2.addBoostAndGetAttrib(self.boost[baseBoost]["effect"])
-            coeffSpecific2 = getDamageCoeff(self.occ, finalAttrib2, targetBoosts, lvl=self.lvl, isPoZhao=isPoZhao, isSangRou=isSangRou)
+            coeffSpecific2 = getDamageCoeff(self.occ, finalAttrib2, targetBoosts, lvl=self.lvl, isPoZhao=isPoZhao, isSangRou=isSangRou, isPiaoHuang=isPiaoHuang)
 
             # if baseBoost == "2,29294,1":
             #     print("[pfAfter]", coeffSpecific2, finalAttrib2)
@@ -198,7 +203,7 @@ class BoostCounter():
             for boost in self.targetBoost[target]:
                 if boost != baseBoost:
                     targetBoosts2.append(self.targetBoost[target][boost]["effect"])
-            coeffSpecific = getDamageCoeff(self.occ, finalAttrib, targetBoosts2, lvl=self.lvl, isPoZhao=isPoZhao, isSangRou=isSangRou)
+            coeffSpecific = getDamageCoeff(self.occ, finalAttrib, targetBoosts2, lvl=self.lvl, isPoZhao=isPoZhao, isSangRou=isSangRou, isPiaoHuang=isPiaoHuang)
 
             # if baseBoost == "2,566,1" and coeffAll != coeffSpecific:
             #     print("[pfStart]", coeffAll, finalAttrib, targetBoosts)
