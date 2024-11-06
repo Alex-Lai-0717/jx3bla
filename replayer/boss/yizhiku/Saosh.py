@@ -117,7 +117,7 @@ class SaoshReplayer(SpecificReplayerPro):
                 if event.caster in self.bld.info.player and event.caster in self.statDict:
                     # self.stat[event.caster][2] += event.damageEff
                     if event.target in self.bld.info.npc:
-                        if self.bld.info.getName(event.target) in ["苏什"]:
+                        if self.bld.info.getName(event.target) in ["苏什", "蘇什"]:
                             self.bh.setMainTarget(event.target)
 
         elif event.dataType == "Buff":
@@ -150,19 +150,15 @@ class SaoshReplayer(SpecificReplayerPro):
             #         self.bh.setCall("28054", "绿宝石", "2652", event.time, 5000, event.target, "绿宝石点名")
 
         elif event.dataType == "Shout":
-            if event.content in ['"嘿！看我这里有很多闪闪发光的宝石，猜猜都是什么呀？"', '"嘿！看我這裡有很多閃閃發光的寶石，猜猜都是什麼呀？"']:
+            if event.content in ['"我绝不会让你过去！"', '"我絕不會讓你過去！"']:
                 self.bh.setBadPeriod(self.startTime, event.time - 1000, True, True)
-            elif event.content in ['"哈维逯！到我身边来！"']:
+            elif event.content in ['"哈维逯！到我身边！"', '"哈威逯！ 到我身邊！"']:
                 self.bh.setBadPeriod(event.time, event.time + 14000, True, True)
-            elif event.content in ['"为理想燃尽……亦是圆满……"']:
+            elif event.content in ['"为理想燃尽……亦是圆满……"', '"為理想燃盡……亦是圓滿……"']:
                 self.win = 1
-            elif event.content in ['"呼呼！停……让我休息会儿。"', '"呼呼！停…讓我休息會兒。"']:
+            elif event.content in ['"吞没大地的沙浪，你挡得住吗？"', '"吞沒大地的沙浪，你擋得住嗎？"']:
                 pass
-            elif event.content in ['"小心哦！这枚宝石比天上的星星更绚烂！"', '"小心哦！這枚寶石比天上的星星更絢爛！"']:
-                pass
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
+            elif event.content in ['"狂风为友，黄沙做伴！"', '"狂風為友，黃沙做伴！"']:
                 pass
             elif event.content in ['""']:
                 pass
@@ -193,7 +189,7 @@ class SaoshReplayer(SpecificReplayerPro):
                         #                        1, "NPC出现", "npc")
 
         elif event.dataType == "Death":  # 重伤记录
-            if event.id in self.bld.info.npc and self.bld.info.getName(event.id) in ["苏什"]:
+            if event.id in self.bld.info.npc and self.bld.info.getName(event.id) in ["苏什", "蘇什"]:
                 self.win = 1
                 self.bh.setBadPeriod(event.time, self.finalTime, True, True)
 

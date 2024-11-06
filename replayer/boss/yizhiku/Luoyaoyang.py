@@ -117,7 +117,7 @@ class LuoyaoyangReplayer(SpecificReplayerPro):
                 if event.caster in self.bld.info.player and event.caster in self.statDict:
                     # self.stat[event.caster][2] += event.damageEff
                     if event.target in self.bld.info.npc:
-                        if self.bld.info.getName(event.target) in ["骆耀阳"]:
+                        if self.bld.info.getName(event.target) in ["骆耀阳", "駱耀陽"]:
                             self.bh.setMainTarget(event.target)
 
         elif event.dataType == "Buff":
@@ -150,15 +150,15 @@ class LuoyaoyangReplayer(SpecificReplayerPro):
             #         self.bh.setCall("28054", "绿宝石", "2652", event.time, 5000, event.target, "绿宝石点名")
 
         elif event.dataType == "Shout":
-            if event.content in ['"螳臂当车，不自量力！"', '""']:
+            if event.content in ['"交出宝藏，老子留你们全尸！"', '"交出寶藏，老子留你們全屍！"']:
                 self.bh.setBadPeriod(self.startTime, event.time - 1000, True, True)
-            elif event.content in ['"喝！老子看你怎么躲！"', '""']:
+            elif event.content in ['"喝！老子看你怎么躲！"', '"喝！ 老子看你怎麼躲！"']:
                 pass
-            elif event.content in ['"风卷残云，刀起莫停！"', '""']:
+            elif event.content in ['"风卷残云，刀起莫停！"', '"風捲殘雲，刀起莫停！"']:
                 pass
-            elif event.content in ['"中！"', '""']:
+            elif event.content in ['"中！"', '"中！"']:
                 pass
-            elif event.content in ['"前后皆死，无路可逃！"', '""']:
+            elif event.content in ['"前后皆死，无路可逃！"', '"前後皆死，無路可逃！"']:
                 pass
             elif event.content in ['""']:
                 pass
@@ -178,7 +178,7 @@ class LuoyaoyangReplayer(SpecificReplayerPro):
                 self.bh.setEnvironment("0", event.content, "341", event.time, 0, 1, "喊话", "shout")
 
         elif event.dataType == "Scene":  # 进入、离开场景
-            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["骆耀阳宝箱"]:
+            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["骆耀阳宝箱", "駱耀陽寶箱"]:
                 self.win = 1
                 self.bh.setBadPeriod(event.time, self.finalTime, True, True)
             if event.id in self.bld.info.npc and event.enter and self.bld.info.npc[event.id].name != "":
@@ -193,7 +193,7 @@ class LuoyaoyangReplayer(SpecificReplayerPro):
                         #                        1, "NPC出现", "npc")
 
         elif event.dataType == "Death":  # 重伤记录
-            if event.id in self.bld.info.npc and self.bld.info.getName(event.id) in ["骆耀阳"]:
+            if event.id in self.bld.info.npc and self.bld.info.getName(event.id) in ["骆耀阳", "駱耀陽"]:
                 self.win = 1
                 self.bh.setBadPeriod(event.time, self.finalTime, True, True)
 

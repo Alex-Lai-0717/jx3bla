@@ -117,7 +117,7 @@ class WeirousiReplayer(SpecificReplayerPro):
                 if event.caster in self.bld.info.player and event.caster in self.statDict:
                     # self.stat[event.caster][2] += event.damageEff
                     if event.target in self.bld.info.npc:
-                        if self.bld.info.getName(event.target) in ["韦柔丝"]:
+                        if self.bld.info.getName(event.target) in ["韦柔丝", "韋柔絲"]:
                             self.bh.setMainTarget(event.target)
 
         elif event.dataType == "Buff":
@@ -152,14 +152,11 @@ class WeirousiReplayer(SpecificReplayerPro):
         elif event.dataType == "Shout":
             if event.content in ['"嘿！看我这里有很多闪闪发光的宝石，猜猜都是什么呀？"', '"嘿！看我這裡有很多閃閃發光的寶石，猜猜都是什麼呀？"']:
                 self.bh.setBadPeriod(self.startTime, event.time - 1000, True, True)
-            elif event.content in ['"看我的宝石，咻！"', '"看我的寶石，咻！"']:
+            elif event.content in ['"那这一招你们要如何抵挡？！"', '"那這一招你們要如何抵擋？！"']:
                 pass
-            elif event.content in ['"用所有的宝石……创造美丽的烟花吧！"', '"用所有的寶石…創造美麗的煙花吧！"']:
-                pass
-            elif event.content in ['"呼呼！停……让我休息会儿。"', '"呼呼！停…讓我休息會兒。"']:
-                pass
-            elif event.content in ['"小心哦！这枚宝石比天上的星星更绚烂！"', '"小心哦！這枚寶石比天上的星星更絢爛！"']:
-                pass
+            elif event.content in ['"咳，真是玉石不分……"', '"咳，真是玉石不分……"']:
+                self.win = 1
+                self.bh.setBadPeriod(event.time, self.finalTime, True, True)
             elif event.content in ['""']:
                 pass
             elif event.content in ['""']:
@@ -178,7 +175,7 @@ class WeirousiReplayer(SpecificReplayerPro):
                 self.bh.setEnvironment("0", event.content, "341", event.time, 0, 1, "喊话", "shout")
 
         elif event.dataType == "Scene":  # 进入、离开场景
-            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["韦柔丝宝箱"]:
+            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["韦柔丝宝箱", "韋柔絲寶箱"]:
                 self.win = 1
                 self.bh.setBadPeriod(event.time, self.finalTime, True, True)
             if event.id in self.bld.info.npc and event.enter and self.bld.info.npc[event.id].name != "":
@@ -193,7 +190,7 @@ class WeirousiReplayer(SpecificReplayerPro):
                         #                        1, "NPC出现", "npc")
 
         elif event.dataType == "Death":  # 重伤记录
-            if event.id in self.bld.info.npc and self.bld.info.getName(event.id) in ["韦柔丝"]:
+            if event.id in self.bld.info.npc and self.bld.info.getName(event.id) in ["韦柔丝", "韋柔絲"]:
                 self.win = 1
                 self.bh.setBadPeriod(event.time, self.finalTime, True, True)
 
@@ -253,6 +250,7 @@ class WeirousiReplayer(SpecificReplayerPro):
                                  "s38100",  # 血龙甩尾
                                  "s38101", "b28980",  # 狂龙怒吼
                                  "b29001", "s38171", "s38176", "s38179",  # 龙象般若功
+                                 "s38843", "s38848",  # 剧情
                                  ])
         self.bhBlackList = self.mergeBlackList(self.bhBlackList, self.config)
 

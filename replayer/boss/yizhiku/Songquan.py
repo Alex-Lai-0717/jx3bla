@@ -177,24 +177,18 @@ class SongquanReplayer(SpecificReplayerPro):
                             self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "玩家获得气劲", "buff")
 
         elif event.dataType == "Shout":
-            if event.content in ['"嘿！看我这里有很多闪闪发光的宝石，猜猜都是什么呀？"', '"嘿！看我這裡有很多閃閃發光的寶石，猜猜都是什麼呀？"']:
+            if event.content in ['"能死在天山剑法下，也算尔等的荣幸。"', '"能死在天山劍法下，也算爾等的榮幸。"']:
                 self.bh.setBadPeriod(self.startTime, event.time - 1000, True, True)
-            elif event.content in ['"我败了"']:
+            elif event.content in ['"我败了"', '"我敗了"']:
                 self.win = 1
                 self.bh.setBadPeriod(event.time, self.finalTime, True, True)
-            elif event.content in ['"用所有的宝石……创造美丽的烟花吧！"', '"用所有的寶石…創造美麗的煙花吧！"']:
+            elif event.content in ['"剑锋三尺雪，何处尽天山。"', '"劍鋒三尺雪，何處盡天山。"']:
                 pass
-            elif event.content in ['"呼呼！停……让我休息会儿。"', '"呼呼！停…讓我休息會兒。"']:
+            elif event.content in ['"烈雪摧折，严霜告杀！"', '"烈雪摧折，嚴霜告殺！"']:
                 pass
-            elif event.content in ['"小心哦！这枚宝石比天上的星星更绚烂！"', '"小心哦！這枚寶石比天上的星星更絢爛！"']:
+            elif event.content in ['"肃雪凝露华，清冰出万壑。"', '"肅雪凝露華，清冰出萬壑。"']:
                 pass
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
+            elif event.content in ['"寒霜化刃，断魂惊魇！"', '"寒霜化刃，斷魂驚魘！"']:
                 pass
             elif event.content in ['""']:
                 pass
@@ -206,7 +200,7 @@ class SongquanReplayer(SpecificReplayerPro):
                 self.bh.setEnvironment("0", event.content, "341", event.time, 0, 1, "喊话", "shout")
 
         elif event.dataType == "Scene":  # 进入、离开场景
-            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["宋泉宝箱"]:
+            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["宋泉宝箱", "宋泉寶箱"]:
                 self.win = 1
                 self.bh.setBadPeriod(event.time, self.finalTime, True, True)
             if event.id in self.bld.info.npc and event.enter and self.bld.info.npc[event.id].name != "":

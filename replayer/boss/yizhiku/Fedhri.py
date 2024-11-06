@@ -150,36 +150,30 @@ class FedhriReplayer(SpecificReplayerPro):
             #         self.bh.setCall("28054", "绿宝石", "2652", event.time, 5000, event.target, "绿宝石点名")
 
         elif event.dataType == "Shout":
-            if event.content in ['"狂风起兮！"']:
+            if event.content in ['"狂风起兮！"', '"狂風起兮！"']:
                 self.bh.setBadPeriod(self.startTime, event.time - 1000, True, True)
-            elif event.content in ['"迷途的孩子，有缘再会……"']:
+            elif event.content in ['"一切都会被风沙吞噬——"', '"一切都會被風沙吞噬——"']:
                 self.win = 1
                 self.bh.setBadPeriod(event.time, self.finalTime, True, True)
-            elif event.content in ['"用所有的宝石……创造美丽的烟花吧！"', '"用所有的寶石…創造美麗的煙花吧！"']:
+            elif event.content in ['"看招！"', '"看招！"']:
                 pass
-            elif event.content in ['"呼呼！停……让我休息会儿。"', '"呼呼！停…讓我休息會兒。"']:
+            elif event.content in ['"吾已预见，黄风就在彼处！"', '"吾已預見，黃風就在彼處！"']:
                 pass
-            elif event.content in ['"小心哦！这枚宝石比天上的星星更绚烂！"', '"小心哦！這枚寶石比天上的星星更絢爛！"']:
+            elif event.content in ['"烈风沙暴，葬骨无痕……"', '"烈風沙暴，葬骨無痕……"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"一路辛苦诸位了。"', '"一路辛苦諸位了。"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"回去转告柳五，这笔钱由我带走。今后，我与九天各不相干。"', '"回去轉告柳五，這筆錢由我帶走。 今後，我與九天各不相干。"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"迷途的孩子，有缘再会。"', '"迷途的孩子，有緣再會。"']:
                 pass
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
+            elif event.content in ['""', '""']:
                 pass
             else:
                 self.bh.setEnvironment("0", event.content, "341", event.time, 0, 1, "喊话", "shout")
 
         elif event.dataType == "Scene":  # 进入、离开场景
-            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["芭德宝箱"]:
+            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["芭德宝箱", "芭德寶箱"]:
                 self.win = 1
                 self.bh.setBadPeriod(event.time, self.finalTime, True, True)
             if event.id in self.bld.info.npc and event.enter and self.bld.info.npc[event.id].name != "":
