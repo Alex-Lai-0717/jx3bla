@@ -235,7 +235,7 @@ class SongquanReplayer(SpecificReplayerPro):
             #         pass
             #         with open("outputSongquan25.txt", "a") as f:
             #             s = "%d %d %d %d %d\n" % (event.time - self.startTime, self.bld.info.npc[event.id].x, self.bld.info.npc[event.id].y, self.bld.info.npc[event.id].z, self.bld.info.npc[event.id].dir)
-            #             f.write(s)
+            #             f.write(s) # 129417
 
 
         elif event.dataType == "Death":  # 重伤记录
