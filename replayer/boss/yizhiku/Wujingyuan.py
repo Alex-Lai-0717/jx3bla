@@ -152,17 +152,17 @@ class WujingyuanReplayer(SpecificReplayerPro):
         elif event.dataType == "Shout":
             if event.content in ['"多管闲事！"', '"多管閒事！"']:
                 self.bh.setBadPeriod(self.startTime, event.time - 1000, True, True)
-            elif event.content in ['""']:
+            elif event.content in ['"非要送死……那就成全你们！"', '"非要送死……那就成全你們！"']:
+                self.bh.setBadPeriod(event.time, event.time + 13000, True, True)
+            elif event.content in ['"飞起来！"', '"飛起來！"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"把你们……都打趴下！"', '"把你們……都打趴下！"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"怒风……瞬影！"', '"怒風……瞬影！"']:
+                self.bh.setBadPeriod(event.time, event.time + 28000, True, True)
+            elif event.content in ['"呃……唔……"', '"呃……唔……"']:
                 pass
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
+            elif event.content in ['"乖乖躺下！"', '"乖乖躺下！"']:
                 pass
             elif event.content in ['""']:
                 pass
@@ -236,6 +236,9 @@ class WujingyuanReplayer(SpecificReplayerPro):
                                  "s38122", "s38124", "s38125",  # 上勾拳
                                  "s38221",  # 爆裂弩箭
                                  "s38120", "s38121",  # 摔碑掌
+                                 "s38242",  # 无禁狂拳
+                                 "s38328",  # 怒风瞬影
+                                 "s38243",  # 地裂
                                  ])
         self.bhBlackList = self.mergeBlackList(self.bhBlackList, self.config)
 
@@ -245,6 +248,9 @@ class WujingyuanReplayer(SpecificReplayerPro):
                        "c38353": ["4519", "#00ff77", 3000],  # 狂风卷叶
                        "c38354": ["4522", "#77ff00", 2000],  # 狂风卷叶
                        "b29038": ["3428", "#770000", 5000],  # 爆裂弩箭
+                       "c38242": ["325", "#00ffff", 9000],  # 无禁狂拳
+                       "c38291": ["3447", "#ff00ff", 3000],  # 破军之势
+                       "c38348": ["328", "#7700ff", 4000],  # 怒风瞬影
                        }
 
         # 喜雅数据格式：

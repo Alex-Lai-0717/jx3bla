@@ -30,13 +30,17 @@ class WeirousiWindow(SpecificBossWindow):
         tb = TableConstructorMeta(self.config, frame1)
 
         self.constructCommonHeader(tb, "")
-        # tb.AppendHeader("1组剑", "对第1组剑的伤害量，红/蓝表示不同的分组。如果剑没有打掉，则会显示为浅色。")
+        tb.AppendHeader("逆心转脉正确", "对逆心转脉的有效伤害。可以减少韦柔丝回血或者回蓝的数值。")
+        tb.AppendHeader("逆心转脉错误", "被逆心转脉吸收的错误属性伤害。会增加韦柔丝回血或者回蓝的数值。")
         tb.AppendHeader("心法复盘", "心法专属的复盘模式，只有很少心法中有实现。")
         tb.EndOfLine()
 
         for i in range(len(self.effectiveDPSList)):
             line = self.effectiveDPSList[i]
             self.constructCommonLine(tb, line)
+
+            tb.AppendContext(int(line["battle"]["nxzmRight"]), color="#000000")
+            tb.AppendContext(int(line["battle"]["nxzmWrong"]), color="#000000")
 
             # 心法复盘
             if line["name"] in self.occResult:
@@ -115,10 +119,12 @@ class WeirousiReplayer(SpecificReplayerPro):
 
             else:
                 if event.caster in self.bld.info.player and event.caster in self.statDict:
-                    # self.stat[event.caster][2] += event.damageEff
                     if event.target in self.bld.info.npc:
                         if self.bld.info.getName(event.target) in ["韦柔丝", "韋柔絲"]:
                             self.bh.setMainTarget(event.target)
+                        if self.bld.info.getName(event.target) in ["逆心转脉", "逆心轉脈"]:
+                            self.statDict[event.caster]["battle"]["nxzmRight"] += event.damageEff
+                            self.statDict[event.caster]["battle"]["nxzmWrong"] += int(event.fullResult.get("9", 0))
 
         elif event.dataType == "Buff":
             if event.target not in self.bld.info.player:
@@ -157,9 +163,9 @@ class WeirousiReplayer(SpecificReplayerPro):
             elif event.content in ['"咳，真是玉石不分……"', '"咳，真是玉石不分……"']:
                 self.win = 1
                 self.bh.setBadPeriod(event.time, self.finalTime, True, True)
-            elif event.content in ['""']:
+            elif event.content in ['"血相生玥，取余补缺!"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"奇脉通浍，采盈弥亏！"']:
                 pass
             elif event.content in ['""']:
                 pass
@@ -277,10 +283,11 @@ class WeirousiReplayer(SpecificReplayerPro):
         if self.bld.info.map == "25人普通一之窟":
             self.bh.critPeriodDesc = "[龙象般若功]AOE期间，及其之前5秒."
         if self.bld.info.map == "25人英雄一之窟":
-            self.bh.critPeriodDesc = "？？？"
+            self.bh.critPeriodDesc = "[龙象般若功]AOE期间，及其之前5秒."
 
         for line in self.bld.info.player:
-            self.statDict[line]["battle"] = {}
+            self.statDict[line]["battle"] = {"nxzmRight": 0,
+                                             "nxzmWrong": 0}
 
 
     def __init__(self, bld, occDetailList, startTime, finalTime, battleTime, bossNamePrint, config):

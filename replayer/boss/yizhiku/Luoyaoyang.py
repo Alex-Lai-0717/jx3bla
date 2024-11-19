@@ -30,13 +30,18 @@ class LuoyaoyangWindow(SpecificBossWindow):
         tb = TableConstructorMeta(self.config, frame1)
 
         self.constructCommonHeader(tb, "")
-        # tb.AppendHeader("1组剑", "对第1组剑的伤害量，红/蓝表示不同的分组。如果剑没有打掉，则会显示为浅色。")
+        tb.AppendHeader("三刀六洞次数", "触发惩罚叠加debuff的次数。")
         tb.AppendHeader("心法复盘", "心法专属的复盘模式，只有很少心法中有实现。")
         tb.EndOfLine()
 
         for i in range(len(self.effectiveDPSList)):
             line = self.effectiveDPSList[i]
             self.constructCommonLine(tb, line)
+
+            color = "#000000"
+            if int(line["battle"]["sdldNum"]) > 0:
+                color = "#ff0000"
+            tb.AppendContext(int(line["battle"]["sdldNum"]), color=color)
 
             # 心法复盘
             if line["name"] in self.occResult:
@@ -137,6 +142,9 @@ class LuoyaoyangReplayer(SpecificReplayerPro):
                         if key in self.bhInfo or self.debug:
                             self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "玩家获得气劲", "buff")
 
+                if event.id == "29654":  # 三刀六洞debuff
+                    self.statDict[event.target]["battle"]["sdldNum"] += 1
+
             # if event.id == "28050":  # 红宝石
             #     if event.stack == 1:
             #         self.bh.setCall("28050", "红宝石", "2654", event.time, 5000, event.target, "红宝石点名")
@@ -160,9 +168,9 @@ class LuoyaoyangReplayer(SpecificReplayerPro):
                 pass
             elif event.content in ['"前后皆死，无路可逃！"', '"前後皆死，無路可逃！"']:
                 pass
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
+            elif event.content in ['"螳臂当车，不自量力！"', '"螳臂當車，不自量力！"']:
+                self.bh.setBadPeriod(self.startTime, event.time - 1000, True, True)
+            elif event.content in ['"雪谷无门，吾刀断魂！"', '"雪穀無門，吾刀斷魂！"']:
                 pass
             elif event.content in ['""']:
                 pass
@@ -179,6 +187,9 @@ class LuoyaoyangReplayer(SpecificReplayerPro):
 
         elif event.dataType == "Scene":  # 进入、离开场景
             if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["骆耀阳宝箱", "駱耀陽寶箱"]:
+                self.win = 1
+                self.bh.setBadPeriod(event.time, self.finalTime, True, True)
+            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].templateID == "129582":
                 self.win = 1
                 self.bh.setBadPeriod(event.time, self.finalTime, True, True)
             if event.id in self.bld.info.npc and event.enter and self.bld.info.npc[event.id].name != "":
@@ -271,7 +282,7 @@ class LuoyaoyangReplayer(SpecificReplayerPro):
             self.bh.critPeriodDesc = "暂无统计"
 
         for line in self.bld.info.player:
-            self.statDict[line]["battle"] = {}
+            self.statDict[line]["battle"] = {"sdldNum": 0}
 
 
     def __init__(self, bld, occDetailList, startTime, finalTime, battleTime, bossNamePrint, config):

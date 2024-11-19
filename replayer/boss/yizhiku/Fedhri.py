@@ -30,13 +30,15 @@ class FedhriWindow(SpecificBossWindow):
         tb = TableConstructorMeta(self.config, frame1)
 
         self.constructCommonHeader(tb, "")
-        # tb.AppendHeader("1组剑", "对第1组剑的伤害量，红/蓝表示不同的分组。如果剑没有打掉，则会显示为浅色。")
+        tb.AppendHeader("图腾伤害", "对图腾造成的伤害。")
         tb.AppendHeader("心法复盘", "心法专属的复盘模式，只有很少心法中有实现。")
         tb.EndOfLine()
 
         for i in range(len(self.effectiveDPSList)):
             line = self.effectiveDPSList[i]
             self.constructCommonLine(tb, line)
+
+            tb.AppendContext(int(line["battle"]["yztzDamage"]), color="#000000")
 
             # 心法复盘
             if line["name"] in self.occResult:
@@ -119,6 +121,8 @@ class FedhriReplayer(SpecificReplayerPro):
                     if event.target in self.bld.info.npc:
                         if self.bld.info.getName(event.target) in ["芭德"]:
                             self.bh.setMainTarget(event.target)
+                        if self.bld.info.getName(event.target) in ["图腾", "圖騰"]:
+                            self.statDict[event.caster]["battle"]["yztzDamage"] += event.damageEff
 
         elif event.dataType == "Buff":
             if event.target not in self.bld.info.player:
@@ -167,6 +171,18 @@ class FedhriReplayer(SpecificReplayerPro):
                 pass
             elif event.content in ['"迷途的孩子，有缘再会。"', '"迷途的孩子，有緣再會。"']:
                 pass
+            elif event.content in ['"山崩石陨！"', '"山崩石隕！"']:
+                pass
+            elif event.content in ['"赤焰沙尘，葬尽魔邪！"', '""']:
+                self.hlszStart = event.time
+                self.hlszNum = 4
+                self.bh.setEnvironment("0", event.content, "340", event.time, 0, 1, "喊话", "shout")
+            elif event.content in ['"瀚海将会埋葬汝等……"', '"瀚海將會埋葬汝等……"']:
+                pass
+            elif event.content in ['"呵，我若是不留余地，为何还要做主让索家取走一窟？九天中人，本就离心离德，各怀鬼胎，我不过是下手果决些。"', '"呵，我若是不留餘地，為何還要做主讓索家取走一窟？ 九天中人，本就離心離德，各懷鬼胎，我不過是下手果决些。"']:
+                pass
+            elif event.content in ['""', '""']:
+                pass
             elif event.content in ['""', '""']:
                 pass
             else:
@@ -191,6 +207,10 @@ class FedhriReplayer(SpecificReplayerPro):
             if event.id in self.bld.info.npc and self.bld.info.getName(event.id) in ["芭德"]:
                 self.win = 1
                 self.bh.setBadPeriod(event.time, self.finalTime, True, True)
+            if event.id in self.bld.info.npc and self.bld.info.getName(event.id) in ["图腾", "圖騰"]:
+                self.hlszNum -= 1
+                if self.hlszNum == 0:
+                    self.bh.setBadPeriod(self.hlszStart, event.time, True, False)
 
         elif event.dataType == "Battle":  # 战斗状态变化
             pass
@@ -235,12 +255,21 @@ class FedhriReplayer(SpecificReplayerPro):
         self.immuneHealer = 0
         self.immuneTime = 0
 
+        self.hlszStart = 0
+        self.hlszNum = 0
+
         self.bhBlackList.extend(["s38111", "b28974",  # 普攻
                                  "s38109",  # 谋风
                                  "s38114",  # 沙爆掌
                                  "s38109",  # 谋风·旋
                                  "b29004", "s38175", "s38174",   # 黄砂气旋
                                  "s38220", "c38220", "b29130", "s38182",  # 刚风
+                                 "s39035",  # 石柱震荡
+                                 "s38165",  # 冲击波
+                                 "s38166",  "s39047",  # 撼流沙葬
+                                 "b29012",  # 狂沙掌
+                                 "b29391",  # 肌虚
+                                 "s38168",  # 狂沙爆裂
 
                                  # "b28061",  # 内伤
                                  # "c37215", "s37217", "s37220", "s37223",  # 诺布心决·指弹
@@ -258,6 +287,9 @@ class FedhriReplayer(SpecificReplayerPro):
                        "c38183": ["4567", "#ff7700", 3000],  # 谋风
                        "b29036": ["4526", "#770000", 0],  # 黄砂气旋
                        "c38186": ["4568", "#0000ff", 15000],  # 刚风
+                       "c38185": ["3449", "#ff0077", 6000],  # 狂沙掌
+                       "c38295": ["3449", "#ff0033", 10000],  # 狂沙掌
+                       "c38184": ["11", "#ffff00", 6000],  # 狂沙爆裂
                        }
 
         # 喜雅数据格式：
@@ -271,10 +303,10 @@ class FedhriReplayer(SpecificReplayerPro):
         if self.bld.info.map == "25人普通一之窟":
             self.bh.critPeriodDesc = "[刚风]期间."
         if self.bld.info.map == "25人英雄冷龙峰":
-            self.bh.critPeriodDesc = "暂无统计"
+            self.bh.critPeriodDesc = "[刚风]期间."
 
         for line in self.bld.info.player:
-            self.statDict[line]["battle"] = {}
+            self.statDict[line]["battle"] = {"yztzDamage": 0}
 
 
     def __init__(self, bld, occDetailList, startTime, finalTime, battleTime, bossNamePrint, config):

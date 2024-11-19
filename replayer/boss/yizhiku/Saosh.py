@@ -160,9 +160,9 @@ class SaoshReplayer(SpecificReplayerPro):
                 pass
             elif event.content in ['"狂风为友，黄沙做伴！"', '"狂風為友，黃沙做伴！"']:
                 pass
-            elif event.content in ['""']:
-                pass
-            elif event.content in ['""']:
+            elif event.content in ['"哈惟逯！到我身边！"', '"哈惟逯！ 到我身邊！"']:
+                self.bh.setBadPeriod(event.time, event.time + 14000, True, True)
+            elif event.content in ['"躲，是没有用的！"', '"躲，是沒有用的！"']:
                 pass
             elif event.content in ['""']:
                 pass
@@ -245,14 +245,10 @@ class SaoshReplayer(SpecificReplayerPro):
                                  "s38205", "b28988",  # 种子相关
                                  "s38047", "b28995",  # 凝沙弹
                                  "s38066", "c38066",  # 飞沙走石
-                                 # "b28061",  # 内伤
-                                 # "c37215", "s37217", "s37220", "s37223",  # 诺布心决·指弹
-                                 # "s37050", "s37072",   # 炸裂
-                                 # "b28013", "b28014", "b28016",  # 力量&守护&灵动
-                                 # "s37242",  # 诺布心决·璀璨
-                                 # "s37193",  # 反噬
-                                 # "s37210", "s37211",  # 星驰
-                                 # "b28295",  # 惩罚debuff
+                                 "s38070", "s38331",  # 沙落九野
+                                 "s38288", "b28986", "s38068",  # 飞沙瀑
+                                 "s38053", "s38055", "s38057", "b28989",   # 狂沙怒破
+                                 "b29702",  # 疾风
                                  ])
         self.bhBlackList = self.mergeBlackList(self.bhBlackList, self.config)
 
@@ -262,13 +258,11 @@ class SaoshReplayer(SpecificReplayerPro):
                        "c38060": ["3293", "#0077ff", 4000],  # 黄沙震荡
                        "c38046": ["3426", "#00ff00", 6000],  # 凝沙弹
                        "c38065": ["2022", "#7700ff", 10000],  # 飞沙走石
-                       # "b28050": ["2654", "#ff0000", 5000],   # 红宝石
-                       # "b28052": ["2653", "#0000ff", 5000],  # 蓝宝石
-                       # "b28054": ["2652", "#00ff00", 5000],  # 绿宝石
-                       # "c37229": ["9525", "#77ff77", 3000],  # 诺布心决·璀璨
-                       # "c37178": ["344", "#ff0077", 10000],  # 诺布心决·炽烈
-                       # "c37206": ["9527", "#ff7700", 5000],  # 诺布心决·星驰
-                       # "c37454": ["9533", "#77ff00", 20000],  # 虚弱
+                       "c38069": ["3320", "#ff0077", 5000],  # 沙落九野
+                       "c38052": ["346", "#00ff77", 5000],  # 狂沙怒破
+                       "c38054": ["346", "#00ff77", 5000],  # 狂沙怒破
+                       "c38056": ["346", "#00ff77", 5000],  # 狂沙怒破
+                       "c38067": ["4553", "#ff7700", 5000],  # 飞沙瀑
                        }
 
         # 喜雅数据格式：
@@ -282,7 +276,7 @@ class SaoshReplayer(SpecificReplayerPro):
         if self.bld.info.map == "25人普通一之窟":
             self.bh.critPeriodDesc = "[飞沙走石]期间."
         if self.bld.info.map == "25人英雄冷龙峰":
-            self.bh.critPeriodDesc = "暂无统计"
+            self.bh.critPeriodDesc = "[飞沙走石]期间."
 
         for line in self.bld.info.player:
             self.statDict[line]["battle"] = {}

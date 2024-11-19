@@ -31,6 +31,7 @@ class SongquanWindow(SpecificBossWindow):
 
         self.constructCommonHeader(tb, "")
         tb.AppendHeader("冰晶花伤害", "对冰晶花造成的总伤害量。")
+        tb.AppendHeader("水分身伤害", "对水分身造成的有效伤害总量。")
         tb.AppendHeader("心法复盘", "心法专属的复盘模式，只有很少心法中有实现。")
         tb.EndOfLine()
 
@@ -39,6 +40,7 @@ class SongquanWindow(SpecificBossWindow):
             self.constructCommonLine(tb, line)
 
             tb.AppendContext(int(line["battle"]["binghuaDPS"]), color="#000000")
+            tb.AppendContext(int(line["battle"]["sfsDamage"]), color="#000000")
 
             # 心法复盘
             if line["name"] in self.occResult:
@@ -158,6 +160,8 @@ class SongquanReplayer(SpecificReplayerPro):
                                 if event.caster not in self.binghua[event.target]["allDamage"]:
                                     self.binghua[event.target]["allDamage"][event.caster] = 0
                                 self.binghua[event.target]["allDamage"][event.caster] += event.damageEff
+                        if self.bld.info.getName(event.target) in ["水分身"]:
+                            self.statDict[event.caster]["battle"]["sfsDamage"] += int(event.fullResult.get("9", 0))
 
         elif event.dataType == "Buff":
             if event.target not in self.bld.info.player:
@@ -190,11 +194,13 @@ class SongquanReplayer(SpecificReplayerPro):
                 pass
             elif event.content in ['"寒霜化刃，断魂惊魇！"', '"寒霜化刃，斷魂驚魘！"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"飞霰幻身，剑光瞬影，破！"', '"飛霰幻身，劍光瞬影，破！"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"阵结寒域，冰封川泽，霜剑所指，万物归寂！"', '"陣結寒域，冰封川澤，霜劍所指，萬物歸寂！"']:
                 pass
-            elif event.content in ['""']:
+            elif event.content in ['"不好，先破剑阵！"', '"不好，先破劍陣！"']:
+                pass
+            elif event.content in ['"不好，先破剑阵！"']:
                 pass
             else:
                 self.bh.setEnvironment("0", event.content, "341", event.time, 0, 1, "喊话", "shout")
@@ -227,6 +233,10 @@ class SongquanReplayer(SpecificReplayerPro):
                         self.binghua[event.id]["lastDamage"] = event.time
                 else:
                     pass
+            if event.id in self.bld.info.npc and self.bld.info.getName(event.id) in ["阵剑", "陣劍"] and event.enter == 0:
+                self.sfsNum -= 1
+                if self.sfsNum == 0:
+                    self.bh.setBadPeriod(self.sfsStart, event.time, True, False)
 
             # if event.id in self.bld.info.npc:  # 128368
             #     if self.bld.info.npc[event.id].templateID == "129404" and event.enter == 0 and self.finalTime - event.time > 3000:
@@ -283,6 +293,9 @@ class SongquanReplayer(SpecificReplayerPro):
                              "%s冰花开始绽放" % time,
                              self.binghua[id]["damageList"].copy(),
                              0])
+            if event.id == "38020":  # 勾阵读条
+                self.sfsStart = event.time
+                self.sfsNum = 3
                     
     def analyseFirstStage(self, item):
         '''
@@ -317,6 +330,8 @@ class SongquanReplayer(SpecificReplayerPro):
                                  "s38073",  # 勾阵：击飞
                                  "s38087", "s38169",  # 勾阵：AOE
                                  "s38598",  # 狂暴
+                                 "b28952",  # 勾阵特殊状态
+                                 "s37932",  # 冻结
                                  ])
         self.bhBlackList = self.mergeBlackList(self.bhBlackList, self.config)
 
@@ -341,16 +356,19 @@ class SongquanReplayer(SpecificReplayerPro):
         self.binghuaTime = 0
         self.huaxingStart = 0
         self.binghuaNum = 0
+        self.sfsStart = 0
+        self.sfsNum = 0
 
         if self.bld.info.map == "一之窟":
             self.bh.critPeriodDesc = "暂无统计"
         if self.bld.info.map == "25人普通一之窟":
             self.bh.critPeriodDesc = "[天山剑法·化形]期间，及其之前5秒."
         if self.bld.info.map == "25人英雄一之窟":
-            self.bh.critPeriodDesc = "暂无统计"
+            self.bh.critPeriodDesc = "[天山剑法·化形]期间，及其之前5秒. 注意，阵剑期间不被统计."
 
         for line in self.bld.info.player:
-            self.statDict[line]["battle"] = {"binghuaDPS": 0}
+            self.statDict[line]["battle"] = {"binghuaDPS": 0,
+                                             "sfsDamage": 0,}
 
 
     def __init__(self, bld, occDetailList, startTime, finalTime, battleTime, bossNamePrint, config):
