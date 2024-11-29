@@ -8,7 +8,8 @@ from replayer.TableConstructorMeta import TableConstructorMeta
 from tools.Functions import *
 
 import tkinter as tk
-        
+
+
 class SongquanWindow(SpecificBossWindow):
     '''
     宋泉的定制复盘窗口类。
@@ -20,13 +21,13 @@ class SongquanWindow(SpecificBossWindow):
         '''
         self.constructWindow("宋泉", "1200x800")
         window = self.window
-        
+
         frame1 = tk.Frame(window)
         frame1.pack()
-        
-        #通用格式：
-        #0 ID, 1 门派, 2 有效DPS, 3 团队-心法DPS/治疗量, 4 装分, 5 详情, 6 被控时间
-        
+
+        # 通用格式：
+        # 0 ID, 1 门派, 2 有效DPS, 3 团队-心法DPS/治疗量, 4 装分, 5 详情, 6 被控时间
+
         tb = TableConstructorMeta(self.config, frame1)
 
         self.constructCommonHeader(tb, "")
@@ -53,6 +54,7 @@ class SongquanWindow(SpecificBossWindow):
 
     def __init__(self, config, effectiveDPSList, detail, occResult, analysedBattleData):
         super().__init__(config, effectiveDPSList, detail, occResult, analysedBattleData)
+
 
 class SongquanReplayer(SpecificReplayerPro):
 
@@ -134,7 +136,8 @@ class SongquanReplayer(SpecificReplayerPro):
                         if "," not in skillName:
                             key = "s%s" % event.id
                             if key in self.bhInfo or self.debug:
-                                self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式命中玩家", "skill")
+                                self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式命中玩家",
+                                                       "skill")
 
             else:
                 if event.caster in self.bld.info.player and event.caster in self.statDict:
@@ -145,14 +148,16 @@ class SongquanReplayer(SpecificReplayerPro):
                         if self.bld.info.getName(event.target) in ["冰晶花"]:
                             self.statDict[event.caster]["battle"]["binghuaDPS"] += event.damageEff
                             if event.target not in self.binghua:
-                                self.binghua[event.target] = {"lastDamage": event.time, "alive": 1, "damageList": [], "lastName": "未知", "allDamage": {}}
+                                self.binghua[event.target] = {"lastDamage": event.time, "alive": 1, "damageList": [],
+                                                              "lastName": "未知", "allDamage": {}}
                             if event.damage > 0:
                                 skillName = self.bld.info.getSkillName(event.full_id)
                                 name = self.bld.info.getName(event.caster)
                                 resultStr = ""
                                 value = event.damage
                                 self.binghua[event.target]["damageList"] = ["-%s, %s:%s%s(%d)" % (
-                                        parseTime((int(event.time) - self.startTime) / 1000), name, skillName, resultStr, value)] + self.binghua[event.target]["damageList"]
+                                    parseTime((int(event.time) - self.startTime) / 1000), name, skillName, resultStr,
+                                    value)] + self.binghua[event.target]["damageList"]
                                 if len(self.binghua[event.target]["damageList"]) > 20:
                                     del self.binghua[event.target]["damageList"][20]
                                 self.binghua[event.target]["lastDamage"] = event.time
@@ -190,7 +195,7 @@ class SongquanReplayer(SpecificReplayerPro):
                 pass
             elif event.content in ['"烈雪摧折，严霜告杀！"', '"烈雪摧折，嚴霜告殺！"']:
                 pass
-            elif event.content in ['"肃雪凝露华，清冰出万壑。"', '"肅雪凝露華，清冰出萬壑。"']:
+            elif event.content in ['"肃雪凝露华，清冰出万壑。"', '"肅雪凝露華，清冰出萬壑。ㄌ"']:
                 pass
             elif event.content in ['"寒霜化刃，断魂惊魇！"', '"寒霜化刃，斷魂驚魘！"']:
                 pass
@@ -233,7 +238,8 @@ class SongquanReplayer(SpecificReplayerPro):
                         self.binghua[event.id]["lastDamage"] = event.time
                 else:
                     pass
-            if event.id in self.bld.info.npc and self.bld.info.getName(event.id) in ["阵剑", "陣劍"] and event.enter == 0:
+            if event.id in self.bld.info.npc and self.bld.info.getName(event.id) in ["阵剑",
+                                                                                     "陣劍"] and event.enter == 0:
                 self.sfsNum -= 1
                 if self.sfsNum == 0:
                     self.bh.setBadPeriod(self.sfsStart, event.time, True, False)
@@ -296,7 +302,7 @@ class SongquanReplayer(SpecificReplayerPro):
             if event.id == "38020":  # 勾阵读条
                 self.sfsStart = event.time
                 self.sfsNum = 3
-                    
+
     def analyseFirstStage(self, item):
         '''
         处理单条复盘数据时的流程，在第一阶段复盘时，会以时间顺序不断调用此方法。
@@ -335,7 +341,7 @@ class SongquanReplayer(SpecificReplayerPro):
                                  ])
         self.bhBlackList = self.mergeBlackList(self.bhBlackList, self.config)
 
-        self.bhInfo = {"c37929": ["16370", "#ff0000", 15000],   # 天山剑法·引气
+        self.bhInfo = {"c37929": ["16370", "#ff0000", 15000],  # 天山剑法·引气
                        "c37935": ["9535", "#ff7700", 3000],  # 天山剑法·化形
                        "c37996": ["16345", "#ff0077", 2000],  # 天山剑法·凝冰
                        "c38020": ["16380", "#ff00ff", 2000],  # 天山剑法·勾阵
@@ -368,8 +374,7 @@ class SongquanReplayer(SpecificReplayerPro):
 
         for line in self.bld.info.player:
             self.statDict[line]["battle"] = {"binghuaDPS": 0,
-                                             "sfsDamage": 0,}
-
+                                             "sfsDamage": 0, }
 
     def __init__(self, bld, occDetailList, startTime, finalTime, battleTime, bossNamePrint, config):
         '''
@@ -377,4 +382,3 @@ class SongquanReplayer(SpecificReplayerPro):
         '''
         super().__init__(bld, occDetailList, startTime, finalTime, battleTime, bossNamePrint)
         self.config = config
-

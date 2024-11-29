@@ -8,7 +8,8 @@ from replayer.TableConstructorMeta import TableConstructorMeta
 from tools.Functions import *
 
 import tkinter as tk
-        
+
+
 class WujingyuanWindow(SpecificBossWindow):
     '''
     伍靖远的定制复盘窗口类。
@@ -20,13 +21,13 @@ class WujingyuanWindow(SpecificBossWindow):
         '''
         self.constructWindow("伍靖远", "1200x800")
         window = self.window
-        
+
         frame1 = tk.Frame(window)
         frame1.pack()
-        
-        #通用格式：
-        #0 ID, 1 门派, 2 有效DPS, 3 团队-心法DPS/治疗量, 4 装分, 5 详情, 6 被控时间
-        
+
+        # 通用格式：
+        # 0 ID, 1 门派, 2 有效DPS, 3 团队-心法DPS/治疗量, 4 装分, 5 详情, 6 被控时间
+
         tb = TableConstructorMeta(self.config, frame1)
 
         self.constructCommonHeader(tb, "")
@@ -49,6 +50,7 @@ class WujingyuanWindow(SpecificBossWindow):
 
     def __init__(self, config, effectiveDPSList, detail, occResult, analysedBattleData):
         super().__init__(config, effectiveDPSList, detail, occResult, analysedBattleData)
+
 
 class WujingyuanReplayer(SpecificReplayerPro):
 
@@ -111,7 +113,8 @@ class WujingyuanReplayer(SpecificReplayerPro):
                         if "," not in skillName:
                             key = "s%s" % event.id
                             if key in self.bhInfo or self.debug:
-                                self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式命中玩家", "skill")
+                                self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式命中玩家",
+                                                       "skill")
 
             else:
                 if event.caster in self.bld.info.player and event.caster in self.statDict:
@@ -205,7 +208,7 @@ class WujingyuanReplayer(SpecificReplayerPro):
                         key = "c%s" % event.id
                         if key in self.bhInfo or self.debug:
                             self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式开始运功", "cast")
-                    
+
     def analyseFirstStage(self, item):
         '''
         处理单条复盘数据时的流程，在第一阶段复盘时，会以时间顺序不断调用此方法。
@@ -242,7 +245,7 @@ class WujingyuanReplayer(SpecificReplayerPro):
                                  ])
         self.bhBlackList = self.mergeBlackList(self.bhBlackList, self.config)
 
-        self.bhInfo = {"c38105": ["4531", "#ff0000", 5000],   # 劲拳
+        self.bhInfo = {"c38105": ["4531", "#ff0000", 5000],  # 劲拳
                        "c38164": ["4532", "#ff7700", 5000],  # 上勾拳
                        "c38117": ["4530", "#ff0077", 5000],  # 摔碑掌
                        "c38353": ["4519", "#00ff77", 3000],  # 狂风卷叶
@@ -263,12 +266,11 @@ class WujingyuanReplayer(SpecificReplayerPro):
             self.bh.critPeriodDesc = "暂无统计"
         if self.bld.info.map == "25人普通一之窟":
             self.bh.critPeriodDesc = "暂无统计"
-        if self.bld.info.map == "25人英雄冷龙峰":
+        if self.bld.info.map == "25人英雄一之窟":
             self.bh.critPeriodDesc = "暂无统计"
 
         for line in self.bld.info.player:
             self.statDict[line]["battle"] = {}
-
 
     def __init__(self, bld, occDetailList, startTime, finalTime, battleTime, bossNamePrint, config):
         '''
@@ -276,4 +278,3 @@ class WujingyuanReplayer(SpecificReplayerPro):
         '''
         super().__init__(bld, occDetailList, startTime, finalTime, battleTime, bossNamePrint)
         self.config = config
-

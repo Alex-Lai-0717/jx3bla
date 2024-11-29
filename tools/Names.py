@@ -1,6 +1,6 @@
 # Created by moeheart at 10/17/2021
 # 实现BOSS名称与地图名称的各种转化。
-    
+
 BOSS_RAW = {"未知": [0, 1, []],
             "铁黎": [1, 1, []],
             "陈徽": [1, 2, []],
@@ -43,7 +43,8 @@ BOSS_RAW = {"未知": [0, 1, []],
             "苏凤楼": [8, 3, ["蘇鳳樓", "凌雪阁杀手", "淩雪閣殺手", "剧毒孢子", "劇毒孢子"]],
             "韩敬青": [8, 4, ["韓敬青"]],
             "藤原佑野": [8, 5, []],
-            "李重茂": [8, 6, ["永王叛军长枪兵", "一刀流精锐武士", "永王叛军剑卫", "永王叛軍長槍兵", "一刀流精銳武士", "永王叛軍劍衛"]],
+            "李重茂": [8, 6, ["永王叛军长枪兵", "一刀流精锐武士", "永王叛军剑卫", "永王叛軍長槍兵", "一刀流精銳武士",
+                              "永王叛軍劍衛"]],
             "时风": [9, 1, ["時風"]],
             "乐临川": [9, 2, ["樂臨川"]],
             "牛波": [9, 3, ["黑熊", "恶虎", "巨象", "惡虎"]],
@@ -57,15 +58,15 @@ BOSS_RAW = {"未知": [0, 1, []],
             "麒麟": [10, 5, []],
             "月泉淮": [10, 6, []],
             "葛木寒": [11, 1, []],
-            "雨轻红": [11, 2, []],
+            "雨轻红": [11, 2, ["雨輕紅"]],
             "喜雅": [11, 3, []],
             "鹰眼客": [11, 4, []],
             "赤幽明": [11, 5, ["赤厄明"]],
             "骆耀阳": [12, 1, ["駱耀陽"]],
             "韦柔丝": [12, 2, ["韋柔絲"]],
             "宋泉": [12, 3, []],
-            "伍靖远": [12, 4, []],
-            "苏什": [12, 5, []],
+            "伍靖远": [12, 4, ["伍靖遠"]],
+            "苏什": [12, 5, ["蘇什"]],
             "芭德": [12, 6, []],
             }
 
@@ -129,7 +130,8 @@ for line in BOSS_RAW:
         MAP_DICT[otherName] = BOSS_RAW[line][0]
         BOSS_DICT[otherName] = BOSS_RAW[line][1]
         NICK_TO_BOSS[otherName] = line
-        
+
+
 # def getBossDictFromMap(map):
 #     if map == "敖龙岛":
 #         bossDict = {"铁黎": 1, "陈徽": 2, "藤原武裔": 3, "源思弦": 4, "驺吾": 5, "方有崖": 6}
@@ -153,12 +155,13 @@ for line in BOSS_RAW:
 #         bossDict = {}
 #         bossDictR = [""]
 #     return bossDict, bossDictR
-    
+
 def getNickToBoss(nick):
     if nick in NICK_TO_BOSS:
         return NICK_TO_BOSS[nick]
     else:
         return nick
+
 
 def getGameEditionFromTime(map, time):
     for key in GAMEEDITION_RAW:
@@ -168,6 +171,7 @@ def getGameEditionFromTime(map, time):
                 if time >= period[0] and time < period[1]:
                     return key
     return "0"
+
 
 MAP_DICT = {}
 MAP_DICT_REVERSE = {}
@@ -186,13 +190,14 @@ for map in MAP_RAW:
             MAP_DICT_RECORD_LOGS[str(mapid + 2)] = int(MAP_RAW[map][1] * 4)
         MAP_DICT_REVERSE[map] = str(mapid)
         MAP_DICT_REVERSE["10人普通%s" % map] = str(mapid)
-        MAP_DICT_REVERSE["25人普通%s" % map] = str(mapid+1)
-        MAP_DICT_REVERSE["25人英雄%s" % map] = str(mapid+2)
+        MAP_DICT_REVERSE["25人普通%s" % map] = str(mapid + 1)
+        MAP_DICT_REVERSE["25人英雄%s" % map] = str(mapid + 2)
         for map_othername in MAP_RAW[map][2]:
             MAP_TRADITIONAL[map_othername] = map
             MAP_TRADITIONAL["10人普通%s" % map_othername] = "10人普通%s" % map
             MAP_TRADITIONAL["25人普通%s" % map_othername] = "25人普通%s" % map
             MAP_TRADITIONAL["25人英雄%s" % map_othername] = "25人英雄%s" % map
+
 
 def getMapFromID(map):
     '''
@@ -206,6 +211,7 @@ def getMapFromID(map):
         return MAP_DICT[map]
     else:
         return "未知"
+
 
 def getIDFromMap(map):
     '''

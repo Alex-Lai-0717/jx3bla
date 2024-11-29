@@ -8,7 +8,8 @@ from replayer.TableConstructorMeta import TableConstructorMeta
 from tools.Functions import *
 
 import tkinter as tk
-        
+
+
 class WeirousiWindow(SpecificBossWindow):
     '''
     韦柔丝的定制复盘窗口类。
@@ -20,13 +21,13 @@ class WeirousiWindow(SpecificBossWindow):
         '''
         self.constructWindow("韦柔丝", "1200x800")
         window = self.window
-        
+
         frame1 = tk.Frame(window)
         frame1.pack()
-        
-        #通用格式：
-        #0 ID, 1 门派, 2 有效DPS, 3 团队-心法DPS/治疗量, 4 装分, 5 详情, 6 被控时间
-        
+
+        # 通用格式：
+        # 0 ID, 1 门派, 2 有效DPS, 3 团队-心法DPS/治疗量, 4 装分, 5 详情, 6 被控时间
+
         tb = TableConstructorMeta(self.config, frame1)
 
         self.constructCommonHeader(tb, "")
@@ -53,6 +54,7 @@ class WeirousiWindow(SpecificBossWindow):
 
     def __init__(self, config, effectiveDPSList, detail, occResult, analysedBattleData):
         super().__init__(config, effectiveDPSList, detail, occResult, analysedBattleData)
+
 
 class WeirousiReplayer(SpecificReplayerPro):
 
@@ -115,7 +117,8 @@ class WeirousiReplayer(SpecificReplayerPro):
                         if "," not in skillName:
                             key = "s%s" % event.id
                             if key in self.bhInfo or self.debug:
-                                self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式命中玩家", "skill")
+                                self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式命中玩家",
+                                                       "skill")
 
             else:
                 if event.caster in self.bld.info.player and event.caster in self.statDict:
@@ -156,7 +159,8 @@ class WeirousiReplayer(SpecificReplayerPro):
             #         self.bh.setCall("28054", "绿宝石", "2652", event.time, 5000, event.target, "绿宝石点名")
 
         elif event.dataType == "Shout":
-            if event.content in ['"嘿！看我这里有很多闪闪发光的宝石，猜猜都是什么呀？"', '"嘿！看我這裡有很多閃閃發光的寶石，猜猜都是什麼呀？"']:
+            if event.content in ['"嘿！看我这里有很多闪闪发光的宝石，猜猜都是什么呀？"',
+                                 '"嘿！看我這裡有很多閃閃發光的寶石，猜猜都是什麼呀？"']:
                 self.bh.setBadPeriod(self.startTime, event.time - 1000, True, True)
             elif event.content in ['"那这一招你们要如何抵挡？！"', '"那這一招你們要如何抵擋？！"']:
                 pass
@@ -228,7 +232,7 @@ class WeirousiReplayer(SpecificReplayerPro):
                         key = "c%s" % event.id
                         if key in self.bhInfo or self.debug:
                             self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式开始运功", "cast")
-                    
+
     def analyseFirstStage(self, item):
         '''
         处理单条复盘数据时的流程，在第一阶段复盘时，会以时间顺序不断调用此方法。
@@ -260,7 +264,7 @@ class WeirousiReplayer(SpecificReplayerPro):
                                  ])
         self.bhBlackList = self.mergeBlackList(self.bhBlackList, self.config)
 
-        self.bhInfo = {"c38102": ["4531", "#ff0000", 4000],   # 葬魂血爪
+        self.bhInfo = {"c38102": ["4531", "#ff0000", 4000],  # 葬魂血爪
                        "c38103": ["329", "#0000ff", 3000],  # 葬魂血爪
                        "c38104": ["3435", "#0077ff", 4000],  # 狂龙怒吼
                        "c38153": ["4224", "#00ff00", 4000],  # 龙象般若功
@@ -289,11 +293,9 @@ class WeirousiReplayer(SpecificReplayerPro):
             self.statDict[line]["battle"] = {"nxzmRight": 0,
                                              "nxzmWrong": 0}
 
-
     def __init__(self, bld, occDetailList, startTime, finalTime, battleTime, bossNamePrint, config):
         '''
         对类本身进行初始化。
         '''
         super().__init__(bld, occDetailList, startTime, finalTime, battleTime, bossNamePrint)
         self.config = config
-
