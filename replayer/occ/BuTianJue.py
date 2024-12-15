@@ -331,11 +331,12 @@ class BuTianJueWindow(HealerDisplayWindow):
         frame9sub.place(x=0, y=0)
 
         tk.Label(frame9, text="科技&五奶群：418483739").place(x=20, y=20)
-        tk.Label(frame9, text="奶毒PVE群：208732360").place(x=20, y=40)
+        tk.Label(frame9, text="科技&五奶二群：865307879").place(x=20, y=40)
+        tk.Label(frame9, text="奶毒PVE群：208732360").place(x=20, y=60)
         if "shortID" in self.result["overall"]:
-            tk.Label(frame9, text="复盘编号：%s"%self.result["overall"]["shortID"]).place(x=20, y=70)
+            tk.Label(frame9, text="复盘编号：%s"%self.result["overall"]["shortID"]).place(x=20, y=90)
             b2 = tk.Button(frame9, text='在网页中打开', height=1, command=self.OpenInWeb, bg='#777777')
-            b2.place(x=40, y=90)
+            b2.place(x=40, y=110)
 
         # tk.Label(frame9, text="新建文件夹！").place(x=40, y=140)
 

@@ -325,7 +325,8 @@ class MainWindow():
             return
         if self.playerIDs == [] or True:
             #url = "http://%s" % IP
-            url = "http://jx3logs.com/"
+            # url = "http://jx3logs.com/"
+            url = "http://116.211.150.188:888/"
             webbrowser.open(url)
         else:
             # TODO 等logs更新功能后加入
