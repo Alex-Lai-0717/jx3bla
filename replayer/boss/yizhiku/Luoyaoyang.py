@@ -8,7 +8,8 @@ from replayer.TableConstructorMeta import TableConstructorMeta
 from tools.Functions import *
 
 import tkinter as tk
-        
+
+
 class LuoyaoyangWindow(SpecificBossWindow):
     '''
     骆耀阳的定制复盘窗口类。
@@ -20,13 +21,13 @@ class LuoyaoyangWindow(SpecificBossWindow):
         '''
         self.constructWindow("骆耀阳", "1200x800")
         window = self.window
-        
+
         frame1 = tk.Frame(window)
         frame1.pack()
-        
-        #通用格式：
-        #0 ID, 1 门派, 2 有效DPS, 3 团队-心法DPS/治疗量, 4 装分, 5 详情, 6 被控时间
-        
+
+        # 通用格式：
+        # 0 ID, 1 门派, 2 有效DPS, 3 团队-心法DPS/治疗量, 4 装分, 5 详情, 6 被控时间
+
         tb = TableConstructorMeta(self.config, frame1)
 
         self.constructCommonHeader(tb, "")
@@ -38,10 +39,15 @@ class LuoyaoyangWindow(SpecificBossWindow):
             line = self.effectiveDPSList[i]
             self.constructCommonLine(tb, line)
 
-            color = "#000000"
-            if int(line["battle"]["sdldNum"]) > 0:
-                color = "#ff0000"
-            tb.AppendContext(int(line["battle"]["sdldNum"]), color=color)
+            sdld_num = 0
+            try:
+                if "battle" in line and "sdldNum" in line["battle"]:
+                    sdld_num = int(line["battle"]["sdldNum"])
+            except (KeyError, ValueError):
+                pass
+
+            color = "#ff0000" if sdld_num > 0 else "#000000"
+            tb.AppendContext(sdld_num, color=color)
 
             # 心法复盘
             if line["name"] in self.occResult:
@@ -54,6 +60,7 @@ class LuoyaoyangWindow(SpecificBossWindow):
 
     def __init__(self, config, effectiveDPSList, detail, occResult, analysedBattleData):
         super().__init__(config, effectiveDPSList, detail, occResult, analysedBattleData)
+
 
 class LuoyaoyangReplayer(SpecificReplayerPro):
 
@@ -116,7 +123,8 @@ class LuoyaoyangReplayer(SpecificReplayerPro):
                         if "," not in skillName:
                             key = "s%s" % event.id
                             if key in self.bhInfo or self.debug:
-                                self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式命中玩家", "skill")
+                                self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式命中玩家",
+                                                       "skill")
 
             else:
                 if event.caster in self.bld.info.player and event.caster in self.statDict:
@@ -160,15 +168,15 @@ class LuoyaoyangReplayer(SpecificReplayerPro):
         elif event.dataType == "Shout":
             if event.content in ['"交出宝藏，老子留你们全尸！"', '"交出寶藏，老子留你們全屍！"']:
                 self.bh.setBadPeriod(self.startTime, event.time - 1000, True, True)
-            elif event.content in ['"喝！老子看你怎么躲！"', '"喝！ 老子看你怎麼躲！"']:
+            elif event.content in ['"喝！老子看你怎么躲！"', '"喝！老子看你怎麼躲！"']:
                 pass
             elif event.content in ['"风卷残云，刀起莫停！"', '"風捲殘雲，刀起莫停！"']:
                 pass
-            elif event.content in ['"中！"', '"中！"']:
+            elif event.content in ['"中！"', '"中!"']:
                 pass
             elif event.content in ['"前后皆死，无路可逃！"', '"前後皆死，無路可逃！"']:
                 pass
-            elif event.content in ['"螳臂当车，不自量力！"', '"螳臂當車，不自量力！"']:
+            elif event.content in ['"螳臂当车，不自量力！"', '"螳臂擋車，不自量力！"']:
                 self.bh.setBadPeriod(self.startTime, event.time - 1000, True, True)
             elif event.content in ['"雪谷无门，吾刀断魂！"', '"雪穀無門，吾刀斷魂！"']:
                 pass
@@ -224,7 +232,7 @@ class LuoyaoyangReplayer(SpecificReplayerPro):
                         key = "c%s" % event.id
                         if key in self.bhInfo or self.debug:
                             self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式开始运功", "cast")
-                    
+
     def analyseFirstStage(self, item):
         '''
         处理单条复盘数据时的流程，在第一阶段复盘时，会以时间顺序不断调用此方法。
@@ -257,9 +265,9 @@ class LuoyaoyangReplayer(SpecificReplayerPro):
                                  ])
         self.bhBlackList = self.mergeBlackList(self.bhBlackList, self.config)
 
-        self.bhInfo = {"s38226": ["3431", "#0000ff", 0],   # 破风
+        self.bhInfo = {"s38226": ["3431", "#0000ff", 0],  # 破风
                        "c38227": ["4221", "#0077ff", 3000],  # 斩雪
-                       "c38250": ["2030", "#00ff00", 2000],   # 风卷残雪
+                       "c38250": ["2030", "#00ff00", 2000],  # 风卷残雪
                        "c38222": ["6", "#ff0000", 3000],  # 飞刃暗袭
                        "c38210": ["4567", "#ff7700", 3000],  # 横断前后
                        "c38260": ["2135", "#7700ff", 2000],  # 断魂刀
@@ -284,11 +292,9 @@ class LuoyaoyangReplayer(SpecificReplayerPro):
         for line in self.bld.info.player:
             self.statDict[line]["battle"] = {"sdldNum": 0}
 
-
     def __init__(self, bld, occDetailList, startTime, finalTime, battleTime, bossNamePrint, config):
         '''
         对类本身进行初始化。
         '''
         super().__init__(bld, occDetailList, startTime, finalTime, battleTime, bossNamePrint)
         self.config = config
-

@@ -8,7 +8,8 @@ from replayer.TableConstructorMeta import TableConstructorMeta
 from tools.Functions import *
 
 import tkinter as tk
-        
+
+
 class SaoshWindow(SpecificBossWindow):
     '''
     苏什的定制复盘窗口类。
@@ -20,13 +21,13 @@ class SaoshWindow(SpecificBossWindow):
         '''
         self.constructWindow("苏什", "1200x800")
         window = self.window
-        
+
         frame1 = tk.Frame(window)
         frame1.pack()
-        
-        #通用格式：
-        #0 ID, 1 门派, 2 有效DPS, 3 团队-心法DPS/治疗量, 4 装分, 5 详情, 6 被控时间
-        
+
+        # 通用格式：
+        # 0 ID, 1 门派, 2 有效DPS, 3 团队-心法DPS/治疗量, 4 装分, 5 详情, 6 被控时间
+
         tb = TableConstructorMeta(self.config, frame1)
 
         self.constructCommonHeader(tb, "")
@@ -49,6 +50,7 @@ class SaoshWindow(SpecificBossWindow):
 
     def __init__(self, config, effectiveDPSList, detail, occResult, analysedBattleData):
         super().__init__(config, effectiveDPSList, detail, occResult, analysedBattleData)
+
 
 class SaoshReplayer(SpecificReplayerPro):
 
@@ -111,7 +113,8 @@ class SaoshReplayer(SpecificReplayerPro):
                         if "," not in skillName:
                             key = "s%s" % event.id
                             if key in self.bhInfo or self.debug:
-                                self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式命中玩家", "skill")
+                                self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式命中玩家",
+                                                       "skill")
 
             else:
                 if event.caster in self.bld.info.player and event.caster in self.statDict:
@@ -152,7 +155,7 @@ class SaoshReplayer(SpecificReplayerPro):
         elif event.dataType == "Shout":
             if event.content in ['"我绝不会让你过去！"', '"我絕不會讓你過去！"']:
                 self.bh.setBadPeriod(self.startTime, event.time - 1000, True, True)
-            elif event.content in ['"哈维逯！到我身边！"', '"哈威逯！ 到我身邊！"']:
+            elif event.content in ['"哈维逯！到我身边！"', '"哈惟逯！到我身邊！"']:
                 self.bh.setBadPeriod(event.time, event.time + 14000, True, True)
             elif event.content in ['"为理想燃尽……亦是圆满……"', '"為理想燃盡……亦是圓滿……"']:
                 self.win = 1
@@ -160,7 +163,7 @@ class SaoshReplayer(SpecificReplayerPro):
                 pass
             elif event.content in ['"狂风为友，黄沙做伴！"', '"狂風為友，黃沙做伴！"']:
                 pass
-            elif event.content in ['"哈惟逯！到我身边！"', '"哈惟逯！ 到我身邊！"']:
+            elif event.content in ['"哈惟逯！到我身边！"', '"哈惟逯！到我身邊！"']:
                 self.bh.setBadPeriod(event.time, event.time + 14000, True, True)
             elif event.content in ['"躲，是没有用的！"', '"躲，是沒有用的！"']:
                 pass
@@ -174,7 +177,8 @@ class SaoshReplayer(SpecificReplayerPro):
                 self.bh.setEnvironment("0", event.content, "341", event.time, 0, 1, "喊话", "shout")
 
         elif event.dataType == "Scene":  # 进入、离开场景
-            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["喜雅宝箱", "喜雅寶箱", "鹰眼客", "鷹眼客"]:
+            if event.id in self.bld.info.npc and self.bld.info.npc[event.id].name in ["喜雅宝箱", "喜雅寶箱", "鹰眼客",
+                                                                                      "鷹眼客"]:
                 self.win = 1
                 self.bh.setBadPeriod(event.time, self.finalTime, True, True)
             if event.id in self.bld.info.npc and event.enter and self.bld.info.npc[event.id].name != "":
@@ -213,7 +217,6 @@ class SaoshReplayer(SpecificReplayerPro):
             if event.id == "38065":
                 self.bh.setCritPeriod(event.time - 1000, event.time + 10000, False, True)
 
-                    
     def analyseFirstStage(self, item):
         '''
         处理单条复盘数据时的流程，在第一阶段复盘时，会以时间顺序不断调用此方法。
@@ -247,12 +250,12 @@ class SaoshReplayer(SpecificReplayerPro):
                                  "s38066", "c38066",  # 飞沙走石
                                  "s38070", "s38331",  # 沙落九野
                                  "s38288", "b28986", "s38068",  # 飞沙瀑
-                                 "s38053", "s38055", "s38057", "b28989",   # 狂沙怒破
+                                 "s38053", "s38055", "s38057", "b28989",  # 狂沙怒破
                                  "b29702",  # 疾风
                                  ])
         self.bhBlackList = self.mergeBlackList(self.bhBlackList, self.config)
 
-        self.bhInfo = {"c38044": ["335", "#ff0000", 4000],   # 沙葬腿
+        self.bhInfo = {"c38044": ["335", "#ff0000", 4000],  # 沙葬腿
                        "c38058": ["3312", "#ff00ff", 4000],  # 沙影钩
                        "c38063": ["279", "#0000ff", 5000],  # 狂沙噬骨掌
                        "c38060": ["3293", "#0077ff", 4000],  # 黄沙震荡
@@ -275,12 +278,11 @@ class SaoshReplayer(SpecificReplayerPro):
             self.bh.critPeriodDesc = "暂无统计"
         if self.bld.info.map == "25人普通一之窟":
             self.bh.critPeriodDesc = "[飞沙走石]期间."
-        if self.bld.info.map == "25人英雄冷龙峰":
+        if self.bld.info.map == "25人英雄一之窟":
             self.bh.critPeriodDesc = "[飞沙走石]期间."
 
         for line in self.bld.info.player:
             self.statDict[line]["battle"] = {}
-
 
     def __init__(self, bld, occDetailList, startTime, finalTime, battleTime, bossNamePrint, config):
         '''
@@ -288,4 +290,3 @@ class SaoshReplayer(SpecificReplayerPro):
         '''
         super().__init__(bld, occDetailList, startTime, finalTime, battleTime, bossNamePrint)
         self.config = config
-

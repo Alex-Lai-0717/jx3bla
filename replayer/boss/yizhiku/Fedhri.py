@@ -8,7 +8,8 @@ from replayer.TableConstructorMeta import TableConstructorMeta
 from tools.Functions import *
 
 import tkinter as tk
-        
+
+
 class FedhriWindow(SpecificBossWindow):
     '''
     芭德的定制复盘窗口类。
@@ -20,13 +21,13 @@ class FedhriWindow(SpecificBossWindow):
         '''
         self.constructWindow("芭德", "1200x800")
         window = self.window
-        
+
         frame1 = tk.Frame(window)
         frame1.pack()
-        
-        #通用格式：
-        #0 ID, 1 门派, 2 有效DPS, 3 团队-心法DPS/治疗量, 4 装分, 5 详情, 6 被控时间
-        
+
+        # 通用格式：
+        # 0 ID, 1 门派, 2 有效DPS, 3 团队-心法DPS/治疗量, 4 装分, 5 详情, 6 被控时间
+
         tb = TableConstructorMeta(self.config, frame1)
 
         self.constructCommonHeader(tb, "")
@@ -51,6 +52,7 @@ class FedhriWindow(SpecificBossWindow):
 
     def __init__(self, config, effectiveDPSList, detail, occResult, analysedBattleData):
         super().__init__(config, effectiveDPSList, detail, occResult, analysedBattleData)
+
 
 class FedhriReplayer(SpecificReplayerPro):
 
@@ -113,7 +115,8 @@ class FedhriReplayer(SpecificReplayerPro):
                         if "," not in skillName:
                             key = "s%s" % event.id
                             if key in self.bhInfo or self.debug:
-                                self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式命中玩家", "skill")
+                                self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式命中玩家",
+                                                       "skill")
 
             else:
                 if event.caster in self.bld.info.player and event.caster in self.statDict:
@@ -159,7 +162,7 @@ class FedhriReplayer(SpecificReplayerPro):
             elif event.content in ['"一切都会被风沙吞噬——"', '"一切都會被風沙吞噬——"']:
                 self.win = 1
                 self.bh.setBadPeriod(event.time, self.finalTime, True, True)
-            elif event.content in ['"看招！"', '"看招！"']:
+            elif event.content in ['"看招！"', '"看招!"']:
                 pass
             elif event.content in ['"吾已预见，黄风就在彼处！"', '"吾已預見，黃風就在彼處！"']:
                 pass
@@ -167,7 +170,8 @@ class FedhriReplayer(SpecificReplayerPro):
                 pass
             elif event.content in ['"一路辛苦诸位了。"', '"一路辛苦諸位了。"']:
                 pass
-            elif event.content in ['"回去转告柳五，这笔钱由我带走。今后，我与九天各不相干。"', '"回去轉告柳五，這筆錢由我帶走。 今後，我與九天各不相干。"']:
+            elif event.content in ['"回去转告柳五，这笔钱由我带走。今后，我与九天各不相干。"',
+                                   '"回去轉告柳五，這筆錢由我帶走。今後，我與九天各不相干。"']:
                 pass
             elif event.content in ['"迷途的孩子，有缘再会。"', '"迷途的孩子，有緣再會。"']:
                 pass
@@ -179,7 +183,9 @@ class FedhriReplayer(SpecificReplayerPro):
                 self.bh.setEnvironment("0", event.content, "340", event.time, 0, 1, "喊话", "shout")
             elif event.content in ['"瀚海将会埋葬汝等……"', '"瀚海將會埋葬汝等……"']:
                 pass
-            elif event.content in ['"呵，我若是不留余地，为何还要做主让索家取走一窟？九天中人，本就离心离德，各怀鬼胎，我不过是下手果决些。"', '"呵，我若是不留餘地，為何還要做主讓索家取走一窟？ 九天中人，本就離心離德，各懷鬼胎，我不過是下手果决些。"']:
+            elif event.content in [
+                '"呵，我若是不留余地，为何还要做主让索家取走一窟？九天中人，本就离心离德，各怀鬼胎，我不过是下手果决些。"',
+                '"呵，我若是不留餘地，為何還要做主讓索家取走一窟？九天中人，本就離心離德，各懷鬼胎，我不過是下手果決些。"']:
                 pass
             elif event.content in ['""', '""']:
                 pass
@@ -232,7 +238,7 @@ class FedhriReplayer(SpecificReplayerPro):
             if event.id == "38186":
                 self.bh.setCritPeriod(event.time, event.time + 15000, False, True)
                 self.bh.setBadPeriod(event.time + 5000, event.time + 15000, True, False)
-                    
+
     def analyseFirstStage(self, item):
         '''
         处理单条复盘数据时的流程，在第一阶段复盘时，会以时间顺序不断调用此方法。
@@ -262,11 +268,11 @@ class FedhriReplayer(SpecificReplayerPro):
                                  "s38109",  # 谋风
                                  "s38114",  # 沙爆掌
                                  "s38109",  # 谋风·旋
-                                 "b29004", "s38175", "s38174",   # 黄砂气旋
+                                 "b29004", "s38175", "s38174",  # 黄砂气旋
                                  "s38220", "c38220", "b29130", "s38182",  # 刚风
                                  "s39035",  # 石柱震荡
                                  "s38165",  # 冲击波
-                                 "s38166",  "s39047",  # 撼流沙葬
+                                 "s38166", "s39047",  # 撼流沙葬
                                  "b29012",  # 狂沙掌
                                  "b29391",  # 肌虚
                                  "s38168",  # 狂沙爆裂
@@ -282,7 +288,7 @@ class FedhriReplayer(SpecificReplayerPro):
                                  ])
         self.bhBlackList = self.mergeBlackList(self.bhBlackList, self.config)
 
-        self.bhInfo = {"c38112": ["4564", "#ff0000", 3000],   # 谋风
+        self.bhInfo = {"c38112": ["4564", "#ff0000", 3000],  # 谋风
                        "s38113": ["4549", "#ff0077", 0],  # 沙爆掌·一段
                        "c38183": ["4567", "#ff7700", 3000],  # 谋风
                        "b29036": ["4526", "#770000", 0],  # 黄砂气旋
@@ -302,12 +308,11 @@ class FedhriReplayer(SpecificReplayerPro):
             self.bh.critPeriodDesc = "暂无统计"
         if self.bld.info.map == "25人普通一之窟":
             self.bh.critPeriodDesc = "[刚风]期间."
-        if self.bld.info.map == "25人英雄冷龙峰":
+        if self.bld.info.map == "25人英雄一之窟":
             self.bh.critPeriodDesc = "[刚风]期间."
 
         for line in self.bld.info.player:
             self.statDict[line]["battle"] = {"yztzDamage": 0}
-
 
     def __init__(self, bld, occDetailList, startTime, finalTime, battleTime, bossNamePrint, config):
         '''
@@ -315,4 +320,3 @@ class FedhriReplayer(SpecificReplayerPro):
         '''
         super().__init__(bld, occDetailList, startTime, finalTime, battleTime, bossNamePrint)
         self.config = config
-
