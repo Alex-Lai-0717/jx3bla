@@ -1425,7 +1425,7 @@ class CombatTracker():
                     postStack = self.lidiInfo[event.target]["stack"]
                     change = 0
                 elif preLvl == lvl:
-                    postStack = min(self.lidiInfo[event.target]["stack"] + 1, 5)  # 最高5层
+                    postStack = min(self.lidiInfo[event.target]["stack"] + 1, 1)  # 最高1层
             if change:
                 self.lidiInfo[event.target] = {"time": event.time, "stack": postStack, "level": postLvl}
                 for player in self.boostCounter:
