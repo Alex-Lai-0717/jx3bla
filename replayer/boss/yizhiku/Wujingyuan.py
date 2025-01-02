@@ -58,7 +58,7 @@ class WujingyuanReplayer(SpecificReplayerPro):
         '''
         战斗结束时需要处理的流程。包括BOSS的通关喊话和全团脱战。
         '''
-        self.win = 1
+        # self.win = 1
         self.countFinalOverall()
         self.changePhase(self.finalTime, 0)
         self.bh.setEnvironmentInfo(self.bhInfo)
@@ -99,6 +99,104 @@ class WujingyuanReplayer(SpecificReplayerPro):
 
         self.checkTimer(event.time)
 
+        if self.currentTime != 0 and event.time - self.currentTime > 500:
+            # 结算一次承伤
+
+            skillRealName = "未知"
+            if self.currentSkill == "s38107":
+                skillRealName = "劲拳"
+            elif self.currentSkill == "s38124":
+                skillRealName = "上勾拳"
+            elif self.currentSkill == "s38120":
+                skillRealName = "摔碑掌"
+            allPlayerList = {}
+            for player in self.bld.info.player:
+                allPlayerList[player] = 1
+            currentList = []
+            for line in self.chengshang:
+                if allPlayerList[line[3]] == 1:
+                    currentList.append("[%s]%s" % (line[2], line[1]))
+                    allPlayerList[line[3]] = 2
+            self.chengshang = []
+            self.addPot(["",
+                         "0",
+                         0,
+                         self.bossNamePrint,
+                         "%s%s实际承伤" % (parseTime((self.currentTime - self.startTime) / 1000), skillRealName),
+                         currentList,
+                         0])
+
+            currentList = []
+            i = 0
+            while i < len(self.nujian):
+                line = self.nujian[i]
+                # print("[Log]", line, i, event.time)
+                if event.time - line[0] > 2500 and event.time - line[0] < 8500:
+                    if allPlayerList[line[3]] == 2:
+                        self.addPot([line[1],
+                                     line[2],
+                                     1,
+                                     self.bossNamePrint,
+                                     "%s%s带弩箭承伤" % (
+                                     parseTime((self.currentTime - self.startTime) / 1000), skillRealName),
+                                     [],
+                                     0])
+                    elif allPlayerList[line[3]] == 1:
+                        currentList.append("[%s]%s" % (line[2], line[1]))
+                        allPlayerList[line[3]] = 0
+                    del self.nujian[i]
+                    i -= 1
+                elif event.time - line[0] >= 8500:
+                    del self.nujian[i]
+                    i -= 1
+                i += 1
+            i = 0
+            while i < len(self.yishang):
+                line = self.yishang[i]
+                if event.time - line[0] > 2500 and event.time - line[0] < 8500:
+                    if allPlayerList[line[3]] == 2:
+                        self.addPot([line[1],
+                                     line[2],
+                                     1,
+                                     self.bossNamePrint,
+                                     "%s%s带易伤承伤" % (
+                                     parseTime((self.currentTime - self.startTime) / 1000), skillRealName),
+                                     [],
+                                     0])
+                    elif allPlayerList[line[3]] == 1:
+                        currentList.append("[%s]%s" % (line[2], line[1]))
+                        allPlayerList[line[3]] = 0
+                    del self.yishang[i]
+                    i -= 1
+                elif event.time - line[0] >= 8500:
+                    del self.yishang[i]
+                    i -= 1
+                i += 1
+            self.addPot(["",
+                         "0",
+                         0,
+                         self.bossNamePrint,
+                         "%s%s无法承伤" % (parseTime((self.currentTime - self.startTime) / 1000), skillRealName),
+                         currentList,
+                         0])
+
+            currentList = []
+            for key in allPlayerList:
+                if allPlayerList[key] == 1:
+                    currentList.append("[%s]%s" % (self.bld.info.getOcc(key), self.bld.info.getName(key)))
+
+            self.addPot(["",
+                         "0",
+                         self.currentFail,
+                         self.bossNamePrint,
+                         "%s%s未承伤" % (parseTime((self.currentTime - self.startTime) / 1000), skillRealName),
+                         currentList,
+                         0])
+
+            self.currentSkill = ""
+            self.currentTime = 0
+            self.currentFail = 0
+
         if event.dataType == "Skill":
             if event.target in self.bld.info.player:
                 if event.heal > 0 and event.effect != 7 and event.caster in self.hps:  # 非化解
@@ -115,6 +213,22 @@ class WujingyuanReplayer(SpecificReplayerPro):
                             if key in self.bhInfo or self.debug:
                                 self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式命中玩家",
                                                        "skill")
+
+                    if self.bld.info.map == "25人英雄一之窟":
+                        if name in ["s38107", "s38124", "s38120"]:  # yx承伤记录skill
+                            # print("[Skill]", event.time, parseTime((event.time - self.startTime) / 1000), name, event.full_id, self.bld.info.getName(event.target))
+                            self.chengshang.append([event.time, self.bld.info.getName(event.target), self.bld.info.getOcc(event.target), event.target])
+                            self.currentSkill = name
+                            self.currentTime = event.time
+
+                        if name in ["s38108", "s38125", "s38121"]:  # yx承伤记录skill团灭
+                            # print("[SkillFail]", event.time, parseTime((event.time - self.startTime) / 1000), name, event.full_id, self.bld.info.getName(event.target))
+                            self.currentFail = 1
+
+                if event.id == "38876":  # 剧情击退
+                    if self.win == 0:
+                        self.win = 1
+                        self.bh.setBadPeriod(event.time, self.finalTime, True, True)
 
             else:
                 if event.caster in self.bld.info.player and event.caster in self.statDict:
@@ -139,6 +253,15 @@ class WujingyuanReplayer(SpecificReplayerPro):
                         key = "b%s" % event.id
                         if key in self.bhInfo or self.debug:
                             self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "玩家获得气劲", "buff")
+
+                if self.bld.info.map == "25人英雄一之窟":
+                    if name in ["b29038"]:  # yx承伤记录buff
+                        # print("[Buff]", event.time, parseTime((event.time - self.startTime) / 1000), name, event.full_id, self.bld.info.getName(event.target))
+                        self.nujian.append([event.time, self.bld.info.getName(event.target), self.bld.info.getOcc(event.target), event.target])
+                    if name in ["b29153"]:  # yx承伤记录buff易伤
+                        # print("[BuffGet]", event.time, parseTime((event.time - self.startTime) / 1000), name, event.full_id, self.bld.info.getName(event.target))
+                        self.yishang.append([event.time, self.bld.info.getName(event.target), self.bld.info.getOcc(event.target), event.target])
+
 
             # if event.id == "28050":  # 红宝石
             #     if event.stack == 1:
@@ -209,6 +332,12 @@ class WujingyuanReplayer(SpecificReplayerPro):
                         if key in self.bhInfo or self.debug:
                             self.bh.setEnvironment(event.id, skillName, "341", event.time, 0, 1, "招式开始运功", "cast")
 
+                if self.bld.info.map == "25人英雄一之窟":
+                    if name in ["c38105", "c38164", "c38117"]:  # yx承伤记录cast
+                        pass
+                        # print(event.time, parseTime((event.time - self.startTime) / 1000), name)
+
+
     def analyseFirstStage(self, item):
         '''
         处理单条复盘数据时的流程，在第一阶段复盘时，会以时间顺序不断调用此方法。
@@ -259,8 +388,12 @@ class WujingyuanReplayer(SpecificReplayerPro):
         # 喜雅数据格式：
         # ？
 
-        # self.lastCuican = 0
-        # self.cuicanNum = 0
+        self.nujian = []
+        self.yishang = []
+        self.chengshang = []
+        self.currentSkill = ""
+        self.currentTime = 0
+        self.currentFail = 0
 
         if self.bld.info.map == "一之窟":
             self.bh.critPeriodDesc = "暂无统计"

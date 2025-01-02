@@ -2,6 +2,7 @@
 # 浮动标签类.
 
 import tkinter as tk
+from tools.Functions import getColor
 
 class ToolTip(object):
     '''
@@ -32,15 +33,21 @@ class ToolTip(object):
         textList = text.split('\n')
 
         for line in textList:
+            modifiedLine = line
             if line == "":
                 fg = "#000000"
             if line[0] == "-":
                 fg = "#ff0000"
             elif line[0] == "+":
                 fg = "#007700"
+            elif line[0] == "[":
+                i = line.find(']')
+                occ = line[1:i]
+                modifiedLine = line[i+1:]
+                fg = getColor(occ)
             else:
                 fg = "#000000"
-            label = tk.Label(tf, text=line, fg=fg, justify=tk.LEFT,
+            label = tk.Label(tf, text=modifiedLine, fg=fg, justify=tk.LEFT,
                              background="#ffffe0", anchor='nw',
                              font=("Aaril", "10", "normal"))
             label.pack(anchor=tk.NW)
