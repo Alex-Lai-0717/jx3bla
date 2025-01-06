@@ -1430,10 +1430,10 @@ class CombatTracker():
                 self.lidiInfo[event.target] = {"time": event.time, "stack": postStack, "level": postLvl}
                 for player in self.boostCounter:
                     for i in range(postLvl):  # 移除低等级
-                        id = "2,%d,1" % (563 + i)
+                        id = "2,%d,6" % (563 + i)
                         if event.target in self.boostCounter[player].targetBoost and id in self.boostCounter[player].targetBoost[event.target]:
                             self.boostCounter[player].removeTargetBoost(event.target, id, event.time)  # 在有低等级时移除
-                    effect_id = "2,%d,1" % (563 + postLvl)
+                    effect_id = "2,%d,6" % (563 + postLvl)
                     boostValue = BOOST_DICT[effect_id]
                     self.boostCounter[player].addTargetBoost(event.target, effect_id, boostValue, event.caster, postStack, event.time)  # 注意层数判定
                     self.boostRemove[effect_id + event.target] = {"time": event.time + 20000, "target": event.target, "boost": effect_id}
